@@ -5,7 +5,9 @@ import bepo.au.base.PlayerData;
 import bepo.au.function.ItemList;
 import bepo.au.manager.LocManager;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo;
+import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
 import net.minecraft.server.level.WorldServer;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.EntityMagmaCube;
@@ -116,8 +118,8 @@ public class PlayerUtil {
 				team.addEntry(es.getUniqueIDString());
 			}
 
-			PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(es);
-			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(packet);
+			PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(es);
+			((CraftPlayer) getPlayer()).getHandle().b.sendPacket(packet);
 
 			PacketPlayOutEntityMetadata metaPacket = new PacketPlayOutEntityMetadata(es.getId(), es.getDataWatcher(),
 					true);
