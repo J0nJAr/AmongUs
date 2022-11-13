@@ -18,27 +18,27 @@ import bepo.au.utils.PlayerUtil;
 public class ChaseTag extends AGameTicker{
 
 	public ChaseTag() {
-		super("¼ú·¡Àâ±â");
+		super("ìˆ ë˜ì¡ê¸°");
 	}
 	
 	public String[] getDescriptions() {
 		return new String[] {
 				
-				"¡×e¼ú·¡Àâ±â",
-				"¡×f½Ã¾ß°¡ ÂªÀº ¼ú·¡¸¦ ÇÇÇØ ÀÏ°ú¸¦ ¸ğµÎ ¼öÇàÇÏ¼¼¿ä",
+				"Â§eìˆ ë˜ì¡ê¸°",
+				"Â§fì‹œì•¼ê°€ ì§§ì€ ìˆ ë˜ë¥¼ í”¼í•´ ì¼ê³¼ë¥¼ ëª¨ë‘ ìˆ˜í–‰í•˜ì„¸ìš”",
 				
-				"¡×e¡×l¼ú·¡Àâ±â",
-				"¡×f\"¾à¿Ã¸®±â¶õ ¹«¾ùÀÎ°¡, Á¦ 1Æí\"",
-				"¡×7¼ú·¡´Â Å©·ç¿ø°ú ´Ş¸® ½Ã¾ß°¡ ÂªÁö¸¸, ºü¸¨´Ï´Ù.",
-				"¡×7µğ½ºÄÚµå µî À½¼ºÃ¤ÆÃÀ» ÀÌ¿ëÇÏ¸é ´õ Àç¹Õ½À´Ï´Ù!",
+				"Â§eÂ§lìˆ ë˜ì¡ê¸°",
+				"Â§f\"ì•½ì˜¬ë¦¬ê¸°ë€ ë¬´ì—‡ì¸ê°€, ì œ 1í¸\"",
+				"Â§7ìˆ ë˜ëŠ” í¬ë£¨ì›ê³¼ ë‹¬ë¦¬ ì‹œì•¼ê°€ ì§§ì§€ë§Œ, ë¹ ë¦…ë‹ˆë‹¤.",
+				"Â§7ë””ìŠ¤ì½”ë“œ ë“± ìŒì„±ì±„íŒ…ì„ ì´ìš©í•˜ë©´ ë” ì¬ë°ŒìŠµë‹ˆë‹¤!",
 				
-				"¡×bÀûÁ¤ ÀÎ¿ø : 5~8¸í"
+				"Â§bì ì • ì¸ì› : 5~8ëª…"
 				
 		};
 	}
 	
 	public void config(int d) {
-		// 0 ¿À¸®Áö³Î ¼ú·¡Àâ±â 1 ¸¶¸ù¾î½º ¼ú·¡Àâ±â
+		// 0 ì˜¤ë¦¬ì§€ë„ ìˆ ë˜ì¡ê¸° 1 ë§ˆëª½ì–´ìŠ¤ ìˆ ë˜ì¡ê¸°
 		
 		SETTING.GAMEMODE.setSetting(GameType.CHASETAG);
 		SETTING.EMER_BUTTON_PER_PLAYER.setSetting(0);
@@ -91,14 +91,14 @@ public class ChaseTag extends AGameTicker{
 			p.getInventory().setItem(8, ItemList.MINIMAP.clone());
 			
 			if(GameTimer.IMPOSTER.contains(p.getName())) {
-				p.sendTitle("¡×4¡×l¼ú·¡", "¡×c¸ğµç Å©·ç¿øÀ» Á×ÀÌ½Ê½Ã¿À", 10, 100, 10);
-				p.sendMessage("¡×f=======================");
-				p.sendMessage("¡×4´ç½ÅÀº ¼ú·¡ÀÔ´Ï´Ù.");
-				p.sendMessage("¡×c2¹ø ½½·Ô¿¡ °ËÀ» Áö±ŞÇØµå·È½À´Ï´Ù.");
-				p.sendMessage("¡×cÃÖ´ëÇÑ »¡¸® Å©·ç¿øÀ» Á×ÀÌ½Ê½Ã¿À. (ÄğÅ¸ÀÓ " + SETTING.KILL_COOLTIME_SEC.getAsInteger() + "ÃÊ)");
-				p.sendMessage("¡×c");
-				p.sendMessage("¡×cÀÓÆ÷½ºÅÍ ÇÃ·¹ÀÌ¾î : ¡×f" + imposter);
-				p.sendMessage("¡×f=======================");
+				p.sendTitle("Â§4Â§lìˆ ë˜", "Â§cëª¨ë“  í¬ë£¨ì›ì„ ì£½ì´ì‹­ì‹œì˜¤", 10, 100, 10);
+				p.sendMessage("Â§f=======================");
+				p.sendMessage("Â§4ë‹¹ì‹ ì€ ìˆ ë˜ì…ë‹ˆë‹¤.");
+				p.sendMessage("Â§c2ë²ˆ ìŠ¬ë¡¯ì— ê²€ì„ ì§€ê¸‰í•´ë“œë ¸ìŠµë‹ˆë‹¤.");
+				p.sendMessage("Â§cìµœëŒ€í•œ ë¹¨ë¦¬ í¬ë£¨ì›ì„ ì£½ì´ì‹­ì‹œì˜¤. (ì¿¨íƒ€ì„ " + SETTING.KILL_COOLTIME_SEC.getAsInteger() + "ì´ˆ)");
+				p.sendMessage("Â§c");
+				p.sendMessage("Â§cì„í¬ìŠ¤í„° í”Œë ˆì´ì–´ : Â§f" + imposter);
+				p.sendMessage("Â§f=======================");
 				
 				p.getInventory().setItem(1, ItemList.I_SWORD);
 				p.setWalkSpeed((float) SETTING.IMPOSTER_MOVEMENT_SPEED.getAsDouble());
@@ -108,14 +108,14 @@ public class ChaseTag extends AGameTicker{
 				
 				pd.nextSabo(p, false);
 			} else {
-				p.sendTitle("¡×f¡×lÅ©·ç¿ø", "¡×7¼ú·¡¸¦ ÇÇÇØ ÀÏ°ú¸¦ ¼öÇàÇÏ½Ê½Ã¿À", 10, 100, 10);
-				p.sendMessage("¡×f=======================");
-				p.sendMessage("¡×f´ç½ÅÀº Å©·ç¿øÀÔ´Ï´Ù.");
-				p.sendMessage("¡×7¼ú·¡¸¦ ÇÇÇØ ¹èÁ¤¹ŞÀº ÀÏ°ú¸¦ ¼öÇàÇÏ°í, ÀÏ°ú ÁøÇàµµ¸¦ 100%±îÁö Ã¤¿ì½Ê½Ã¿À.");
-				p.sendMessage("¡×7¼ú·¡¿Í Å©·ç¿øÀÇ ¼ö°¡ °°¾ÆÁö±â Àü¿¡ ¸ğµç ÀÏ°ú°¡ ³¡³ª¸é Å©·ç¿øÀÇ ½Â¸®ÀÔ´Ï´Ù.");
-				p.sendMessage("¡×7");
-				p.sendMessage("¡×c¼ú·¡ : " + imposter);
-				p.sendMessage("¡×f=======================");
+				p.sendTitle("Â§fÂ§lí¬ë£¨ì›", "Â§7ìˆ ë˜ë¥¼ í”¼í•´ ì¼ê³¼ë¥¼ ìˆ˜í–‰í•˜ì‹­ì‹œì˜¤", 10, 100, 10);
+				p.sendMessage("Â§f=======================");
+				p.sendMessage("Â§fë‹¹ì‹ ì€ í¬ë£¨ì›ì…ë‹ˆë‹¤.");
+				p.sendMessage("Â§7ìˆ ë˜ë¥¼ í”¼í•´ ë°°ì •ë°›ì€ ì¼ê³¼ë¥¼ ìˆ˜í–‰í•˜ê³ , ì¼ê³¼ ì§„í–‰ë„ë¥¼ 100%ê¹Œì§€ ì±„ìš°ì‹­ì‹œì˜¤.");
+				p.sendMessage("Â§7ìˆ ë˜ì™€ í¬ë£¨ì›ì˜ ìˆ˜ê°€ ê°™ì•„ì§€ê¸° ì „ì— ëª¨ë“  ì¼ê³¼ê°€ ëë‚˜ë©´ í¬ë£¨ì›ì˜ ìŠ¹ë¦¬ì…ë‹ˆë‹¤.");
+				p.sendMessage("Â§7");
+				p.sendMessage("Â§cìˆ ë˜ : " + imposter);
+				p.sendMessage("Â§f=======================");
 			}
 		}
 		
@@ -138,10 +138,10 @@ public class ChaseTag extends AGameTicker{
 		
 		for (Player ap : Bukkit.getOnlinePlayers()) {
 			if(GameTimer.IMPOSTER.contains(ap.getName())) {
-				ap.sendTitle("¡×4¼ú·¡", "¡×c¼ú·¡ : " + imp, 20, 100, 20);
+				ap.sendTitle("Â§4ìˆ ë˜", "Â§cìˆ ë˜ : " + imp, 20, 100, 20);
 			}
 			else {
-				ap.sendTitle("¡×aÅ©·ç¿ø", "¡×c¼ú·¡ : " + imp, 20, 100, 20);
+				ap.sendTitle("Â§aí¬ë£¨ì›", "Â§cìˆ ë˜ : " + imp, 20, 100, 20);
 			}
 			if(GameTimer.PLAYERS.contains(ap.getName())) GameTimer.ALIVE_PLAYERS.add(ap);
 		}

@@ -78,7 +78,7 @@ public class H_Gas extends Mission {
 			Util.Stack(gui.get(code), 3 + i * 9, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 			Util.Stack(gui.get(code), 5 + i * 9, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 		}
-		// ÀÌ°Å ÇÊ¿ä¾ø¾îº¸ÀÌ´Â ±¸¹® ÇÏ³ª Áö¿ü´Âµ¥ È®ÀÎÁ¡
+		// ì´ê±° í•„ìš”ì—†ì–´ë³´ì´ëŠ” êµ¬ë¬¸ í•˜ë‚˜ ì§€ì› ëŠ”ë° í™•ì¸ì 
 		Util.Stack(gui.get(code), 49, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 		Util.Stack(gui.get(code), 43, Material.GRAY_CONCRETE, 1, " ");
 		Util.StackPotion(gui.get(code), getCoordinate(5, 0), Color.YELLOW, 1, " ");

@@ -82,9 +82,9 @@ public class E_ActivatingShield extends Mission {
 	int Shield_score = 0;
 	
 	
-	public void activatingShield(Player p) { // ¹Ì¼Ç ½ÃÀÛ
+	public void activatingShield(Player p) { // ë¯¸ì…˜ ì‹œì‘
 		Shield_score = 0;
-		Inventory inv = Bukkit.createInventory(p, 27, "ActivatingShield"); //gui »ı¼º
+		Inventory inv = Bukkit.createInventory(p, 27, "ActivatingShield"); //gui ìƒì„±
 		int a = Util.random(0, 1);
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 9; j++) {
@@ -116,19 +116,19 @@ public class E_ActivatingShield extends Mission {
 		int dot = e.getSlot();
 		Player p = (Player) e.getWhoClicked();
 		
-		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.RED_WOOL) {  // »¡°­ ¾çÅĞÀ» Å¬¸¯ÇÏ¸é ÆÄ¶õ¾çÅĞ·Î º¯°æ ÀÌÈÄ Á¡¼ö Áõ°¡ 
+		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.RED_WOOL) {  // ë¹¨ê°• ì–‘í„¸ì„ í´ë¦­í•˜ë©´ íŒŒë€ì–‘í„¸ë¡œ ë³€ê²½ ì´í›„ ì ìˆ˜ ì¦ê°€ 
 			e.setCancelled(true);
 			Util.Stack(inv, dot, Material.WHITE_WOOL, 1, " ");
 			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);
 			Shield_score++;
 			
-			if(Shield_score >= 9) { //Á¡¼ö°¡ 9Á¡¿¡ µµ´ŞÇÏ¸é gui°¡ ´İÈ÷°í Å×½ºÅ© ¼º°ø
+			if(Shield_score >= 9) { //ì ìˆ˜ê°€ 9ì ì— ë„ë‹¬í•˜ë©´ guiê°€ ë‹«íˆê³  í…ŒìŠ¤í¬ ì„±ê³µ
 				p.closeInventory();
 				onClear(p, 0);
 				return;
 			}
 		}
-		else if(e.getCurrentItem().getType() == Material.WHITE_WOOL) {  //ÆÄ¶õ ¾çÅĞÀ» Å¬¸¯ÇÏ¸é »¡°­¾çÅĞ·Î º¯°æ ÀÌÈÄ Á¡¼ö °¨¼Ò
+		else if(e.getCurrentItem().getType() == Material.WHITE_WOOL) {  //íŒŒë€ ì–‘í„¸ì„ í´ë¦­í•˜ë©´ ë¹¨ê°•ì–‘í„¸ë¡œ ë³€ê²½ ì´í›„ ì ìˆ˜ ê°ì†Œ
 			e.setCancelled(true);
 			Util.Stack(inv, dot, Material.RED_WOOL, 1, " ");
 			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);

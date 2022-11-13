@@ -35,12 +35,12 @@ public class TabCompleteManager implements TabCompleter{
 				if (args[0].equalsIgnoreCase("config")) {
 				SETTING set;
 				try{set = SETTING.valueOf(args[1]);}
-				catch(IllegalArgumentException e){return Collections.singletonList("Àß¸øµÈ Å¬·¡½º ÀÌ¸§ÀÔ´Ï´Ù!");}
+				catch(IllegalArgumentException e){return Collections.singletonList("ì˜ëª»ëœ í´ë˜ìŠ¤ ì´ë¦„ì…ë‹ˆë‹¤!");}
 				if(set.getType().isAssignableFrom(GameTimer.GameType.class)) return getSortedArgs(args[2],GameTimer.GameType.TYPES);
 				if(set.getType().isAssignableFrom(Boolean.class)) return getSortedArgs(args[2],Arrays.asList("true","false"));
 				if(set.getType().isAssignableFrom(Integer.class)) return getSortedArgs(args[2],Arrays.asList("0","1","5","10","20"));
 				if(set.getType().isAssignableFrom(Double.class)) return getSortedArgs(args[2],Arrays.asList("0.5","1.0","1.5","2.0"));
-				else return Collections.singletonList("Àß¸øµÈ Å¬·¡½º ÀÌ¸§ÀÔ´Ï´Ù.");
+				else return Collections.singletonList("ì˜ëª»ëœ í´ë˜ìŠ¤ ì´ë¦„ì…ë‹ˆë‹¤.");
 				}
 			}
 		}

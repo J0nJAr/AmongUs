@@ -38,27 +38,27 @@ public abstract class Sabotage extends Mission {
 	}
 
 	/*
-	 * ÀÛµ¿ ¾Ë°í¸®Áò
+	 * ì‘ë™ ì•Œê³ ë¦¬ì¦˜
 	 * 
-	 * Ä¡¸íÀû(Àü±â/Åë½Å/¿øÀÚ·Î/»ê¼Ò) »çº¸Å¸Áö = 0 / ¹® »çº¸Å¸Áö = 1~7
+	 * ì¹˜ëª…ì (ì „ê¸°/í†µì‹ /ì›ìë¡œ/ì‚°ì†Œ) ì‚¬ë³´íƒ€ì§€ = 0 / ë¬¸ ì‚¬ë³´íƒ€ì§€ = 1~7
 	 * 
-	 * ÀÓÆ÷½ºÅÍ°¡ ¹®/Ä¡¸íÀû »çº¸Å¸Áö ½ÇÇà -> if (Ä¡¸íÀÏ ½Ã) ¸ğµç »çº¸Å¸ÁöÀÇ Remain_Tick ÀÌ 0ÀÎ°¡? (¹®ÀÏ½Ã) ÇØ´ç »çº¸Å¸Áö¿Í
-	 * Ä¡¸íÀû »çº¸Å¸ÁöÀÇ Remain_TickÀÌ 0ÀÎ°¡? if ÇØ´ç »çº¸Å¸ÁöÀÇ Sabo_Cool ÀÌ 0ÀÎ°¡? => ½ÇÇà ¼º°ø
+	 * ì„í¬ìŠ¤í„°ê°€ ë¬¸/ì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ ì‹¤í–‰ -> if (ì¹˜ëª…ì¼ ì‹œ) ëª¨ë“  ì‚¬ë³´íƒ€ì§€ì˜ Remain_Tick ì´ 0ì¸ê°€? (ë¬¸ì¼ì‹œ) í•´ë‹¹ ì‚¬ë³´íƒ€ì§€ì™€
+	 * ì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ì˜ Remain_Tickì´ 0ì¸ê°€? if í•´ë‹¹ ì‚¬ë³´íƒ€ì§€ì˜ Sabo_Cool ì´ 0ì¸ê°€? => ì‹¤í–‰ ì„±ê³µ
 	 * 
-	 * Å¸ÀÌ¸Ó °¡µ¿ Áß... saboClear() ¹ßµ¿ => Sabo_Cool Àç¼³Á¤ ¹× Remain_Tick È°¼ºÈ­, Remain_Tick
-	 * 0À¸·Î ¼³Á¤ È¸ÀÇ ¹ß»ı => ¹®/»ê¼Ò/¿øÀÚ·Î´Â saboClear() Ã³¸®, ³ª¸ÓÁö´Â ¾Æ´Ô Remain_Tick 0 µµ´Ş => ¹® »çº¸Å¸Áö¸é
-	 * saboClear() Ã³¸®, Ä¡¸íÀû »çº¸Å¸Áö¸é saboClear() Ã³¸® ÈÄ °ÔÀÓ Á¾·á
+	 * íƒ€ì´ë¨¸ ê°€ë™ ì¤‘... saboClear() ë°œë™ => Sabo_Cool ì¬ì„¤ì • ë° Remain_Tick í™œì„±í™”, Remain_Tick
+	 * 0ìœ¼ë¡œ ì„¤ì • íšŒì˜ ë°œìƒ => ë¬¸/ì‚°ì†Œ/ì›ìë¡œëŠ” saboClear() ì²˜ë¦¬, ë‚˜ë¨¸ì§€ëŠ” ì•„ë‹˜ Remain_Tick 0 ë„ë‹¬ => ë¬¸ ì‚¬ë³´íƒ€ì§€ë©´
+	 * saboClear() ì²˜ë¦¬, ì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ë©´ saboClear() ì²˜ë¦¬ í›„ ê²Œì„ ì¢…ë£Œ
 	 *
-	 * Àü±â/Åë½Å Áö¼Ó½Ã°£ = ¹«ÇÑ, Áï Remain_Tick¸¦ MAX_VALUE·Î ¼³Á¤ÇÒ °Í
+	 * ì „ê¸°/í†µì‹  ì§€ì†ì‹œê°„ = ë¬´í•œ, ì¦‰ Remain_Tickë¥¼ MAX_VALUEë¡œ ì„¤ì •í•  ê²ƒ
 	 */
 
-	// »çº¸Å¸Áö Áö¼Ó ½Ã°£. 0ÀÌ µÇ¸é Á¾·á
+	// ì‚¬ë³´íƒ€ì§€ ì§€ì† ì‹œê°„. 0ì´ ë˜ë©´ ì¢…ë£Œ
 	public static int[] Remain_Tick = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-	// ÄğÅ¸ÀÓ. 0ÀÌ µÇ¸é »ç¿ë °¡´É. È¸ÀÇ Á¾·á ½Ã 100Æ½(5ÃÊ) °íÁ¤
+	// ì¿¨íƒ€ì„. 0ì´ ë˜ë©´ ì‚¬ìš© ê°€ëŠ¥. íšŒì˜ ì¢…ë£Œ ì‹œ 100í‹±(5ì´ˆ) ê³ ì •
 	public static int[] Sabo_Cool = { 100, 100, 100, 100, 100, 100, 100, 100 };
 
-	// »çº¸Å¸Áö ¸ñ·Ï
+	// ì‚¬ë³´íƒ€ì§€ ëª©ë¡
 	public static Sabotage Sabos = null;
 
 	public static int Activated_Sabo = -1;
@@ -74,13 +74,13 @@ public abstract class Sabotage extends Mission {
 		
 		if(!english) {
 			switch(id) {
-			case 1: return "»óºÎ ¿£Áø";
-			case 2: return "º¸¾È½Ç";
-			case 3: return "ÇÏºÎ ¿£Áø";
-			case 4: return "ÀÇ¹«½Ç";
-			case 5: return "Àü±â½Ç";
-			case 6: return "½Ä´ç";
-			case 7: return "Ã¢°í";
+			case 1: return "ìƒë¶€ ì—”ì§„";
+			case 2: return "ë³´ì•ˆì‹¤";
+			case 3: return "í•˜ë¶€ ì—”ì§„";
+			case 4: return "ì˜ë¬´ì‹¤";
+			case 5: return "ì „ê¸°ì‹¤";
+			case 6: return "ì‹ë‹¹";
+			case 7: return "ì°½ê³ ";
 			}
 		} else {
 			switch(id) {
@@ -107,16 +107,16 @@ public abstract class Sabotage extends Mission {
 			p.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
 			return true;
 		} else if(crit){
-			p.sendMessage(Main.PREFIX + "¡×cÄ¡¸íÀû »çº¸Å¸Áö ¹ßµ¿ Áß¿£ ¹ßµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ ë°œë™ ì¤‘ì—” ë°œë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 		} else if(tick < 0) {
-			p.sendMessage(Main.PREFIX + "¡×c¹®À» ´İ¾ÒÀ» ¶§´Â Ä¡¸íÀû »çº¸Å¸Áö¸¦ ¹ßµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cë¬¸ì„ ë‹«ì•˜ì„ ë•ŒëŠ” ì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ë¥¼ ë°œë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 		} else {
-			p.sendMessage(Main.PREFIX + "¡×f" + (tick / 20 + 1) + "¡×cÃÊ µÚ ¹ßµ¿ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§f" + (tick / 20 + 1) + "Â§cì´ˆ ë’¤ ë°œë™í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 		}
 		return false;
 	}
 
-	// °ÔÀÓ ½ÃÀÛ ¹× È¸ÀÇ Á¾·á ÈÄ
+	// ê²Œì„ ì‹œì‘ ë° íšŒì˜ ì¢…ë£Œ í›„
 	public static void saboResetAll(boolean first) {
 		if (first) {
 			
@@ -142,7 +142,7 @@ public abstract class Sabotage extends Mission {
 		S_Communication.Activated = false;
 	}
 
-	// ¹ßµ¿ ½Ã 0, ¹ßµ¿ ºÒ°¡ ½Ã ³²Àº Æ½À» ¹İÈ¯, ¹®¿¡ ÀÇÇØ ¹ßµ¿ ºÒ°¡ ½Ã -1 ¹İÈ¯
+	// ë°œë™ ì‹œ 0, ë°œë™ ë¶ˆê°€ ì‹œ ë‚¨ì€ í‹±ì„ ë°˜í™˜, ë¬¸ì— ì˜í•´ ë°œë™ ë¶ˆê°€ ì‹œ -1 ë°˜í™˜
 	private static final int saboActivate(SaboType type, int id) {
 		if (canActivate(id)) {
 
@@ -185,7 +185,7 @@ public abstract class Sabotage extends Mission {
 	}
 
 	public static final void saboClear(int id) {
-		// ¹Ì¼Ç Á¦°Å, ÄğÅ¸ÀÓ µ¹¸®±â
+		// ë¯¸ì…˜ ì œê±°, ì¿¨íƒ€ì„ ëŒë¦¬ê¸°
 
 		
 		
@@ -235,7 +235,7 @@ public abstract class Sabotage extends Mission {
 	
 	private final static long DOOR_DELAY = 2L;
 	
-	// ¹® »çº¸Å¸Áö
+	// ë¬¸ ì‚¬ë³´íƒ€ì§€
 	public static void closeDoor(int id) {
 		List<Location> locs = LocManager.getLoc("Door_" + getRoomById(id));
 		if(locs == null || locs.size() < 2) return;
@@ -306,7 +306,7 @@ public abstract class Sabotage extends Mission {
 	
 	@Override
 	public String getScoreboardMessage() {
-		return "¡×c" + getKoreanName();
+		return "Â§c" + getKoreanName();
 	}
 
 	public final SaboType getType() {
@@ -382,7 +382,7 @@ public abstract class Sabotage extends Mission {
 								ap.playSound(ap.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1.0F, 0.6F);
 								ap.playSound(ap.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1.0F, 0.9F);
 								PlayerUtil.toggleRedEffect(ap, true);
-							} // Ä¡¸íÀû »çº¸Å¸Áö ¼Ò¸® È¿°ú
+							} // ì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ ì†Œë¦¬ íš¨ê³¼
 						else if(Remain_Tick[id] % 40 == 20 && (Sabos.getType() == SaboType.NUCL || Sabos.getType() == SaboType.OXYG))
 							for(Player ap : Bukkit.getOnlinePlayers()) PlayerUtil.toggleRedEffect(ap, false);
 						if (Remain_Tick[id] == 0) {
@@ -396,7 +396,7 @@ public abstract class Sabotage extends Mission {
 					} else if (Remain_Tick[id] == 0) {
 						saboClear(id);
 					}
-				} else if (Remain_Tick[id] < 0) { // Å¬¸®¾î
+				} else if (Remain_Tick[id] < 0) { // í´ë¦¬ì–´
 					Remain_Tick[id] = 0;
 				}
 

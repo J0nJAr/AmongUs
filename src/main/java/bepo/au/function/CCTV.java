@@ -14,13 +14,13 @@ import java.util.List;
 
 public class CCTV {
 	
-	public static HashSet<Player> watchingCCTVset = new HashSet<Player>();//º¸°í ÀÖ´Â ÇÃ·¹ÀÌ¾îµé
+	public static HashSet<Player> watchingCCTVset = new HashSet<Player>();//ë³´ê³  ìˆëŠ” í”Œë ˆì´ì–´ë“¤
 
 	public enum E_cctv{
-		Security("º¸¾È½Ç"),
-		MedBay("ÀÇ¹«½Ç"),
-		Admin("°ü¸®½Ç"),
-		Navi("Ç×ÇØ½Ç");
+		Security("ë³´ì•ˆì‹¤"),
+		MedBay("ì˜ë¬´ì‹¤"),
+		Admin("ê´€ë¦¬ì‹¤"),
+		Navi("í•­í•´ì‹¤");
 		
 		E_cctv(String name) {
 			this.name = name;

@@ -17,28 +17,28 @@ import bepo.au.utils.Util;
 public class Normal extends AGameTicker{
 	
 	public Normal() {
-		super("ÀÏ¹İ");
+		super("ì¼ë°˜");
 	}
 	
 	public String[] getDescriptions() {
 		return new String[] {
 				
-				"¡×eÅ¬·¡½Ä ¾î¸ù¾î½º",
-				"¡×f¾î¸ù¾î½ºÀÇ Äè°¨À» ¸¶ÀÎÅ©·¡ÇÁÆ®¿¡¼­ ´À²¸º¸¼¼¿ä!",
+				"Â§eí´ë˜ì‹ ì–´ëª½ì–´ìŠ¤",
+				"Â§fì–´ëª½ì–´ìŠ¤ì˜ ì¾Œê°ì„ ë§ˆì¸í¬ë˜í”„íŠ¸ì—ì„œ ëŠê»´ë³´ì„¸ìš”!",
 				
-				"¡×e¡×lÅ¬·¡½Ä ¾î¸ù¾î½º",
-				"¡×f\"¾î¸ù¾î½º¿¡ ¸¶ÀÎÅ©·¡ÇÁÆ®¸¦ ½Î¼­ µå¼Åº¸¼¼¿ä\"",
-				"¡×7¾î¸ù¾î½ºÀÇ ½Ã½ºÅÛ°ú ±ÔÄ¢À» ÃÖ´ëÇÑ ±¸ÇöÇØº¸¾Ò½À´Ï´Ù.",
-				"¡×71ÀÎÄª ¾î¸ù¾î½º¸¦ Áñ°Üº¸¼¼¿ä!",
+				"Â§eÂ§lí´ë˜ì‹ ì–´ëª½ì–´ìŠ¤",
+				"Â§f\"ì–´ëª½ì–´ìŠ¤ì— ë§ˆì¸í¬ë˜í”„íŠ¸ë¥¼ ì‹¸ì„œ ë“œì…”ë³´ì„¸ìš”\"",
+				"Â§7ì–´ëª½ì–´ìŠ¤ì˜ ì‹œìŠ¤í…œê³¼ ê·œì¹™ì„ ìµœëŒ€í•œ êµ¬í˜„í•´ë³´ì•˜ìŠµë‹ˆë‹¤.",
+				"Â§71ì¸ì¹­ ì–´ëª½ì–´ìŠ¤ë¥¼ ì¦ê²¨ë³´ì„¸ìš”!",
 				
-				"¡×bÀûÁ¤ ÀÎ¿ø : 6~10¸í"
+				"Â§bì ì • ì¸ì› : 6~10ëª…"
 				
 		};
 	}
 
 	public void config(int d) {
 		
-		// 0 ÀÌÁö , 1 ³ë¸» , 2 ÇÏµå , 3 ÇÏµåÄÚ¾î
+		// 0 ì´ì§€ , 1 ë…¸ë§ , 2 í•˜ë“œ , 3 í•˜ë“œì½”ì–´
 		
 		SETTING.GAMEMODE.setSetting(GameType.NORMAL);
 		
@@ -80,7 +80,7 @@ public class Normal extends AGameTicker{
 			if(GameTimer.EMERG_REMAIN_TICK > 0) {
 				GameTimer.EMERG_REMAIN_TICK--;
 				ArmorStand emerg_button_as = Util.getEmergArmorStand();
-				emerg_button_as.setCustomName("È¸ÀÇ ¼ÒÁı °¡´É±îÁö ¡×c" + (GameTimer.EMERG_REMAIN_TICK/20+1) + "¡×fÃÊ");
+				emerg_button_as.setCustomName("íšŒì˜ ì†Œì§‘ ê°€ëŠ¥ê¹Œì§€ Â§c" + (GameTimer.EMERG_REMAIN_TICK/20+1) + "Â§fì´ˆ");
 				
 				if(GameTimer.EMERG_REMAIN_TICK == 0) {
 					emerg_button_as.getEquipment().setHelmet(new ItemStack(Material.AIR));
@@ -115,10 +115,10 @@ public class Normal extends AGameTicker{
 	public void onGameStart(World world) {
 		for (Player ap : Bukkit.getOnlinePlayers()) {
 			if(GameTimer.IMPOSTER.contains(ap.getName())) {
-				ap.sendTitle("¡×4ÀÓÆ÷½ºÅÍ", "¡×cÀÓÆ÷½ºÅÍ°¡ " + GameTimer.ALIVE_IMPOSTERS.size()+"¸í ¡×f³²¾Ò½À´Ï´Ù", 20, 100, 20);
+				ap.sendTitle("Â§4ì„í¬ìŠ¤í„°", "Â§cì„í¬ìŠ¤í„°ê°€ " + GameTimer.ALIVE_IMPOSTERS.size()+"ëª… Â§fë‚¨ì•˜ìŠµë‹ˆë‹¤", 20, 100, 20);
 			}
 			else {
-				ap.sendTitle("¡×aÅ©·ç¿ø", "¡×cÀÓÆ÷½ºÅÍ°¡ " + GameTimer.ALIVE_IMPOSTERS.size()+"¸í ¡×f³²¾Ò½À´Ï´Ù", 20, 100, 20);
+				ap.sendTitle("Â§aí¬ë£¨ì›", "Â§cì„í¬ìŠ¤í„°ê°€ " + GameTimer.ALIVE_IMPOSTERS.size()+"ëª… Â§fë‚¨ì•˜ìŠµë‹ˆë‹¤", 20, 100, 20);
 			}
 			if(GameTimer.PLAYERS.contains(ap.getName())) GameTimer.ALIVE_PLAYERS.add(ap);
 		}

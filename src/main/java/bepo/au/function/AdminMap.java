@@ -21,23 +21,23 @@ public class AdminMap {
 	public static Inventory gui;
 	private static final int maxslot = 54;
 	private static final int yAxis = 17;
-	public static final String guiName = "°ü¸®½Ç Áöµµ";
+	public static final String guiName = "ê´€ë¦¬ì‹¤ ì§€ë„";
 
 	public enum ROOMS {
-	CAFE(4, 6, "½Ä´ç",Material.ENCHANTING_TABLE, Material.RED_WOOL, SaboType.DOOR),
-		UE(1, 1, "»óºÎ ¿£Áø",Material.DISPENSER, Material.BLUE_WOOL, SaboType.DOOR),
-		MEDBEY(12, 4, "ÀÇ¹«½Ç",Material.POTION, Material.LIME_WOOL, SaboType.DOOR),
-		O2(15, -1, "»ê¼Ò °ø±Þ½Ç",Material.KELP, Material.GREEN_WOOL, SaboType.OXYG),
-		WEAPONS(7, -1, "¹«±â°í",Material.FIREWORK_ROCKET, Material.BROWN_WOOL),
-		REACTOR(18, -1, "¿øÀÚ·Î",Material.CRYING_OBSIDIAN, Material.BLACK_WOOL, SaboType.NUCL),
-		SECU(20, 2, "º¸¾È½Ç",Material.ENDER_EYE, Material.MAGENTA_WOOL, SaboType.DOOR),
-		ADMIN(23, -1, "°ü¸®½Ç",Material.OAK_SIGN, Material.PURPLE_WOOL),
-		NAVI(26, -1, "Ç×ÇØ½Ç",Material.LODESTONE, Material.GRAY_WOOL),
-		LE(37, 3, "ÇÏºÎ¿£Áø",Material.DISPENSER, Material.LIGHT_BLUE_WOOL, SaboType.DOOR),
-		ELEC(30, 5, "Àü±â½Ç",Material.COMPARATOR, Material.YELLOW_WOOL, SaboType.DOOR, SaboType.ELEC),
-		SHIELD(43, -1, "º¸È£¸· Á¦¾î½Ç",Material.BEACON, Material.CYAN_WOOL, SaboType.DOOR),
-		STORAGE(40, 7, "Ã¢°í",Material.CRAFTING_TABLE, Material.ORANGE_WOOL, SaboType.DOOR),
-		COMM(51, -1, "Åë½Å½Ç",Material.SOUL_TORCH, Material.WHITE_WOOL, SaboType.COMM);
+	CAFE(4, 6, "ì‹ë‹¹",Material.ENCHANTING_TABLE, Material.RED_WOOL, SaboType.DOOR),
+		UE(1, 1, "ìƒë¶€ ì—”ì§„",Material.DISPENSER, Material.BLUE_WOOL, SaboType.DOOR),
+		MEDBEY(12, 4, "ì˜ë¬´ì‹¤",Material.POTION, Material.LIME_WOOL, SaboType.DOOR),
+		O2(15, -1, "ì‚°ì†Œ ê³µê¸‰ì‹¤",Material.KELP, Material.GREEN_WOOL, SaboType.OXYG),
+		WEAPONS(7, -1, "ë¬´ê¸°ê³ ",Material.FIREWORK_ROCKET, Material.BROWN_WOOL),
+		REACTOR(18, -1, "ì›ìžë¡œ",Material.CRYING_OBSIDIAN, Material.BLACK_WOOL, SaboType.NUCL),
+		SECU(20, 2, "ë³´ì•ˆì‹¤",Material.ENDER_EYE, Material.MAGENTA_WOOL, SaboType.DOOR),
+		ADMIN(23, -1, "ê´€ë¦¬ì‹¤",Material.OAK_SIGN, Material.PURPLE_WOOL),
+		NAVI(26, -1, "í•­í•´ì‹¤",Material.LODESTONE, Material.GRAY_WOOL),
+		LE(37, 3, "í•˜ë¶€ì—”ì§„",Material.DISPENSER, Material.LIGHT_BLUE_WOOL, SaboType.DOOR),
+		ELEC(30, 5, "ì „ê¸°ì‹¤",Material.COMPARATOR, Material.YELLOW_WOOL, SaboType.DOOR, SaboType.ELEC),
+		SHIELD(43, -1, "ë³´í˜¸ë§‰ ì œì–´ì‹¤",Material.BEACON, Material.CYAN_WOOL, SaboType.DOOR),
+		STORAGE(40, 7, "ì°½ê³ ",Material.CRAFTING_TABLE, Material.ORANGE_WOOL, SaboType.DOOR),
+		COMM(51, -1, "í†µì‹ ì‹¤",Material.SOUL_TORCH, Material.WHITE_WOOL, SaboType.COMM);
 
 		private final int slot;
 		private final int sabo_room_id;
@@ -155,19 +155,19 @@ public class AdminMap {
 				ROOMS room = ROOMS.getROOM(slot);
 
 				if(admin) {
-					Util.Stack(gui, slot, room.getMat(), 1, "¡×f" + room.getRoomname(), "¡×7ÇöÀçÀÎ¿ø : 0");
+					Util.Stack(gui, slot, room.getMat(), 1, "Â§f" + room.getRoomname(), "Â§7í˜„ìž¬ì¸ì› : 0");
 				} else {
 					SaboType[] stlist = room.getSabos();
 					if(stlist == null || stlist.length == 0) {
-						Util.Stack(gui, slot, Material.BARRIER, 1, "¡×f" + room.getRoomname(), "¡×c¹ßµ¿ÇÒ ¼ö ÀÖ´Â »çº¸Å¸Áö°¡ ¾ø½À´Ï´Ù.");
+						Util.Stack(gui, slot, Material.BARRIER, 1, "Â§f" + room.getRoomname(), "Â§cë°œë™í•  ìˆ˜ ìžˆëŠ” ì‚¬ë³´íƒ€ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.");
 					} else {
 						
 						if(stlist.length > 1) {
-							Util.Stack(gui, slot, room.getMat(), 1, "¡×f" + room.getRoomname(), Arrays.asList("¡×eÁÂÅ¬¸¯ - ¡×f¹® ´Ý±â", "¡×e¿ìÅ¬¸¯ - ¡×cÀüµî ²ô±â"));
+							Util.Stack(gui, slot, room.getMat(), 1, "Â§f" + room.getRoomname(), Arrays.asList("Â§eì¢Œí´ë¦­ - Â§fë¬¸ ë‹«ê¸°", "Â§eìš°í´ë¦­ - Â§cì „ë“± ë„ê¸°"));
 						} else if(stlist[0] == SaboType.DOOR){
-							Util.Stack(gui, slot, room.getMat(), 1, "¡×f" + room.getRoomname(), "¡×eÁÂÅ¬¸¯ - ¡×f¹® ´Ý±â");
+							Util.Stack(gui, slot, room.getMat(), 1, "Â§f" + room.getRoomname(), "Â§eì¢Œí´ë¦­ - Â§fë¬¸ ë‹«ê¸°");
 						} else {
-							Util.Stack(gui, slot, room.getMat(), 1, "¡×f" + room.getRoomname(), "¡×e¿ìÅ¬¸¯ - ¡×c" + (stlist[0] == SaboType.OXYG ? "»ê¼Ò °í°¥" : (stlist[0] == SaboType.COMM ? "Åë½Å Á¦ÇÑ" : "¿øÀÚ·Î ¿ëÇØ")));
+							Util.Stack(gui, slot, room.getMat(), 1, "Â§f" + room.getRoomname(), "Â§eìš°í´ë¦­ - Â§c" + (stlist[0] == SaboType.OXYG ? "ì‚°ì†Œ ê³ ê°ˆ" : (stlist[0] == SaboType.COMM ? "í†µì‹  ì œí•œ" : "ì›ìžë¡œ ìš©í•´")));
 						}
 						
 					}
@@ -177,14 +177,14 @@ public class AdminMap {
 				
 			} else if (((slot > 0 && slot < 8) || (slot > 36 && slot < 44) || slot % 9 == 1 || slot % 9 == 4
 					|| slot % 9 == 7)&&slot<45) {
-				Util.Stack(gui, slot, Material.GREEN_STAINED_GLASS_PANE, 1, "¡×7Åë·Î");
+				Util.Stack(gui, slot, Material.GREEN_STAINED_GLASS_PANE, 1, "Â§7í†µë¡œ");
 			}
 		}
 		if(!admin) {
-			gui.setItem(ROOMS.WEAPONS.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.WEAPONS.getRoomname(), Arrays.asList("¡×7¹ßµ¿ÇÒ ¼ö ÀÖ´Â »çº¸Å¸Áö°¡ ¾ø½À´Ï´Ù.")));
-			gui.setItem(ROOMS.NAVI.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.NAVI.getRoomname(), Arrays.asList("¡×7¹ßµ¿ÇÒ ¼ö ÀÖ´Â »çº¸Å¸Áö°¡ ¾ø½À´Ï´Ù.")));
-			gui.setItem(ROOMS.SHIELD.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.SHIELD.getRoomname(), Arrays.asList("¡×7¹ßµ¿ÇÒ ¼ö ÀÖ´Â »çº¸Å¸Áö°¡ ¾ø½À´Ï´Ù.")));
-			gui.setItem(ROOMS.ADMIN.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.ADMIN.getRoomname(), Arrays.asList("¡×7¹ßµ¿ÇÒ ¼ö ÀÖ´Â »çº¸Å¸Áö°¡ ¾ø½À´Ï´Ù.")));
+			gui.setItem(ROOMS.WEAPONS.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.WEAPONS.getRoomname(), Arrays.asList("Â§7ë°œë™í•  ìˆ˜ ìžˆëŠ” ì‚¬ë³´íƒ€ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.")));
+			gui.setItem(ROOMS.NAVI.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.NAVI.getRoomname(), Arrays.asList("Â§7ë°œë™í•  ìˆ˜ ìžˆëŠ” ì‚¬ë³´íƒ€ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.")));
+			gui.setItem(ROOMS.SHIELD.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.SHIELD.getRoomname(), Arrays.asList("Â§7ë°œë™í•  ìˆ˜ ìžˆëŠ” ì‚¬ë³´íƒ€ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.")));
+			gui.setItem(ROOMS.ADMIN.getSlot(), Util.createItem(Material.BARRIER, 1, ROOMS.ADMIN.getRoomname(), Arrays.asList("Â§7ë°œë™í•  ìˆ˜ ìžˆëŠ” ì‚¬ë³´íƒ€ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.")));
 		}
 		
 		return gui;
@@ -192,7 +192,7 @@ public class AdminMap {
 
 	public static void openGUI(Player p) {
 		if(Sabotage.isActivating(0) && Sabotage.Sabos.getType() == SaboType.COMM) {
-			p.sendMessage(Main.PREFIX + "¡×cÅë½Å »çº¸Å¸Áö ¹ßµ¿ Áß¿£ ¿­ ¼ö ¾ø½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cí†µì‹  ì‚¬ë³´íƒ€ì§€ ë°œë™ ì¤‘ì—” ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		p.openInventory(gui);
@@ -200,9 +200,9 @@ public class AdminMap {
 
 	private static void updateRoom(ROOMS room, int amount) {
 		if (amount == 0) {
-			Util.Stack(gui, room.getSlot(), room.getMat(), 1, "¡×f" + room.getRoomname(), "¡×7ÇöÀçÀÎ¿ø : " + amount);
+			Util.Stack(gui, room.getSlot(), room.getMat(), 1, "Â§f" + room.getRoomname(), "Â§7í˜„ìž¬ì¸ì› : " + amount);
 		}
-		else Util.Stack(gui, room.getSlot(), room.getMat(), amount, "¡×f" + room.getRoomname(), "¡×7ÇöÀçÀÎ¿ø : " + amount, true);
+		else Util.Stack(gui, room.getSlot(), room.getMat(), amount, "Â§f" + room.getRoomname(), "Â§7í˜„ìž¬ì¸ì› : " + amount, true);
 	}
 
 	private static void updateRoom(Material roomBlock, int amount) {
