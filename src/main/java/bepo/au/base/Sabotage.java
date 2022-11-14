@@ -1,18 +1,8 @@
 package bepo.au.base;
 
-import bepo.au.GameTimer;
-import bepo.au.GameTimer.Status;
-import bepo.au.GameTimer.WinReason;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.function.MissionList;
-import bepo.au.manager.LocManager;
-import bepo.au.sabo.S_Communication;
-import bepo.au.sabo.S_Fingerprint;
-import bepo.au.sabo.S_FixLights;
-import bepo.au.sabo.S_Oxygen;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,8 +12,19 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryCloseEvent.Reason;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.List;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.Main.SETTING;
+import bepo.au.GameTimer.Status;
+import bepo.au.GameTimer.WinReason;
+import bepo.au.function.MissionList;
+import bepo.au.manager.LocManager;
+import bepo.au.sabo.S_Communication;
+import bepo.au.sabo.S_Fingerprint;
+import bepo.au.sabo.S_FixLights;
+import bepo.au.sabo.S_Oxygen;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
 
 public abstract class Sabotage extends Mission {
 

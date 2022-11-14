@@ -1,12 +1,9 @@
 package bepo.au.manager;
 
-import bepo.au.GameTimer;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.function.MiniMap;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -17,9 +14,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.Main.SETTING;
+import bepo.au.function.MiniMap;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
+import net.md_5.bungee.api.ChatColor;
 
 public class CommandManager implements CommandExecutor {
 	public static List<String> opCOMMANDS = Arrays.asList("start", "stop", "config", "player", "observer","settings", "list", "debug", "des", "reload", "locate");
@@ -192,7 +193,8 @@ public class CommandManager implements CommandExecutor {
 	
 	private void config(Player p, String[] args) {
 		if (args.length < 3) {
-			p.sendMessage(Main.PREFIX + "§c올바른 명령어 : /au config [설정] [값]");
+//			p.sendMessage(Main.PREFIX + "§c올바른 명령어 : /au config [설정] [값]");
+			ConfigScreenManager.openGUI(p);
 			return;
 		}else{
 			Object obj = null;

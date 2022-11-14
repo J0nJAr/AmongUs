@@ -57,11 +57,12 @@ public class SabotageGUI {
 			ROOMS room = ROOMS.getROOMBySignature(mat);
 			boolean crit = event.isRightClick();
 			
+			
 			PlayerData pd = PlayerData.getPlayerData(p.getName());
 			
 			if(room != null && Main.gt.getStatus() == Status.WORKING) {
 				if(pd.getVent() != null) {
-					p.sendMessage(Main.PREFIX + "��c��Ʈ ���ο��� �纸Ÿ���� �ߵ��� �� �����ϴ�.");
+					p.sendMessage(Main.PREFIX + "§c벤트 내부에서 사보타지를 발동할 수 없습니다.");
 				} else {
 					int id = room.getSaboDoorId();
 					SaboType[] stlist = room.getSabos();

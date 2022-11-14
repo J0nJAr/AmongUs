@@ -1,5 +1,14 @@
 package bepo.au.games;
 
+import java.util.Collections;
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 import bepo.au.GameTimer;
 import bepo.au.GameTimer.Status;
 import bepo.au.Main.SETTING;
@@ -10,14 +19,6 @@ import bepo.au.manager.LocManager;
 import bepo.au.utils.ColorUtil;
 import bepo.au.utils.PlayerUtil;
 import bepo.au.utils.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.Collections;
-import java.util.Random;
 
 public abstract class AGameTicker {
 	
@@ -93,7 +94,7 @@ public abstract class AGameTicker {
 			Player p = Bukkit.getPlayer(name);
 			PlayerData pd = PlayerData.getPlayerData(p.getName());
 			
-			//p.getInventory().clear();
+			p.getInventory().clear();
 			p.setPlayerListName(pd.getColor().getChatColor() + p.getName());
 			
 			ItemStack[] ac = PlayerUtil.getColoredArmorContent(pd.getColor());

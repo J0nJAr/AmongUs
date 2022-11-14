@@ -1,9 +1,10 @@
 package bepo.au.utils;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import bepo.au.GameTimer.GameType;
+import bepo.au.Main.SETTING;
+import bepo.au.manager.LocManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -15,9 +16,8 @@ import org.bukkit.entity.ItemFrame;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 
-import bepo.au.GameTimer.GameType;
-import bepo.au.Main.SETTING;
-import bepo.au.manager.LocManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingUtil {
 	
@@ -69,13 +69,14 @@ public class SettingUtil {
 	}
 	
 	private static void updateDescription() {
-		
-		
+
+
 		
 		GameType gt = SETTING.GAMEMODE.getAsGameType();
 		String[] des = gt.getGameTicker().getDescriptions();
 		for(int i=0;i<des.length;i++) {
 			final int index = i;
+
 			ARMORSTANDS.values()[i].getArmorStands().forEach(a -> {
 				a.setCustomName(des[index]);
 			});
@@ -97,7 +98,7 @@ public class SettingUtil {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private static void placeFrame(int start_map_id, ItemFrame[][] array) {//«¡∑π¿”¿ª º≥ƒ°
+	private static void placeFrame(int start_map_id, ItemFrame[][] array) {//ÌîÑÎ†àÏûÑÏùÑ ÏÑ§Ïπò
 		for(int x=0;x<array.length;x++) {
 			for(int y=0;y<array[x].length;y++) {
 				ItemFrame frame = array[x][y];
@@ -125,7 +126,7 @@ public class SettingUtil {
 		
 	}
 	
-	private static ItemFrame[][] getFrames(Location lc, Location rb) {//«¡∑π¿”¿ª æÚæÓø»
+	private static ItemFrame[][] getFrames(Location lc, Location rb) {//ÌîÑÎ†àÏûÑÏùÑ ÏñªÏñ¥Ïò¥
 		int lc_x = lc.getBlockX();
 		int lc_z = lc.getBlockZ();
 		int rb_x = rb.getBlockX();
@@ -164,7 +165,7 @@ public class SettingUtil {
 				if(frame == null) {
 					frame = (ItemFrame) lc.getWorld().spawnEntity(loc, EntityType.ITEM_FRAME);
 					frame.setFacingDirection(bf);
-					frame.addScoreboardTag("au_reset");//«—π¯ ¡ˆøˆ∫∏¿⁄
+					frame.addScoreboardTag("au_reset");//ÌïúÎ≤à ÏßÄÏõåÎ≥¥Ïûê
 					frame.setFixed(true);
 					frame.setVisible(false);
 					frame.setSilent(true);

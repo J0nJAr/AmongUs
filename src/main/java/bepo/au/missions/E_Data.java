@@ -1,20 +1,22 @@
 package bepo.au.missions;
 
-import bepo.au.Main;
-import bepo.au.base.Mission;
-import bepo.au.base.PlayerData;
-import bepo.au.base.TimerBase;
-import bepo.au.utils.Util;
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
+import bepo.au.base.TimerBase;
+import bepo.au.utils.Util;
+import bepo.au.Main;
+import bepo.au.base.Mission;
+import bepo.au.base.PlayerData;
 
 
 
@@ -60,8 +62,8 @@ public class E_Data extends Mission{
 		}
 		
 		@Override
-		public void EventStartTimer() { //Ÿ�̸�
-			Util.debugMessage(" Ÿ�̸� ���۵�");
+		public void EventStartTimer() { //타이머
+			Util.debugMessage(" 타이머 시작됨");
 		}
 		
 		@Override
@@ -77,7 +79,7 @@ public class E_Data extends Mission{
 				Util.Stack(gui.get(pt), 7, Material.AIR, 1, "");
 			}
 			else if (paperslot>0) {
-				if(paperslot<8)Util.Stack(gui.get(pt), paperslot, Material.PAPER, 1, "��fDATA","��4Ŭ���Ұ�");
+				if(paperslot<8)Util.Stack(gui.get(pt), paperslot, Material.PAPER, 1, "§fDATA","§4클릭불가");
 				if(paperslot>1) Util.Stack(gui.get(pt), paperslot-1, Material.AIR, 1, "");
 				else Util.Stack(gui.get(pt), 7, Material.AIR, 1, "");
 			}
@@ -118,13 +120,13 @@ public class E_Data extends Mission{
 			default:
 				changed =false;
 			}
-			if(p != null && p.getOpenInventory().getTitle().split(" ")[0].equals("Data")) { //gui �����ִ��� Ȯ��
-				Util.debugMessage("gui �νĵ�");
+			if(p != null && p.getOpenInventory().getTitle().split(" ")[0].equals("Data")) { //gui 열고있는지 확인
+				Util.debugMessage("gui 인식됨");
 				if(changed) {
 				ItemStack[] temp = 	gui.get(pt).getContents();
 					gui.set(pt, Bukkit.createInventory(p, 18, "Data " +partname[pt]+" " +percentage+"%"));
 					gui.get(pt).setContents(temp);
-					for (int i=slot;i>8;i--) if (9<=i&&i<18) Util.Stack(gui.get(pt), i, Material.GREEN_STAINED_GLASS_PANE, 1, "��f"+(percentage)+"%","��4Ŭ���Ұ�");
+					for (int i=slot;i>8;i--) if (9<=i&&i<18) Util.Stack(gui.get(pt), i, Material.GREEN_STAINED_GLASS_PANE, 1, "§f"+(percentage)+"%","§4클릭불가");
 					new BukkitRunnable() {
 						public void run() {
 							if (count>=maxtimer) {clear(p, pt);}
@@ -135,14 +137,14 @@ public class E_Data extends Mission{
 				
 				}
 					
-			}else { //�ƴϸ� ĵ��
-				Util.debugMessage("�κ��丮 ���� Ȯ��");
+			}else { //아니면 캔슬
+				Util.debugMessage("인벤토리 닫음 확인");
 				stop(pt);
 				}
 		}
 		@Override
 		public void EventEndTimer() {
-				Util.debugMessage("Ÿ�̸� �����");
+				Util.debugMessage("타이머 종료됨");
 			}
 			
 		}
@@ -155,14 +157,14 @@ public class E_Data extends Mission{
 	int timertick=1;
 	int part;
 	String[] partname = {"Download","Upload"};
-	String color = "WHITE"; //�� �⺻��
+	String color = "WHITE"; //색 기본값
 	
 	///////////////////////////////////////////////////
 	public void data(Player p, int pt) {
 		timer = new Timer(p, pt);
 		// Color.AQUA, Color.BLUE, Color.GRAY, Color.GREEN, Color.ORANGE, Color.PURPLE, Color.RED, Color.WHITE, Color.YELLOW, Color.SILVER, Color.NAVY, Color.TEAL
 		// LIGHT_BLUE, BLUE, GRAY, GREEN, ORANGE, PURPLE, RED, WHITE, YELLOW, LIGHT_GRAY, NAVY, TEAL
-		color = PlayerData.getPlayerData(p.getName()).getColor().getDyeColor().toString(); //<- �ʰ� ��ĥ�� �̷������� ���ּ�
+		color = PlayerData.getPlayerData(p.getName()).getColor().getDyeColor().toString(); //<- 너가 합칠때 이런식으로 해주셈
 		
 
 		Material shulker = Material.getMaterial(color+"_SHULKER_BOX");

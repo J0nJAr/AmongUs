@@ -1,22 +1,15 @@
 package bepo.au.utils;
 
-import bepo.au.Main;
-import bepo.au.base.PlayerData;
-import bepo.au.function.ItemList;
-import bepo.au.manager.LocManager;
-import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;
-import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
-import net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo;
-import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
-import net.minecraft.server.level.WorldServer;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.monster.EntityMagmaCube;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ArmorStand.LockType;
 import org.bukkit.entity.EntityType;
@@ -30,13 +23,26 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import bepo.au.Main;
+import bepo.au.base.PlayerData;
+import bepo.au.function.ItemList;
+import bepo.au.manager.LocManager;
+import net.minecraft.server.v1_16_R3.EntityMagmaCube;
+import net.minecraft.server.v1_16_R3.EntityTypes;
+import net.minecraft.server.v1_16_R3.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_16_R3.PacketPlayOutEntityMetadata;
+import net.minecraft.server.v1_16_R3.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder;
+import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
+import net.minecraft.server.v1_16_R3.WorldBorder;
+import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerInfo;
+import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
+import net.minecraft.server.v1_16_R3.WorldServer;
 
 public class PlayerUtil {
+
 	/*
-	 * ��Ŀ ���
+	 * 셜커 기능
 	 */
 	public static class ShulkerInfo {
 
@@ -69,7 +75,7 @@ public class PlayerUtil {
 			if (shulkerinfo.containsKey(l.getBlock().getLocation())) {
 				PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(
 						shulkerinfo.get(l.getBlock().getLocation()));
-//				((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(destroy);
+				((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(destroy);
 
 				shulkerinfo.remove(l.getBlock().getLocation());
 			}
@@ -86,46 +92,46 @@ public class PlayerUtil {
 				removeShulker(l);
 
 			WorldServer ws = ((CraftWorld) loc.getWorld()).getHandle();
-			EntityMagmaCube es = new EntityMagmaCube(EntityTypes.aa, ws);
+			EntityMagmaCube es = new EntityMagmaCube(EntityTypes.MAGMA_CUBE, ws);
 			// EntityShulker es = new EntityShulker(EntityTypes.SHULKER, ws);
 
-//			es.setPosition(loc.getX(), loc.getBlockY() + 0.25D, loc.getZ());
-//			es.setInvulnerable(true);
-//			es.setNoAI(true);
-//			es.setSize(1, true);
-//			es.setSilent(true);
-//
-//			es.setFlag(6, true); // ���
-//			es.setFlag(5, true); // ����ȭ
-//
-//			es.setInvisible(true);
-//			es.glowing = true;
-//
-//			if (c != ColorUtil.WHITE) {
-//				Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
-//				if (getPlayer().getScoreboard() != null)
-//					board = getPlayer().getScoreboard();
-//				String tname = "sh" + c.getChatColor().name();
-//
-//				Team team;
-//				if (board.getTeam(tname) != null)
-//					team = board.getTeam(tname);
-//				else {
-//					team = board.registerNewTeam(tname);
-//					team.setColor(c.getChatColor());
-//				}
-//
-//				team.addEntry(es.getUniqueIDString());
-//			}
-//
-//			PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(es);
-//			((CraftPlayer) getPlayer()).getHandle().b.sendPacket(packet);
-//
-//			PacketPlayOutEntityMetadata metaPacket = new PacketPlayOutEntityMetadata(es.getId(), es.getDataWatcher(),
-//					true);
-//			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(metaPacket);
-//
-//			shulkerinfo.put(l.getBlock().getLocation(), es.getId());
+			es.setPosition(loc.getX(), loc.getBlockY() + 0.25D, loc.getZ());
+			es.setInvulnerable(true);
+			es.setNoAI(true);
+			es.setSize(1, true);
+			es.setSilent(true);
+
+			es.setFlag(6, true); // 밝기
+			es.setFlag(5, true); // 투명화
+
+			es.setInvisible(true);
+			es.glowing = true;
+
+			if (c != ColorUtil.WHITE) {
+				Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+				if (getPlayer().getScoreboard() != null)
+					board = getPlayer().getScoreboard();
+				String tname = "sh" + c.getChatColor().name();
+
+				Team team;
+				if (board.getTeam(tname) != null)
+					team = board.getTeam(tname);
+				else {
+					team = board.registerNewTeam(tname);
+					team.setColor(c.getChatColor());
+				}
+
+				team.addEntry(es.getUniqueIDString());
+			}
+
+			PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(es);
+			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(packet);
+
+			PacketPlayOutEntityMetadata metaPacket = new PacketPlayOutEntityMetadata(es.getId(), es.getDataWatcher(),
+					true);
+			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(metaPacket);
+
+			shulkerinfo.put(l.getBlock().getLocation(), es.getId());
 		}
 
 		private Location locationParser(Location loc) {
@@ -171,7 +177,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ���� ���
+	 * 의자 기능
 	 */
 	private static HashMap<Player, ArmorStand> chair = new HashMap<Player, ArmorStand>();
 
@@ -227,7 +233,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * �÷��̾� ������ ����
+	 * 플레이어 아이템 지급
 	 */
 
 	public static void getImposterSet(Player p, boolean first) {
@@ -245,7 +251,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * �׼ǹ�
+	 * 액션바
 	 */
 
 	public static void sendActionBar(Player p, String string) {
@@ -255,7 +261,7 @@ public class PlayerUtil {
 	
 
 	/*
-	 * �÷��̾� �����
+	 * 플레이어 숨기기
 	 */
 	private static HashMap<Player, List<Player>> hidden = new HashMap<Player, List<Player>>();
 	private static List<String> invisible = new ArrayList<String>();
@@ -361,10 +367,10 @@ public class PlayerUtil {
 	}
 
 	public static void showTabList(Player player) {
-//		PacketPlayOutPlayerInfo pack = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.ADD_PLAYER,
-//				((CraftPlayer) player).getHandle());
-//		for (Player ap : Bukkit.getOnlinePlayers())
-//			((CraftPlayer) ap).getHandle().playerConnection.sendPacket(pack);
+		PacketPlayOutPlayerInfo pack = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.ADD_PLAYER,
+				((CraftPlayer) player).getHandle());
+		for (Player ap : Bukkit.getOnlinePlayers())
+			((CraftPlayer) ap).getHandle().playerConnection.sendPacket(pack);
 	}
 
 	public static ArmorStand spawnDecoy(Location loc, PlayerData pd) {
@@ -386,16 +392,16 @@ public class PlayerUtil {
 	private static ArrayList<Location> SEATS;
 	private static List<PlayerData> DATALIST;
 
-	public static void setSeats(boolean checkAlive) { // �ڸ��� TP
+	public static void setSeats(boolean checkAlive) { // 자리로 TP
 		DATALIST = PlayerData.getPlayerDataList();
 		SEATS = LocManager.getLoc("SEATS");
 		if (DATALIST.size() > SEATS.size()) {
-			Util.debugMessage("�÷��̾� ������ �ڸ��� �����ϴ�.");
+			Util.debugMessage("플레이어 수보다 자리가 적습니다.");
 		} 
 		for (int idx = 0; idx < DATALIST.size(); idx++) {
 			Player currentPlayer = Bukkit.getPlayer(DATALIST.get(idx).getName());
 			if (currentPlayer != null && currentPlayer.getVehicle() == null && (!checkAlive || DATALIST.get(idx).isAlive())) {
-				currentPlayer.teleport(SEATS.get(idx));// �÷��̾ �� �ڸ��� �̵�
+				currentPlayer.teleport(SEATS.get(idx));// 플레이어를 각 자리로 이동
 			}
 		}
 	}
@@ -403,16 +409,16 @@ public class PlayerUtil {
 	
 	public static void toggleRedEffect(Player p, boolean bool) {
 		CraftPlayer cp = (CraftPlayer) p;
-//		WorldBorder wb = cp.getHandle().world.getWorldBorder();
-//		if(bool) {
-//			wb.setSize(1D);
-//			wb.setCenter(p.getLocation().getX() + 10_000, p.getLocation().getZ() + 10_000);
-//			cp.getHandle().playerConnection.sendPacket(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
-//		} else {
-//			wb.setSize(30_000_000);
-//			wb.setCenter(p.getLocation().getX(), p.getLocation().getZ());
-//			cp.getHandle().playerConnection.sendPacket
-//			(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
-//		}
+		WorldBorder wb = cp.getHandle().world.getWorldBorder();
+		if(bool) {
+			wb.setSize(1D);
+			wb.setCenter(p.getLocation().getX() + 10_000, p.getLocation().getZ() + 10_000);
+			cp.getHandle().playerConnection.sendPacket(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
+		} else {
+			wb.setSize(30_000_000);
+			wb.setCenter(p.getLocation().getX(), p.getLocation().getZ());
+			cp.getHandle().playerConnection.sendPacket
+			(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
+		}
 	}
 }

@@ -38,7 +38,7 @@ public class H_Scanning extends Mission {
 		if (locs.contains(loc))
 			scanning(p);
 		else
-			p.sendMessage(Main.PREFIX + "¡×c¹ßÆÇ À§¿¡ ¼­¼­ ¼öÇàÇØÁÖ¼¼¿ä.");
+			p.sendMessage(Main.PREFIX + "Â§cë°œíŒ ìœ„ì— ì„œì„œ ìˆ˜í–‰í•´ì£¼ì„¸ìš”.");
 	}
 
 	public void onClear(Player p, int code) {
@@ -58,8 +58,8 @@ public class H_Scanning extends Mission {
 		private VisualTask vt;
 
 		@Override
-		public void EventStartTimer() { // Å¸ÀÌ¸Ó
-			Util.debugMessage(" Å¸ÀÌ¸Ó ½ÃÀÛµÊ");
+		public void EventStartTimer() { // íƒ€ì´ë¨¸
+			Util.debugMessage(" íƒ€ì´ë¨¸ ì‹œì‘ë¨");
 			Player p = getPlayer();
 			// Location location = p.getLocation().add(0, 1, 0);
 			if (SETTING.VISUAL_TASK.getAsBoolean()) {
@@ -70,12 +70,12 @@ public class H_Scanning extends Mission {
 					}
 
 					@Override
-					public void onTicking(int count) {// ÆÄÆ¼Å¬ ÄÚµå ¼öÁ¤ ÇÊ¿ä ³Ê¹« °è»ê³¶ºñÀÓ
+					public void onTicking(int count) {// íŒŒí‹°í´ ì½”ë“œ ìˆ˜ì • í•„ìš” ë„ˆë¬´ ê³„ì‚°ë‚­ë¹„ì„
 						for (double x = 0 - radius - 0.2; x <= (radius + 0.2); x += 0.05)
 							for (double z = 0 - radius - 0.2; z <= (radius + 0.2); z += 0.05) {
 								if ((x * x + z * z) <= radius && (x * x + z * z) >= (radius - 0.1)) {
-									double y = (count >= 100 ? 200 - count : count); // count´Â 200 -> 0 ||| y´Â 0->-100 ÈÄ
-																						// 100->0°¨
+									double y = (count >= 100 ? 200 - count : count); // countëŠ” 200 -> 0 ||| yëŠ” 0->-100 í›„
+																						// 100->0ê°
 									// Util.debugMessage("count : "+count);
 									y = ((y - 50) * 0.01);
 									// Util.debugMessage("y : "+y);
@@ -110,14 +110,14 @@ public class H_Scanning extends Mission {
 			int slot = 9 - ccount;
 			Player p = getPlayer();
 
-			if (p.getOpenInventory().getTitle().contains("Scanning")) { // gui ¿­°íÀÖ´ÂÁö È®ÀÎ
+			if (p.getOpenInventory().getTitle().contains("Scanning")) { // gui ì—´ê³ ìˆëŠ”ì§€ í™•ì¸
 				if (count % 2 == 0) {
-					Util.debugMessage("gui ÀÎ½ÄµÊ");
+					Util.debugMessage("gui ì¸ì‹ë¨");
 					ItemStack[] temp = gui.get(0).getContents();
 					for (int i = slot; i >= 0;i--) {
 						if (0 <= slot && slot <= 8) {
 							Util.Stack(gui.get(0), i, Material.GREEN_STAINED_GLASS_PANE, 1,
-									"¡×f" + (10 - ccount) + "0%", "¡×4Å¬¸¯ºÒ°¡");
+									"Â§f" + (10 - ccount) + "0%", "Â§4í´ë¦­ë¶ˆê°€");
 						}
 					}
 					if (count % 20 == 0) {
@@ -126,11 +126,11 @@ public class H_Scanning extends Mission {
 						p.openInventory(gui.get(0));
 					}
 				}
-			} else { // ¾Æ´Ï¸é Äµ½½
-				Util.debugMessage("ÀÎº¥Åä¸® ´İÀ½ È®ÀÎ");
+			} else { // ì•„ë‹ˆë©´ ìº”ìŠ¬
+				Util.debugMessage("ì¸ë²¤í† ë¦¬ ë‹«ìŒ í™•ì¸");
 				stopScan();
 			}
-			if (p.getOpenInventory().getTitle().contains("Scanning") && count == 0) { // 0ÃÊ µÇ¸é Å¬¸®¾î
+			if (p.getOpenInventory().getTitle().contains("Scanning") && count == 0) { // 0ì´ˆ ë˜ë©´ í´ë¦¬ì–´
 				ItemStack[] temp = gui.get(0).getContents();
 				gui.set(0, Bukkit.createInventory(p, 9, "Scanning"));
 				gui.get(0).setContents(temp);
@@ -146,14 +146,14 @@ public class H_Scanning extends Mission {
 
 		@Override
 		public void EventEndTimer() {
-			Util.debugMessage("Å¸ÀÌ¸Ó Á¾·áµÊ");
+			Util.debugMessage("íƒ€ì´ë¨¸ ì¢…ë£Œë¨");
 			if(vt != null) vt.Finish(false);
 		}
 
 	}
 
 	Timer timer;
-	static boolean status = false;// ÇÑ ¹ø¿¡ ÇÑ ÇÃ·¹ÀÌ¾î¸¸ °¡´É,
+	static boolean status = false;// í•œ ë²ˆì— í•œ í”Œë ˆì´ì–´ë§Œ ê°€ëŠ¥,
 
 	///////////////////////////////////////////////////
 	public void scanning(Player p) {
@@ -163,7 +163,7 @@ public class H_Scanning extends Mission {
 			timer = new Timer();
 			timer.StartTimer(200, true, 1);
 		} else {
-			p.sendMessage(Main.PREFIX + "¡×cÀÌ¹Ì ´Ù¸¥ ÇÃ·¹ÀÌ¾î°¡ »ç¿ëÁßÀÔ´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cì´ë¯¸ ë‹¤ë¥¸ í”Œë ˆì´ì–´ê°€ ì‚¬ìš©ì¤‘ì…ë‹ˆë‹¤.");
 		}
 	}
 

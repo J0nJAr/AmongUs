@@ -11,7 +11,6 @@ import bepo.au.manager.*;
 import bepo.au.utils.ColorUtil;
 import bepo.au.utils.PlayerUtil;
 import bepo.au.utils.SettingUtil;
-import bepo.au.utils.SettingUtil.ARMORSTANDS;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -27,49 +26,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends JavaPlugin implements Listener{
-	
+
+
+
 	public enum SETTING {
 		
-		GAMEMODE("°ÔÀÓ Á¾·ù", GameTimer.GameType.NORMAL, GameTimer.GameType.class),
-		EMER_BUTTON_PER_PLAYER("ÇÃ·¹ÀÌ¾î ´ç ±ä±Ş È¸ÀÇ Á¦ÇÑ", 1, Integer.class),
-		EMER_BUTTON_COOL_SEC("±ä±Ş È¸ÀÇ ÄğÅ¸ÀÓ(ÃÊ)", 15, Integer.class),
-		VOTE_MAIN_SEC("ÅõÇ¥ Á¦ÇÑ ½Ã°£(ÃÊ)", 150, Integer.class),
-		VOTE_PREPARE_SEC("È¸ÀÇ Á¦ÇÑ ½Ã°£(ÃÊ)",10, Integer.class),
-		CREW_SIGHT_BLOCK("Å©·ç¿ø ½Ã¾ß(ºí·°)", 20, Integer.class),
-		IMPOSTER_SIGHT_BLOCK("ÀÓÆ÷½ºÅÍ ½Ã¾ß(ºí·°)",30, Integer.class),
-		KILL_COOLTIME_SEC("Å³ ÄğÅ¸ÀÓ(ÃÊ)",45, Integer.class),
-		SABO_COOL_SEC("¹æÇØ°øÀÛ ÄğÅ¸ÀÓ",30, Integer.class),
-		SABO_CRIT_DURA_SEC("Ä¡¸íÀû ¹æÇØ°øÀÛ Áö¼Ó½Ã°£",40, Integer.class),
-		NOTICE_IMPOSTER("Ãß¹æ ½Ã ÀÓÆ÷½ºÅÍ ¿©ºÎ °ø°³",true, Boolean.class),
-		VISUAL_TASK("½Ã°¢ ¹Ì¼Ç º¸ÀÌ±â", true, Boolean.class),
-		BLOCK_PLAYER_SOUND("ÇÃ·¹ÀÌ¾î ¼Ò¸® Â÷´Ü", true, Boolean.class),
-		COMMON_MISSION_AMOUNT("°øÅë ÀÓ¹«", 1, Integer.class),
-		EASY_MISSION_AMOUNT("°£´ÜÇÑ ÀÓ¹«", 2, Integer.class),
-		HARD_MISSION_AMOUNT("¾î·Á¿î ÀÓ¹«", 1, Integer.class),
-		IMPOSTER_AMOUNT("ÀÓÆ÷½ºÅÍ ¼ö", 1, Integer.class),
-		MOVEMENT_SPEED("ÀÌµ¿¼Óµµ", 0.2D, Double.class),
+		GAMEMODE("ê²Œì„ ì¢…ë¥˜", GameTimer.GameType.NORMAL, GameTimer.GameType.class),
+		EMER_BUTTON_PER_PLAYER("í”Œë ˆì´ì–´ ë‹¹ ê¸´ê¸‰ íšŒì˜ ì œí•œ", 1, Integer.class),
+		EMER_BUTTON_COOL_SEC("ê¸´ê¸‰ íšŒì˜ ì¿¨íƒ€ì„(ì´ˆ)", 15, Integer.class),
+		VOTE_MAIN_SEC("íˆ¬í‘œ ì œí•œ ì‹œê°„(ì´ˆ)", 150, Integer.class),
+		VOTE_PREPARE_SEC("íšŒì˜ ì œí•œ ì‹œê°„(ì´ˆ)",10, Integer.class),
+		CREW_SIGHT_BLOCK("í¬ë£¨ì› ì‹œì•¼(ë¸”ëŸ­)", 20, Integer.class),
+		IMPOSTER_SIGHT_BLOCK("ì„í¬ìŠ¤í„° ì‹œì•¼(ë¸”ëŸ­)",30, Integer.class),
+		KILL_COOLTIME_SEC("í‚¬ ì¿¨íƒ€ì„(ì´ˆ)",45, Integer.class),
+		SABO_COOL_SEC("ë°©í•´ê³µì‘ ì¿¨íƒ€ì„",30, Integer.class),
+		SABO_CRIT_DURA_SEC("ì¹˜ëª…ì  ë°©í•´ê³µì‘ ì§€ì†ì‹œê°„",40, Integer.class),
+		NOTICE_IMPOSTER("ì¶”ë°© ì‹œ ì„í¬ìŠ¤í„° ì—¬ë¶€ ê³µê°œ",true, Boolean.class),
+		VISUAL_TASK("ì‹œê° ë¯¸ì…˜ ë³´ì´ê¸°", true, Boolean.class),
+		BLOCK_PLAYER_SOUND("í”Œë ˆì´ì–´ ì†Œë¦¬ ì°¨ë‹¨", true, Boolean.class),
+		COMMON_MISSION_AMOUNT("ê³µí†µ ì„ë¬´", 1, Integer.class,0,2),
+		EASY_MISSION_AMOUNT("ê°„ë‹¨í•œ ì„ë¬´", 2, Integer.class,0,8),
+		HARD_MISSION_AMOUNT("ì–´ë ¤ìš´ ì„ë¬´", 1, Integer.class,0,7),
+		IMPOSTER_AMOUNT("ì„í¬ìŠ¤í„° ìˆ˜", 1, Integer.class),
+		MOVEMENT_SPEED("ì´ë™ì†ë„", 0.2D, Double.class),
 		
-		GENERATE_CORPSE("»ç¸Á ½Ã ½ÃÃ¼ »ı¼º", true, Boolean.class),
-		ENABLE_CORPSE_REPORT("½ÃÃ¼ ¸®Æ÷Æ® È°¼ºÈ­", true, Boolean.class),
+		GENERATE_CORPSE("ì‚¬ë§ ì‹œ ì‹œì²´ ìƒì„±", true, Boolean.class),
+		ENABLE_CORPSE_REPORT("ì‹œì²´ ë¦¬í¬íŠ¸ í™œì„±í™”", true, Boolean.class),
 		
-		IMPOSTER_ALWAYS_BLIND("(¼ú·¡Àâ±â) ÀÓÆ÷½ºÅÍ ½Ç¸í ºÎ¿©", true, Boolean.class),
-		IMPOSTER_MOVEMENT_SPEED("(¼ú·¡Àâ±â) ÀÓÆ÷½ºÅÍ ÀÌµ¿¼Óµµ", 0.2D, Double.class);
-		
+		IMPOSTER_ALWAYS_BLIND("(ìˆ ë˜ì¡ê¸°) ì„í¬ìŠ¤í„° ì‹¤ëª… ë¶€ì—¬", true, Boolean.class),
+		IMPOSTER_MOVEMENT_SPEED("(ìˆ ë˜ì¡ê¸°) ì„í¬ìŠ¤í„° ì´ë™ì†ë„", 0.2D, Double.class);
+
 		private Object obj;
 		private String name;
 		private Class<?> type;
+		public int min,max;
 		public static ArrayList<String> SETTING_LIST = new ArrayList<String>();
-		
+
 		SETTING(String name, Object obj, Class<?> type) {
-			this.obj = obj.toString();
+			this.obj = obj;
 			this.type = type;
 			this.name = name;
+			this.min = 0;
+			this.max = -1;
+		}
+
+		SETTING(String name, Object obj, Class<?> type,int min,int max) {
+			this.obj = obj;
+			this.type = type;
+			this.name = name;
+			this.min = min;
+			this.max = max;
 		}
 		
 		public String getName() {
 			return this.name;
 		}
-		
+
 		public Object get() {
 			return obj;
 		}
@@ -95,7 +107,7 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		
 		public GameTimer.GameType getAsGameType(){
-			return GameType.valueOf((String)obj);
+			return (GameType) obj;
 		}
 		
 		public void setSetting(Object obj) {
@@ -104,13 +116,17 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		
 		private void checkLimit() {
-			if(this == IMPOSTER_MOVEMENT_SPEED) {
+
 		
 				
-				if(obj instanceof Double) {
-					Double d = (Double) obj;
-					if(d > 1.0D) obj = 1.0D; else if(d < -1.0D) obj = -1.0D;
-				}
+			if(obj instanceof Double) {
+				Double d = (Double) obj;
+				if(d > 1.0D) obj = 1.0D; else if(d < -1.0D) obj = -1.0D;
+
+			}else if(obj instanceof Integer){
+				int num = (int) obj;
+				if(num<min) obj=0;
+				else if (num>max && max!=-1) obj=max;
 			}
 		}
 		
@@ -122,7 +138,7 @@ public class Main extends JavaPlugin implements Listener{
 	
 	}
 	
-	public static String PREFIX = "¡×a[AmongUs] ";
+	public static String PREFIX = "Â§a[AmongUs] ";
 	
 	public static GameTimer gt = null;
 	private static Main main;
@@ -132,7 +148,6 @@ public class Main extends JavaPlugin implements Listener{
 	private static MissionList ml;
 	private static LocManager lm;
 	private static EventManager em;
-	
 	public static boolean isProtocolHooked = false;
 
 	
@@ -163,25 +178,32 @@ public class Main extends JavaPlugin implements Listener{
         String v = Bukkit.getVersion();
         
         
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "¡×f¹öÀü È®ÀÎ Áß...");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Â§fë²„ì „ í™•ì¸ ì¤‘...");
         if(!bv.contains("1.16.5")) {
-        	Bukkit.getConsoleSender().sendMessage(PREFIX + "¡×cÁÖÀÇ. ÇØ´ç ÇÃ·¯±×ÀÎÀº 1.16.5¿¡¼­ ¼³°èµÇ¾ú½À´Ï´Ù. ±â´É¿¡ ÀÌ»óÀÌ ÀÖÀ» ¼ö ÀÖ½À´Ï´Ù.");
+        	Bukkit.getConsoleSender().sendMessage(PREFIX + "Â§cì£¼ì˜. í•´ë‹¹ í”ŒëŸ¬ê·¸ì¸ì€ 1.16.5ì—ì„œ ì„¤ê³„ë˜ì—ˆìŠµë‹ˆë‹¤. ê¸°ëŠ¥ì— ì´ìƒì´ ìˆì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         }
         if(!v.contains("Paper")) {
-        	Bukkit.getConsoleSender().sendMessage(PREFIX + "¡×4ÁÖÀÇ. Paper ¹öÅ¶ÀÌ ¾Æ´Õ´Ï´Ù. ÇÃ·¯±×ÀÎÀÌ ÀÛµ¿ÇÏÁö ¾Ê½À´Ï´Ù.");
+        	Bukkit.getConsoleSender().sendMessage(PREFIX + "Â§4ì£¼ì˜. Paper ë²„í‚·ì´ ì•„ë‹™ë‹ˆë‹¤. í”ŒëŸ¬ê·¸ì¸ì´ ì‘ë™í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         	Bukkit.getPluginManager().disablePlugin(this);
         	return;
         }
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "¡×f¹öÀü È®ÀÎ ¿Ï·á! ÇÃ·¯±×ÀÎ È°¼ºÈ­¸¦ ½ÃÀÛÇÕ´Ï´Ù.");
-
-		Bukkit.getConsoleSender().sendMessage(PREFIX+SETTING.GAMEMODE.obj);
-		Mission.MISSIONS.addAll(MissionList.EASY);
-
-		Mission.MISSIONS.addAll(MissionList.HARD);
-
-		Mission.MISSIONS.addAll(MissionList.COMMON);
-
-		Mission.MISSIONS.addAll(MissionList.SABOTAGE);
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Â§fë²„ì „ í™•ì¸ ì™„ë£Œ! í”ŒëŸ¬ê·¸ì¸ í™œì„±í™”ë¥¼ ì‹œì‘í•©ë‹ˆë‹¤.");
+		
+		for(Mission m : MissionList.EASY) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.HARD) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.COMMON) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.SABOTAGE) {
+			Mission.MISSIONS.add(m);
+		}
 		
 		config = new ConfigManager(this);
 		config.loadConfig();
@@ -218,7 +240,7 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("au").setTabCompleter(new TabCompleteManager());
 		
 		Bukkit.getPluginManager().registerEvents(em, this);
-		
+
 		GameType.NORMAL.setGameTicker(new Normal());
 		GameType.CHASETAG.setGameTicker(new ChaseTag());
 		
@@ -226,34 +248,37 @@ public class Main extends JavaPlugin implements Listener{
 			isProtocolHooked = true;
 			SoundRemover.addListener();
 		}
-		
-		for(World w : Bukkit.getWorlds()) {
-			for(Entity e : w.getEntities()) {
-				if(e.getScoreboardTags().contains("au_reset")) {
-					e.remove();
-				} else {
-					if(e instanceof ArmorStand) {
-						for(ARMORSTANDS ass : ARMORSTANDS.values()) {
-							if(e.getScoreboardTags().contains(ass.getTag())) {
-								Bukkit.getConsoleSender().sendMessage("added " + ass.getTag());
-								ass.addArmorStands((ArmorStand) e);
+
+		Mission.initMain(this);
+
+
+
+		new BukkitRunnable() {
+			public void run() {
+
+				for(World w : Bukkit.getWorlds()) {
+					for(Entity e : w.getEntities()) {
+						if(e.getScoreboardTags().contains("au_reset")) {
+							e.remove();
+						} else {
+							if(e instanceof ArmorStand) {
+								for(SettingUtil.ARMORSTANDS ass : SettingUtil.ARMORSTANDS.values()) {
+									if(e.getScoreboardTags().contains(ass.getTag())) {
+										Bukkit.getConsoleSender().sendMessage("added " + ass.getTag());
+										ass.addArmorStands((ArmorStand) e);
+									}
+								}
 							}
 						}
 					}
 				}
-			}
-		}
-		
-		Mission.initMain(this);
-		
-		new BukkitRunnable() {
-			public void run() {
+
 				SettingUtil.startSetting();
 				//SettingUtil.logo_Frames();
 			}
 		}.runTaskLater(this, 20L);
-		
-		Bukkit.getConsoleSender().sendMessage(PREFIX + "¡×fAmongUs È°¼ºÈ­. By Team JonJAr");
+
+		Bukkit.getConsoleSender().sendMessage(PREFIX + "Â§fAmongUs í™œì„±í™”. By Team JonJAr");
 	}
 	
 	private void addLocation(Mission m) {
