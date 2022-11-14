@@ -40,8 +40,8 @@ public class S_Oxygen extends Sabotage {
 		}
 		
 		int answer = Util.random(10000, 99999);
-		
-		if(Activated == false) {
+
+		if(!Activated) {
 			Oxygen_password[0] = answer; // 패스워드 지정 10000~99999
 			Oxygen_password[1] = answer;
 			CLEARED = 0;
@@ -59,6 +59,7 @@ public class S_Oxygen extends Sabotage {
 	}
 
 	public void onClear(Player p, int i) {
+		Activated = false;
 		saboGeneralClear(i);
 	}
 
