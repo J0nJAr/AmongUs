@@ -40,9 +40,9 @@ public class S_Oxygen extends Sabotage {
 		}
 		
 		int answer = Util.random(10000, 99999);
-		
-		if(Activated == false) {
-			Oxygen_password[0] = answer; // ÆÐ½º¿öµå ÁöÁ¤ 10000~99999
+
+		if(!Activated) {
+			Oxygen_password[0] = answer; // íŒ¨ìŠ¤ì›Œë“œ ì§€ì • 10000~99999
 			Oxygen_password[1] = answer;
 			CLEARED = 0;
 			Activated = true;
@@ -59,6 +59,7 @@ public class S_Oxygen extends Sabotage {
 	}
 
 	public void onClear(Player p, int i) {
+		Activated = false;
 		saboGeneralClear(i);
 	}
 
@@ -70,7 +71,7 @@ public class S_Oxygen extends Sabotage {
 		for (int i = 3; i >= 0; i--) {
 			for (int j = 8; j >= 0; j--) {
 				if (j >= 1 && j <= 3 && i < 3) {
-					Util.Stack(gui.get(code), j + 9 * i, Material.WHITE_WOOL, 1, "¡×f" + number);
+					Util.Stack(gui.get(code), j + 9 * i, Material.WHITE_WOOL, 1, "Â§f" + number);
 					number--;
 				} else if (j <= 4) {
 					Util.Stack(gui.get(code), j + 9 * i, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
@@ -78,9 +79,9 @@ public class S_Oxygen extends Sabotage {
 			}
 		}
 		Util.Stack(gui.get(code), 30, Material.BLACK_STAINED_GLASS_PANE, 1, " ");
-		Util.Stack(gui.get(code), 29, Material.WHITE_WOOL, 1, "¡×f" + "0");
-		Util.Stack(gui.get(code), 28, Material.RED_WOOL, 1, "¡×c" + "CANCEL");
-		Util.Stack(gui.get(code), 16, Material.PAPER, 1, "¡×f" + Oxygen_password[code]);
+		Util.Stack(gui.get(code), 29, Material.WHITE_WOOL, 1, "Â§f" + "0");
+		Util.Stack(gui.get(code), 28, Material.RED_WOOL, 1, "Â§c" + "CANCEL");
+		Util.Stack(gui.get(code), 16, Material.PAPER, 1, "Â§f" + Oxygen_password[code]);
 		
 		Oxygen_count[code] = 5;
 		Oxygen_answer[code] = 0;
@@ -103,12 +104,12 @@ public class S_Oxygen extends Sabotage {
 		Player p = (Player) e.getWhoClicked();
 		int code = getCode(e.getView().getTitle());
 		
-		if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.WHITE_WOOL) { // Èò ¾çÅÐÀ» Å¬¸¯ÇÏ¸é ¾çÅÐÀÇ ÀÌ¸§À» °¡Á®¿È
+		if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.WHITE_WOOL) { // í° ì–‘í„¸ì„ í´ë¦­í•˜ë©´ ì–‘í„¸ì˜ ì´ë¦„ì„ ê°€ì ¸ì˜´
 			e.setCancelled(true);
 			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);
 			String numstr = e.getCurrentItem().getItemMeta().getDisplayName();
 			int num = Integer.parseInt(numstr.substring(2));
-			switch (Oxygen_count[code]) { // ¾çÅÐÀÇ ÀÌ¸§À» num¿¡ ÀúÀå ÀúÀåÇÒ¶§¸¶´Ù count°¡ 1¾¿ ÁÙ¾îµë
+			switch (Oxygen_count[code]) { // ì–‘í„¸ì˜ ì´ë¦„ì„ numì— ì €ìž¥ ì €ìž¥í• ë•Œë§ˆë‹¤ countê°€ 1ì”© ì¤„ì–´ë“¬
 			case 1:
 				Oxygen_answer[code] += num;
 				Oxygen_count[code]--;
@@ -123,7 +124,7 @@ public class S_Oxygen extends Sabotage {
 				} else {
 					Oxygen_answer[code] = 0;
 					Oxygen_count[code] = 5;
-					p.sendMessage("¡×cºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù.");
+					p.sendMessage("Â§cë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
 					p.closeInventory();
 					return;
 				}

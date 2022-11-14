@@ -1,17 +1,17 @@
 package bepo.au.manager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.Main.SETTING;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import bepo.au.GameTimer;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class TabCompleteManager implements TabCompleter{
 
@@ -35,12 +35,12 @@ public class TabCompleteManager implements TabCompleter{
 				if (args[0].equalsIgnoreCase("config")) {
 				SETTING set;
 				try{set = SETTING.valueOf(args[1]);}
-				catch(IllegalArgumentException e){return Collections.singletonList("Àß¸øµÈ Å¬·¡½º ÀÌ¸§ÀÔ´Ï´Ù!");}
+				catch(IllegalArgumentException e){return Collections.singletonList("ì˜ëª»ëœ í´ë˜ìŠ¤ ì´ë¦„ì…ë‹ˆë‹¤!");}
 				if(set.getType().isAssignableFrom(GameTimer.GameType.class)) return getSortedArgs(args[2],GameTimer.GameType.TYPES);
 				if(set.getType().isAssignableFrom(Boolean.class)) return getSortedArgs(args[2],Arrays.asList("true","false"));
 				if(set.getType().isAssignableFrom(Integer.class)) return getSortedArgs(args[2],Arrays.asList("0","1","5","10","20"));
 				if(set.getType().isAssignableFrom(Double.class)) return getSortedArgs(args[2],Arrays.asList("0.5","1.0","1.5","2.0"));
-				else return Collections.singletonList("Àß¸øµÈ Å¬·¡½º ÀÌ¸§ÀÔ´Ï´Ù.");
+				else return Collections.singletonList("ì˜ëª»ëœ í´ë˜ìŠ¤ ì´ë¦„ì…ë‹ˆë‹¤.");
 				}
 			}
 		}

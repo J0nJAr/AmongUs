@@ -1,20 +1,12 @@
 package bepo.au.manager;
 
-import bepo.au.GameTimer;
-import bepo.au.GameTimer.GameType;
-import bepo.au.GameTimer.Status;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.base.Mission;
-import bepo.au.base.PlayerData;
-import bepo.au.base.Sabotage;
-import bepo.au.base.Sabotage.SaboType;
-import bepo.au.function.*;
-import bepo.au.manager.BossBarManager.BossBarList;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
-import com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent;
-import org.bukkit.*;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -29,14 +21,40 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
-import java.util.List;
+import com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent;
+
+import bepo.au.GameTimer.GameType;
+import bepo.au.GameTimer.Status;
+import bepo.au.Main.SETTING;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.base.Mission;
+import bepo.au.base.PlayerData;
+import bepo.au.base.Sabotage;
+import bepo.au.base.Sabotage.SaboType;
+import bepo.au.function.AdminMap;
+import bepo.au.function.ItemList;
+import bepo.au.function.SabotageGUI;
+import bepo.au.function.Vent;
+import bepo.au.function.VoteSystem;
+import bepo.au.manager.BossBarManager.BossBarList;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
 
 public class GameEventManager implements Listener {
 	
@@ -57,7 +75,7 @@ public class GameEventManager implements Listener {
 		
 		case WORKING:
 			if(isAlive) {
-				p.sendMessage(Main.PREFIX + "¡×cÀÏ°ú Áß Ã¤ÆÃÀº ºÒ°¡ÇÕ´Ï´Ù.");
+				p.sendMessage(Main.PREFIX + "Â§cì¼ê³¼ ì¤‘ ì±„íŒ…ì€ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 				return;
 			} else {
 				chatSpec = true;
@@ -77,10 +95,10 @@ public class GameEventManager implements Listener {
 		
 		String msg = event.getMessage();
 		if(isPlayer) {
-			msg = pd.getColor().getChatColor() + p.getName() + " ¡×f: " + msg;
-			if(!isAlive) msg = "¡×7[À¯·É] " + msg;
+			msg = pd.getColor().getChatColor() + p.getName() + " Â§f: " + msg;
+			if(!isAlive) msg = "Â§7[ìœ ë ¹] " + msg;
 		} else {
-			msg = "¡×7[°üÀüÀÚ] ¡×n" + p.getName() + " : " + msg;
+			msg = "Â§7[ê´€ì „ì] Â§n" + p.getName() + " : " + msg;
 		}
 		
 		for(Player ap : Bukkit.getOnlinePlayers()) {
@@ -92,7 +110,7 @@ public class GameEventManager implements Listener {
 			}
 		}
 		
-		Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "¡×f[ChatLog] " + msg);
+		Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "Â§f[ChatLog] " + msg);
 	}
 	
 	
@@ -131,14 +149,14 @@ public class GameEventManager implements Listener {
 					PlayerData ed = PlayerData.getPlayerData(e.getName());
 					
 					if(pd.getKillCool() > 0) {
-						p.sendMessage(Main.PREFIX + "¡×cÅ³ ÄğÅ¸ÀÓÀÌ ¡×f" + (pd.getKillCool()/20 + 1) + "¡×cÃÊ ³²¾Ò½À´Ï´Ù.");
+						p.sendMessage(Main.PREFIX + "Â§cí‚¬ ì¿¨íƒ€ì„ì´ Â§f" + (pd.getKillCool()/20 + 1) + "Â§cì´ˆ ë‚¨ì•˜ìŠµë‹ˆë‹¤.");
 					} else {
 						pd.resetKillCool(false);
 						p.playSound(e.getLocation(), Sound.ENTITY_PLAYER_HURT, 1.0F, 1.0F);
 						
 						e.playSound(e.getLocation(), Sound.ENTITY_PLAYER_HURT	, 1.0F, 1.0F);
 						if(ed.isWatchingCCTV()) ed.exitCCTV(e);
-						e.sendTitle("¡×c¡×l»ç¸ÁÇÏ¼Ì½À´Ï´Ù", "¡×cBy " + pd.getColor().getChatColor() + p.getName(), 0, 100, 20);
+						e.sendTitle("Â§cÂ§lì‚¬ë§í•˜ì…¨ìŠµë‹ˆë‹¤", "Â§cBy " + pd.getColor().getChatColor() + p.getName(), 0, 100, 20);
 						ed.kill(false);
 					}
 				}
@@ -249,6 +267,19 @@ public class GameEventManager implements Listener {
 
 	
 	@EventHandler
+	public void onInteractAt(PlayerInteractAtEntityEvent event) {
+		Player p = event.getPlayer();
+		PlayerData pd = PlayerData.getPlayerData(p.getName());
+		
+		if(pd == null)
+			return;
+		
+		if(event.getRightClicked() instanceof ArmorStand) {
+			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
@@ -279,7 +310,7 @@ public class GameEventManager implements Listener {
 			} else if(is != null) {
 				
 				if(is.getType() == ItemList.VOTE_PAPER.getType()) {
-					p.sendMessage(Main.PREFIX + "¡×cÅõÇ¥ ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.");
+					p.sendMessage(Main.PREFIX + "Â§cíˆ¬í‘œ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.");
 					event.setCancelled(true);
 					return;
 				} else if(is.equals(ItemList.I_VENT_CONFIRM)) {
@@ -298,10 +329,10 @@ public class GameEventManager implements Listener {
 			
 			boolean blockClick = event.getAction() == Action.RIGHT_CLICK_BLOCK;
 
-			// 1. Å¬¸¯ÇÑ °÷ Á¡°Ë
+			// 1. í´ë¦­í•œ ê³³ ì ê²€
 			if (blockClick) {
 				Location loc = event.getClickedBlock().getLocation();
-				 // ÀÌ·¯¸é ´Ù¶ô¹®µµ ¸ø¿­À½
+				 // ì´ëŸ¬ë©´ ë‹¤ë½ë¬¸ë„ ëª»ì—´ìŒ
 				if(Util.getCorpse(loc) != null) {
 					if(!SETTING.ENABLE_CORPSE_REPORT.getAsBoolean()) {
 						event.setCancelled(true);
@@ -311,36 +342,36 @@ public class GameEventManager implements Listener {
 					if(PlayerData.getPlayerData(p.getName()) != null && p.getGameMode() != GameMode.SPECTATOR) {
 						VoteSystem.start(p.getWorld(), p.getName(), true, Util.getCorpse(loc));
 					} else {
-						p.sendMessage(Main.PREFIX + "¡×c½ÃÃ¼ ¸®Æ÷Æ®´Â »ıÁ¸ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+						p.sendMessage(Main.PREFIX + "Â§cì‹œì²´ ë¦¬í¬íŠ¸ëŠ” ìƒì¡´ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 					}
 					event.setCancelled(true);
 				} else if(loc.getBlock().getType() == Material.IRON_TRAPDOOR) {
 					if(GameTimer.gamemode != GameType.NORMAL) return;
 					if(GameTimer.IMPOSTER.contains(p.getName())) {
 						if(loc.distance(p.getLocation().getBlock().getLocation()) > 3.5D) {
-							p.sendMessage(Main.PREFIX + "¡×cº¥Æ®¿Í °¡±îÀÌ ºÙ¾îÁÖ¼¼¿ä.");
+							p.sendMessage(Main.PREFIX + "Â§cë²¤íŠ¸ì™€ ê°€ê¹Œì´ ë¶™ì–´ì£¼ì„¸ìš”.");
 						} else {
 							Util.toggleDoor(loc);
 							p.playSound(p.getLocation(), Sound.BLOCK_IRON_TRAPDOOR_OPEN, 1.0F, 1.0F);
 						}
 					}
 				} else if(LocManager.getLoc("CCTVButton").contains(loc)){
-					if(p.getGameMode() != GameMode.SPECTATOR){
-						if(Sabotage.isActivating(0) && Sabotage.Sabos.getType() == SaboType.COMM) {
-							p.sendMessage(Main.PREFIX + "¡×cÅë½Å »çº¸Å¸Áö ¹ßµ¿ Áß¿£ È®ÀÎÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
-						} else {
-							pd.moveCCTV(p, true);
-						}
+					if(Sabotage.isActivating(0) && Sabotage.Sabos.getType() == SaboType.COMM) {
+						p.sendMessage(Main.PREFIX + "Â§cí†µì‹  ì‚¬ë³´íƒ€ì§€ ë°œë™ ì¤‘ì—” í™•ì¸í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+					} else if(p.getGameMode() != GameMode.SPECTATOR){
+						pd.moveCCTV(p, true);
+					} else {
+						p.sendMessage(Main.PREFIX + "Â§cìœ ë ¹ì€ CCTVë¥¼ í™•ì¸í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 					}
 				} else if (LocManager.getLoc("EmergencyButton").contains(loc)) {
 					if(!pd.isAlive()) {
-						p.sendMessage("¡×c»ıÁ¸ÀÚ¸¸ ±ä±Ş ¼ÒÁıÀÌ °¡´ÉÇÕ´Ï´Ù.");
+						p.sendMessage("Â§cìƒì¡´ìë§Œ ê¸´ê¸‰ ì†Œì§‘ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 					} else if(pd.getRemainEmerg() <= 0) {
-						p.sendMessage("¡×c´ç½ÅÀº ¸ğµç ¼ÒÁı °¡´É È½¼ö¸¦ ¼ÒÁøÇß½À´Ï´Ù.");
+						p.sendMessage("Â§cë‹¹ì‹ ì€ ëª¨ë“  ì†Œì§‘ ê°€ëŠ¥ íšŸìˆ˜ë¥¼ ì†Œì§„í–ˆìŠµë‹ˆë‹¤.");
 					} else if(GameTimer.EMERG_REMAIN_TICK > 0){
-						p.sendMessage("¡×c¾ÆÁ÷ »ç¿ëÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù. ³²Àº ½Ã°£ : ¡×f" + ((GameTimer.EMERG_REMAIN_TICK / 20)+1) + "ÃÊ");
+						p.sendMessage("Â§cì•„ì§ ì‚¬ìš©ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤. ë‚¨ì€ ì‹œê°„ : Â§f" + ((GameTimer.EMERG_REMAIN_TICK / 20)+1) + "ì´ˆ");
 					} else if(Sabotage.isActivating(0)) {
-						p.sendMessage("¡×cÀ§±Ş »çº¸Å¸Áö ¹ßµ¿ Áß¿¡´Â ±ä±Ş ¼ÒÁıÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+						p.sendMessage("Â§cìœ„ê¸‰ ì‚¬ë³´íƒ€ì§€ ë°œë™ ì¤‘ì—ëŠ” ê¸´ê¸‰ ì†Œì§‘ì„ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 					} else {
 						VoteSystem.start(p.getWorld(), p.getName(), false, null);
 						pd.subtractRemainEmerg();
@@ -364,7 +395,7 @@ public class GameEventManager implements Listener {
 							}
 							
 							if(first == -1) {
-								p.sendMessage(Main.PREFIX + "¡×cÀÌ¹Ì ¿Ï·áÇÑ ¹Ì¼ÇÀÔ´Ï´Ù.");
+								p.sendMessage(Main.PREFIX + "Â§cì´ë¯¸ ì™„ë£Œí•œ ë¯¸ì…˜ì…ë‹ˆë‹¤.");
 							} else {
 								Material material = event.getClickedBlock().getType();
 
@@ -459,10 +490,10 @@ public class GameEventManager implements Listener {
 
 		if(GameTimer.PLAYERS.contains(p.getName())) {
 			PlayerData pd = PlayerData.getPlayerData(p.getName());
-			Bukkit.broadcastMessage(Main.PREFIX + pd.getColor().getChatColor() + p.getName() + "¡×f´Ô²²¼­ ÀçÁ¢¼ÓÇÏ¼Ì½À´Ï´Ù.");
-			//ÇÊ¿ä ÀÓ¹« ¼ö ´Ù½Ã ´Ã¸®±â
+			Bukkit.broadcastMessage(Main.PREFIX + pd.getColor().getChatColor() + p.getName() + "Â§fë‹˜ê»˜ì„œ ì¬ì ‘ì†í•˜ì…¨ìŠµë‹ˆë‹¤.");
+			//í•„ìš” ì„ë¬´ ìˆ˜ ë‹¤ì‹œ ëŠ˜ë¦¬ê¸°
 			GameTimer.REQUIRED_MISSION += Main.SETTING.COMMON_MISSION_AMOUNT.getAsInteger() + Main.SETTING.EASY_MISSION_AMOUNT.getAsInteger() + Main.SETTING.HARD_MISSION_AMOUNT.getAsInteger();
-			//¿Ï·á ÀÓ¹« ¼ö ´Ù½Ã ´Ã¸®±â
+			//ì™„ë£Œ ì„ë¬´ ìˆ˜ ë‹¤ì‹œ ëŠ˜ë¦¬ê¸°
 			GameTimer.CLEARED_MISSION +=pd.cleared_missions;
 			BossBarManager.updateBossBar(BossBarList.TASKS, Sabotage.Sabos != null && Sabotage.Sabos.getType() == SaboType.COMM);
 		}
@@ -474,9 +505,9 @@ public class GameEventManager implements Listener {
 		if(GameTimer.PLAYERS.contains(p.getName())) {
 			PlayerData pd = PlayerData.getPlayerData(p.getName());
 
-			//ÇÊ¿ä ÀÓ¹« ¼ö ÁÙÀÌ±â(ÀçÁ¢¼Ó½Ã ´Ã·Á¾ßÇÔ)
+			//í•„ìš” ì„ë¬´ ìˆ˜ ì¤„ì´ê¸°(ì¬ì ‘ì†ì‹œ ëŠ˜ë ¤ì•¼í•¨)
 			GameTimer.REQUIRED_MISSION -= Main.SETTING.COMMON_MISSION_AMOUNT.getAsInteger() + Main.SETTING.EASY_MISSION_AMOUNT.getAsInteger() + Main.SETTING.HARD_MISSION_AMOUNT.getAsInteger();
-			//¿Ï·á ÀÓ¹« ¼ö ÁÙÀÌ±â(ÀçÁ¢¼Ó½Ã ´Ã·Á¾ßÇÔ)
+			//ì™„ë£Œ ì„ë¬´ ìˆ˜ ì¤„ì´ê¸°(ì¬ì ‘ì†ì‹œ ëŠ˜ë ¤ì•¼í•¨)
 			GameTimer.CLEARED_MISSION -=pd.cleared_missions;
 			
 			
@@ -498,15 +529,15 @@ public class GameEventManager implements Listener {
 
 				}
 
-				if(Main.gt.getStatus()==GameTimer.Status.VOTING&&!VoteSystem.VOTERS.contains(p.getName())){//ÅõÇ¥ Áß Å»ÁÖ
+				if(Main.gt.getStatus()==GameTimer.Status.VOTING&&!VoteSystem.VOTERS.contains(p.getName())){//íˆ¬í‘œ ì¤‘ íƒˆì£¼
 					VoteSystem.VOTERS.contains(p.getName());
 					Bukkit.broadcastMessage(Main.PREFIX + PlayerData.getPlayerData(p.getName()).getColor().getChatColor() + p.getName()
-				+ "¡×f´Ô²²¼­ Áßµµ Å»ÁÖ·Î Å»¶ôÃ³¸®µÇ¾ú½À´Ï´Ù. ¡×e(³²Àº ÀÎ¿ø : " + --VoteSystem.remainedVoter + "¸í)");
+				+ "Â§fë‹˜ê»˜ì„œ ì¤‘ë„ íƒˆì£¼ë¡œ íƒˆë½ì²˜ë¦¬ë˜ì—ˆìŠµë‹ˆë‹¤. Â§e(ë‚¨ì€ ì¸ì› : " + --VoteSystem.remainedVoter + "ëª…)");
 					if(VoteSystem.remainedVoter==0){
 						VoteSystem.PROGRESSED_VOTE.voteover();
 					}
-				}else{//±âÅ¸ »óÈ² Áß Å»ÁÖ
-					Bukkit.broadcastMessage(Main.PREFIX + pd.getColor().getChatColor() + p.getName() + "¡×f´Ô²²¼­ Áßµµ Å»ÁÖ·Î Å»¶ôÃ³¸®µÇ¾ú½À´Ï´Ù.");
+				}else{//ê¸°íƒ€ ìƒí™© ì¤‘ íƒˆì£¼
+					Bukkit.broadcastMessage(Main.PREFIX + pd.getColor().getChatColor() + p.getName() + "Â§fë‹˜ê»˜ì„œ ì¤‘ë„ íƒˆì£¼ë¡œ íƒˆë½ì²˜ë¦¬ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				}
 			}
 		}
@@ -547,15 +578,6 @@ public class GameEventManager implements Listener {
 			pd.setVent(p, v, loc);
 		}
 	}
-
-	@EventHandler
-	public void onInteractAt(PlayerInteractAtEntityEvent event){
-		Player p = event.getPlayer();
-		if(event.getRightClicked() instanceof  ArmorStand){
-			if(PlayerData.getPlayerData(p.getName()) != null)
-				event.setCancelled(true);
-		}
-	}
 	
 	@EventHandler(priority=EventPriority.LOW)
 	public void onClick(InventoryClickEvent event) {
@@ -571,7 +593,7 @@ public class GameEventManager implements Listener {
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
 		
 		if(pd != null) {
-			if(p.getGameMode() == GameMode.SPECTATOR && !pd.isWatchingCCTV())
+			if(p.getGameMode() == GameMode.SPECTATOR && !pd.isWatchingCCTV()) 
 				event.setCancelled(false);
 			if(pd.isWatchingCCTV() && event.getCurrentItem() != null && event.getCurrentItem().getType() == ItemList.CCTV_EXIT.getType()) {
 				pd.exitCCTV(p);
@@ -582,6 +604,7 @@ public class GameEventManager implements Listener {
 		}
 		SabotageGUI.onClick(event);
 		AdminMap.onClick(event);
+
 	}
 
 }

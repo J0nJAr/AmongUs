@@ -152,7 +152,7 @@ public class E_DistributePower extends Mission {
 		@Override
 		public void EventStartTimer() {
 			// TODO Auto-generated method stub
-			Util.debugMessage("¾Æ´Ï ÀÌ°Ô ÇÑ¹ø¸¸ ½ÇÇàµÅ¾ßÁö?");
+			Util.debugMessage("ì•„ë‹ˆ ì´ê²Œ í•œë²ˆë§Œ ì‹¤í–‰ë¼ì•¼ì§€?");
 			c = 0;
 		}
 

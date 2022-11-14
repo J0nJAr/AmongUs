@@ -1,26 +1,29 @@
 package bepo.au.function;
 
-import bepo.au.manager.LocManager;
-import bepo.au.utils.Util;
+import java.util.HashSet;
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.util.HashSet;
-import java.util.List;
+import bepo.au.manager.LocManager;
+import bepo.au.utils.Util;
 
 public class CCTV {
 	
-	public static HashSet<Player> watchingCCTVset = new HashSet<Player>();//º¸°í ÀÖ´Â ÇÃ·¹ÀÌ¾îµé
+	public static HashSet<Player> watchingCCTVset = new HashSet<Player>();//ë³´ê³  ìˆëŠ” í”Œë ˆì´ì–´ë“¤
 
 	public enum E_cctv{
-		Security("º¸¾È½Ç"),
-		MedBay("ÀÇ¹«½Ç"),
-		Admin("°ü¸®½Ç"),
-		Navi("Ç×ÇØ½Ç");
+		Security("ë³´ì•ˆì‹¤"),
+		MedBay("ì˜ë¬´ì‹¤"),
+		Admin("ê´€ë¦¬ì‹¤"),
+		Navi("í•­í•´ì‹¤");
 		
 		E_cctv(String name) {
 			this.name = name;

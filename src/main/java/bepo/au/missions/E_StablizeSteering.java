@@ -1,20 +1,24 @@
 package bepo.au.missions;
 
-import bepo.au.Main;
-import bepo.au.base.Mission;
-import bepo.au.utils.Util;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.List;
+import bepo.au.Main;
+import bepo.au.base.Mission;
+import bepo.au.utils.Util;
+
 import java.util.Random;
 
 public class E_StablizeSteering extends Mission {
@@ -26,17 +30,17 @@ public class E_StablizeSteering extends Mission {
 	/*
 	 * 명령어 쳤을 때 실행됨, GUI 열기 시도.
 	 */
-
+	
 	public E_StablizeSteering(MissionType mt, String name, String korean, int clear, Location loc) {
 		super(mt, name, korean, clear, loc);
 	}
-
+	
 	@Override
 	public void onAssigned(Player p) {
 		assign(p);
 		uploadInventory(p, maxslot, guiName);
 	}
-
+	
 	@Override
 	public void onStart(Player p, int code) {
 		int x, y;
@@ -50,7 +54,7 @@ public class E_StablizeSteering extends Mission {
 		setGUI(elytraSlot); // GUI 만들기
 		p.openInventory(gui.get(0));
 	}
-
+	
 	@Override
 	public void onStop(Player p, int code) {
 		new BukkitRunnable() {
@@ -58,9 +62,9 @@ public class E_StablizeSteering extends Mission {
 				p.getInventory().remove(Material.ELYTRA);
 			}
 		}.runTaskLater(Main.getInstance(), 0L);
-
+		
 	}
-
+	
 	@Override
 	public void onClear(Player p, int code) {
 		generalClear(p, code);
@@ -97,9 +101,9 @@ public class E_StablizeSteering extends Mission {
 		}.runTaskLater(main, 0L);
 	}
 
+	
 
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@EventHandler
 	private void onClick(InventoryClickEvent e) {
 		if(!checkPlayer(e)) return;
@@ -136,7 +140,7 @@ public class E_StablizeSteering extends Mission {
 					break;
 				}
 			}
-		}
+			}
 
 	}
 

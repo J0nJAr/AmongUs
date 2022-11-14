@@ -62,8 +62,8 @@ public class E_Data extends Mission{
 		}
 		
 		@Override
-		public void EventStartTimer() { //Å¸ÀÌ¸Ó
-			Util.debugMessage(" Å¸ÀÌ¸Ó ½ÃÀÛµÊ");
+		public void EventStartTimer() { //íƒ€ì´ë¨¸
+			Util.debugMessage(" íƒ€ì´ë¨¸ ì‹œì‘ë¨");
 		}
 		
 		@Override
@@ -79,7 +79,7 @@ public class E_Data extends Mission{
 				Util.Stack(gui.get(pt), 7, Material.AIR, 1, "");
 			}
 			else if (paperslot>0) {
-				if(paperslot<8)Util.Stack(gui.get(pt), paperslot, Material.PAPER, 1, "¡×fDATA","¡×4Å¬¸¯ºÒ°¡");
+				if(paperslot<8)Util.Stack(gui.get(pt), paperslot, Material.PAPER, 1, "Â§fDATA","Â§4í´ë¦­ë¶ˆê°€");
 				if(paperslot>1) Util.Stack(gui.get(pt), paperslot-1, Material.AIR, 1, "");
 				else Util.Stack(gui.get(pt), 7, Material.AIR, 1, "");
 			}
@@ -120,13 +120,13 @@ public class E_Data extends Mission{
 			default:
 				changed =false;
 			}
-			if(p != null && p.getOpenInventory().getTitle().split(" ")[0].equals("Data")) { //gui ¿­°íÀÖ´ÂÁö È®ÀÎ
-				Util.debugMessage("gui ÀÎ½ÄµÊ");
+			if(p != null && p.getOpenInventory().getTitle().split(" ")[0].equals("Data")) { //gui ì—´ê³ ìˆëŠ”ì§€ í™•ì¸
+				Util.debugMessage("gui ì¸ì‹ë¨");
 				if(changed) {
 				ItemStack[] temp = 	gui.get(pt).getContents();
 					gui.set(pt, Bukkit.createInventory(p, 18, "Data " +partname[pt]+" " +percentage+"%"));
 					gui.get(pt).setContents(temp);
-					for (int i=slot;i>8;i--) if (9<=i&&i<18) Util.Stack(gui.get(pt), i, Material.GREEN_STAINED_GLASS_PANE, 1, "¡×f"+(percentage)+"%","¡×4Å¬¸¯ºÒ°¡");
+					for (int i=slot;i>8;i--) if (9<=i&&i<18) Util.Stack(gui.get(pt), i, Material.GREEN_STAINED_GLASS_PANE, 1, "Â§f"+(percentage)+"%","Â§4í´ë¦­ë¶ˆê°€");
 					new BukkitRunnable() {
 						public void run() {
 							if (count>=maxtimer) {clear(p, pt);}
@@ -137,14 +137,14 @@ public class E_Data extends Mission{
 				
 				}
 					
-			}else { //¾Æ´Ï¸é Äµ½½
-				Util.debugMessage("ÀÎº¥Åä¸® ´İÀ½ È®ÀÎ");
+			}else { //ì•„ë‹ˆë©´ ìº”ìŠ¬
+				Util.debugMessage("ì¸ë²¤í† ë¦¬ ë‹«ìŒ í™•ì¸");
 				stop(pt);
 				}
 		}
 		@Override
 		public void EventEndTimer() {
-				Util.debugMessage("Å¸ÀÌ¸Ó Á¾·áµÊ");
+				Util.debugMessage("íƒ€ì´ë¨¸ ì¢…ë£Œë¨");
 			}
 			
 		}
@@ -157,14 +157,14 @@ public class E_Data extends Mission{
 	int timertick=1;
 	int part;
 	String[] partname = {"Download","Upload"};
-	String color = "WHITE"; //»ö ±âº»°ª
+	String color = "WHITE"; //ìƒ‰ ê¸°ë³¸ê°’
 	
 	///////////////////////////////////////////////////
 	public void data(Player p, int pt) {
 		timer = new Timer(p, pt);
 		// Color.AQUA, Color.BLUE, Color.GRAY, Color.GREEN, Color.ORANGE, Color.PURPLE, Color.RED, Color.WHITE, Color.YELLOW, Color.SILVER, Color.NAVY, Color.TEAL
 		// LIGHT_BLUE, BLUE, GRAY, GREEN, ORANGE, PURPLE, RED, WHITE, YELLOW, LIGHT_GRAY, NAVY, TEAL
-		color = PlayerData.getPlayerData(p.getName()).getColor().getDyeColor().toString(); //<- ³Ê°¡ ÇÕÄ¥¶§ ÀÌ·±½ÄÀ¸·Î ÇØÁÖ¼À
+		color = PlayerData.getPlayerData(p.getName()).getColor().getDyeColor().toString(); //<- ë„ˆê°€ í•©ì¹ ë•Œ ì´ëŸ°ì‹ìœ¼ë¡œ í•´ì£¼ì…ˆ
 		
 
 		Material shulker = Material.getMaterial(color+"_SHULKER_BOX");

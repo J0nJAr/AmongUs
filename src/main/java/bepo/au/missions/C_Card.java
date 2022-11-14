@@ -1,7 +1,9 @@
 package bepo.au.missions;
 
-import bepo.au.Main;
-import bepo.au.base.Mission;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -13,14 +15,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import bepo.au.Main;
+import bepo.au.base.Mission;
 
 public class C_Card extends Mission{
 
 	private List<String> lore = Arrays.asList("§7", "§71. 카드를 든다.", "§72. 좌측 빈 공간에 마우스를 가져다댄다.", "§73. 우측 빈 공간 끝까지 우클릭을 누른채로 드래그한다.", "§71~3의 동작을 적절한 속도로 진행해주세요.");
-
+	
 	public C_Card(MissionType mt, String name, String korean, int clear, Location loc) {
 		super(mt, name, korean, clear, loc);
 	}
@@ -29,8 +30,8 @@ public class C_Card extends Mission{
 	public void onAssigned(Player p) {
 		assign(p);
 		uploadInventory(p, 27, "카드키 미션");
-
-
+		
+		
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class C_Card extends Mission{
 	public void onClear(Player p, int i) {
 		generalClear(p, i);
 	}
-
+	
 	@Override
 	public void onStop(Player p, int i) {
 		new BukkitRunnable() {
@@ -58,26 +59,26 @@ public class C_Card extends Mission{
 				p.getInventory().remove(Material.PAPER);
 			}
 		}.runTaskLater(Main.getInstance(), 0L);
-
+		
 		if(ct != null) {
 			ct.cancel();
 			ct = null;
 		}
 	}
-
+	
 	private CardTimer ct = null;
 
 	@EventHandler
 	public void onDrag(InventoryDragEvent event) {
 		if(!checkPlayer(event)) return;
 		Player p = (Player) event.getWhoClicked();
-
+		
 		Set<Integer> set = event.getInventorySlots();
 		if(set != null && set.size() == 8 && set.contains(16)) {
 			int timer = ct.getTimer();
 			int diff = 5;
 			int period = 11 - diff;
-
+			
 			if(timer > 20 + period) {
 				resetInv(p, event.getView().getTopInventory());
 				Stack(gui.get(0), 17, Material.BARRIER, 1, "§c§l너무 느리게 긁었습니다!", lore);
@@ -87,20 +88,20 @@ public class C_Card extends Mission{
 			} else {
 				onClear(p, 0);
 			}
-
+			
 		} else {
-
+			
 			resetInv(p, event.getView().getTopInventory());
 			Stack(gui.get(0), 17, Material.BARRIER, 1, "§c§l카드를 제대로 긁어주세요!", lore);
 		}
-
+		
 		if(ct != null) {
 			ct.cancel();
 			ct = null;
 		}
-
+		
 	}
-
+	
 	private void resetInv(Player p, Inventory inv) {
 		new BukkitRunnable() {
 			public void run() {
@@ -112,16 +113,16 @@ public class C_Card extends Mission{
 			}
 		}.runTaskLater(main, 1L);
 	}
-
+	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
-
+		
 		if(!checkPlayer(event)) return;
-
+		
 		Player p = (Player) event.getWhoClicked();
 
-
-
+		
+		
 		if(event.getCurrentItem() != null && event.getCurrentItem().getType() == Material.PAPER) {
 			if(ct != null) {
 				ct.cancel();
@@ -136,26 +137,26 @@ public class C_Card extends Mission{
 		} else {
 			event.setCancelled(true);
 		}
-
+		
 	}
-
+	
 	public class CardTimer extends BukkitRunnable {
-
+		
 		private int timer = 0;
 		private Player p;
 		public CardTimer(Player p) {
 			this.p = p;
 		}
-
+		
 		public void run() {
 			timer++;
 			if(p == null || !p.isOnline()) cancel();
 		}
-
+		
 		public int getTimer() {
 			return this.timer;
 		}
-
+		
 	}
 
 }

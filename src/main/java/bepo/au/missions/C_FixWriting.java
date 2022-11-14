@@ -58,24 +58,24 @@ public class C_FixWriting extends Mission {
 		
 		if(i != cleared.size()) return;
 		for(int y=0;y<4;y++) connected[i][y] = false;
-		for (int slot = 0; slot < 54; slot++) {// guiÀÎº¥Åä¸®
+		for (int slot = 0; slot < 54; slot++) {// guiì¸ë²¤í† ë¦¬
 			int y = slot / 9, x = slot % 9;
 			if (y == 0 || y == 2 || y == 3 || y == 5) {
-				//Util.debugMessage(" wirecolorArray È®ÀÎ " + wirecolorArray[i][yToidx(y)]);
+				//Util.debugMessage(" wirecolorArray í™•ì¸ " + wirecolorArray[i][yToidx(y)]);
 				if (x == 8)
-					Util.Stack(gui.get(i), slot, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// °ËÁ¤»öÇ¥½Ã
+					Util.Stack(gui.get(i), slot, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// ê²€ì •ìƒ‰í‘œì‹œ
 				else if (x == 0)
-					Util.Stack(gui.get(i), slot, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// ³ë¶û Ç¥½Ã
+					Util.Stack(gui.get(i), slot, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// ë…¸ë‘ í‘œì‹œ
 				else if (x == 1 || x == 2)
-					fillWire(gui.get(i), slot, wirecolorArray[i][yToidx(y)], x, i);// ¿ŞÂÊ ¿ÍÀÌ¾î Ã¤¿ì±â(·£´ı)
+					fillWire(gui.get(i), slot, wirecolorArray[i][yToidx(y)], x, i);// ì™¼ìª½ ì™€ì´ì–´ ì±„ìš°ê¸°(ëœë¤)
 				else if (x == 7)
-					fillWire(gui.get(i), slot, yToidx(y), i); // ¿À¸¥ÂÊ ¿ÍÀÌ¾î Ã¤¿ì±â(°íÁ¤)
+					fillWire(gui.get(i), slot, yToidx(y), i); // ì˜¤ë¥¸ìª½ ì™€ì´ì–´ ì±„ìš°ê¸°(ê³ ì •)
 				else if (x == 6)
-					gui.get(i).clear(slot); // ¿À¸¥ÂÊ ¿ÍÀÌ¾î ºó°ø°£
+					gui.get(i).clear(slot); // ì˜¤ë¥¸ìª½ ì™€ì´ì–´ ë¹ˆê³µê°„
 				else
-					Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ¹è°æ
+					Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ë°°ê²½
 			} else
-				Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ¹è°æ
+				Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ë°°ê²½
 		}
 		p.openInventory(gui.get(i));
 	}
@@ -112,19 +112,19 @@ public class C_FixWriting extends Mission {
 	}
 
 	public void fillWire(Inventory gui, int slot, int color, int num, int code) {
-		List<String> lore = (num == 1 ? Arrays.asList("¡×4Å¬¸¯ºÒ°¡") : Arrays.asList("¡×7¿ìÅ¬¸¯¸¸ °¡´ÉÇÕ´Ï´Ù."));
+		List<String> lore = (num == 1 ? Arrays.asList("Â§4í´ë¦­ë¶ˆê°€") : Arrays.asList("Â§7ìš°í´ë¦­ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤."));
 		switch (color) {
 		case 0:
-			Util.Stack(gui, slot, WIRECOLORARRAY[0], num, "¡×cRed ¡×fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[0], num, "Â§cRed Â§fWire", lore);
 			break;
 		case 1:
-			Util.Stack(gui, slot, WIRECOLORARRAY[1], num, "¡×9Blue ¡×fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[1], num, "Â§9Blue Â§fWire", lore);
 			break;
 		case 2:
-			Util.Stack(gui, slot, WIRECOLORARRAY[2], num, "¡×aGreen ¡×fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[2], num, "Â§aGreen Â§fWire", lore);
 			break;
 		case 3:
-			Util.Stack(gui, slot, WIRECOLORARRAY[3], num, "¡×dPurple ¡×fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[3], num, "Â§dPurple Â§fWire", lore);
 			break;
 		case -1:
 			gui.setItem(slot, new ItemStack(Material.BARRIER, num));
@@ -142,24 +142,24 @@ public class C_FixWriting extends Mission {
 			public void run() {
 				if (slot % 9 == 6 && slot < 54 && slot / 9 != 1 && slot / 9 != 4) {
 					int idx = yToidx(slot / 9);
-					//Util.debugMessage(slot + "½½·Ô ¿¬°á È®ÀÎ");
+					//Util.debugMessage(slot + "ìŠ¬ë¡¯ ì—°ê²° í™•ì¸");
 					if (!(gui.get(code).getItem(slot) == null)
 							&& gui.get(code).getItem(slot).getType() == WIRECOLORARRAY[idx]) {
-						//Util.debugMessage("¿¬°áµÊ" + (slot + 2) + "¿¡ ³ë¶õ À¯¸®");
-						Util.Stack(gui.get(code), slot + 2, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// Àü±â µé¾î¿È Ç¥½Ã
-						p.playSound(p.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1.0f, 1.2f); //¼Ò¸®Àç»ı
+						//Util.debugMessage("ì—°ê²°ë¨" + (slot + 2) + "ì— ë…¸ë€ ìœ ë¦¬");
+						Util.Stack(gui.get(code), slot + 2, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// ì „ê¸° ë“¤ì–´ì˜´ í‘œì‹œ
+						p.playSound(p.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1.0f, 1.2f); //ì†Œë¦¬ì¬ìƒ
 						connected[code][idx] = true;
 						for (int i = 0; i < 4; i++)
 							if (connected[code][i] == false) {
-								Util.debugMessage(i + "°¡ ¿¬°á¾ÈµÊ");
+								Util.debugMessage(i + "ê°€ ì—°ê²°ì•ˆë¨");
 								return;
 							}
 						Util.debugMessage("connected[" + code + "][" + idx + "]");
-						Util.debugMessage("Å¬¸®¾î!"); // Å¬¸®¾î!
+						Util.debugMessage("í´ë¦¬ì–´!"); // í´ë¦¬ì–´!
 						onClear(p, code);
 					} else {
-						//Util.debugMessage("¿¬°á¾ÈµÊ" + (slot + 2) + "¿¡ °ËÀº À¯¸®");
-						Util.Stack(gui.get(code), slot + 2, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// Àü±â ²÷±è Ç¥½Ã
+						//Util.debugMessage("ì—°ê²°ì•ˆë¨" + (slot + 2) + "ì— ê²€ì€ ìœ ë¦¬");
+						Util.Stack(gui.get(code), slot + 2, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// ì „ê¸° ëŠê¹€ í‘œì‹œ
 						connected[code][idx] = false;
 					}
 				}
@@ -174,7 +174,7 @@ public class C_FixWriting extends Mission {
 			return;
 
 		String title = e.getView().getTitle();
-		Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
+		Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
 		int slot = e.getRawSlot();
 		int code = Integer.parseInt(title.replace("FixWiring", ""));
 		ItemStack itemstack = e.getCurrentItem();
@@ -183,18 +183,18 @@ public class C_FixWriting extends Mission {
 		// Player p = (Player) e.getWhoClicked();
 
 		if (e.isRightClick())
-			Util.debugMessage("¿ìÅ¬¸¯ ÀÎ½ÄµÊ");
+			Util.debugMessage("ìš°í´ë¦­ ì¸ì‹ë¨");
 		if (e.getCurrentItem() != null) {
-			if (!e.isRightClick() || // ¿ìÅ¬¸¯¸¸ Çã¿ë
-					(slot % 9 != 2 && slot % 9 != 6) || // Å¬¸¯ °¡´ÉÇÑ xÁÂÇ¥
-					slot / 9 == 1 || slot / 9 == 4 // Å¬¸¯ ºÒ°¡ÀÎ yÁÂÇ¥
+			if (!e.isRightClick() || // ìš°í´ë¦­ë§Œ í—ˆìš©
+					(slot % 9 != 2 && slot % 9 != 6) || // í´ë¦­ ê°€ëŠ¥í•œ xì¢Œí‘œ
+					slot / 9 == 1 || slot / 9 == 4 // í´ë¦­ ë¶ˆê°€ì¸ yì¢Œí‘œ
 			) { //
-				//Util.debugMessage("Å¬¸¯ ºÒ°¡");
+				//Util.debugMessage("í´ë¦­ ë¶ˆê°€");
 				e.setCancelled(true);
 			}
 			if ((e.getCursor().getType() != Material.AIR || itemstack.getAmount() == 1)
-					&& (slot % 9 == 1 || slot % 9 == 2 || slot % 9 == 7)) {// ¾ÆÀÌÅÛ ÇÏ³ªÀÏ½Ã Å¬¸¯ ºÒ°¡ &
-				//Util.debugMessage("Å¬¸¯ ºÒ°¡");
+					&& (slot % 9 == 1 || slot % 9 == 2 || slot % 9 == 7)) {// ì•„ì´í…œ í•˜ë‚˜ì¼ì‹œ í´ë¦­ ë¶ˆê°€ &
+				//Util.debugMessage("í´ë¦­ ë¶ˆê°€");
 				e.setCancelled(true);
 			}
 		}

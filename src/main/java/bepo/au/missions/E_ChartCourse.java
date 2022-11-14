@@ -12,7 +12,7 @@ import bepo.au.Main;
 import bepo.au.base.Mission;
 import bepo.au.utils.Util;
 
-//Cur_route°¡ 4µÇ¸é ³¡
+//Cur_routeê°€ 4ë˜ë©´ ë
 public class E_ChartCourse extends Mission {
 	
 	public E_ChartCourse(MissionType mt2, String name, String korean, int clear, Location loc) {
@@ -54,21 +54,21 @@ public class E_ChartCourse extends Mission {
 		routeArray = resetRoutes();
 
 		for (int Slot = 0; Slot < 54; Slot++) {
-			Util.Stack(gui.get(0), Slot, Material.BLACK_STAINED_GLASS_PANE, 1, " "); //¿ìÁÖ°ø°£
+			Util.Stack(gui.get(0), Slot, Material.BLACK_STAINED_GLASS_PANE, 1, " "); //ìš°ì£¼ê³µê°„
 		}
 
 		for (int i = 0; i < 4; i++) {
-			Util.fillAround(gui.get(0), routeArray[i], Material.GRAY_STAINED_GLASS_PANE);// ÁÖº¯ Ç¥½Ã
+			Util.fillAround(gui.get(0), routeArray[i], Material.GRAY_STAINED_GLASS_PANE);// ì£¼ë³€ í‘œì‹œ
 			if (i != 0)
 				Util.Stack(gui.get(0), routeArray[i], Material.RED_STAINED_GLASS_PANE, 1, " ");
 		}
-		Util.Stack(gui.get(0), routeArray[0], Material.ELYTRA, 1, "¡×fÇ×·Î");
+		Util.Stack(gui.get(0), routeArray[0], Material.ELYTRA, 1, "Â§fí•­ë¡œ");
 	}
 
 	private void updateCourse(Player p) {
-		Util.Stack(gui.get(0), routeArray[Cur_route], Material.GREEN_STAINED_GLASS_PANE, 1, " ");// ¿Ï·á Ç¥½Ã
+		Util.Stack(gui.get(0), routeArray[Cur_route], Material.GREEN_STAINED_GLASS_PANE, 1, " ");// ì™„ë£Œ í‘œì‹œ
 		if (Cur_route != 3){
-			Util.Stack(gui.get(0), routeArray[Cur_route+1], Material.ELYTRA, 1, "¡×fÇ×·Î");
+			Util.Stack(gui.get(0), routeArray[Cur_route+1], Material.ELYTRA, 1, "Â§fí•­ë¡œ");
 			p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
 		}
 		else {
@@ -80,7 +80,7 @@ public class E_ChartCourse extends Mission {
 		Cur_route++;
 	}
 	
-	public static int[] resetRoutes() {// ÁÂÇ¥ ·£´ı¼³Á¤
+	public static int[] resetRoutes() {// ì¢Œí‘œ ëœë¤ì„¤ì •
 		int x = 0, y;
 		int maxy = 6;
 		int[] routeList = new int[4];
@@ -92,9 +92,9 @@ public class E_ChartCourse extends Mission {
 		return routeList;
 	}
 
-	public static int xyToSlot(int x, int y) { // ÁÂÇ¥¸¦ 0~53À¸·Î
+	public static int xyToSlot(int x, int y) { // ì¢Œí‘œë¥¼ 0~53ìœ¼ë¡œ
 		if (x > 9)
-			x = 9; // xÃÖ´ë´Â 9
+			x = 9; // xìµœëŒ€ëŠ” 9
 		int idx = (x - 1) + (y - 1) * 9;
 		return idx;
 	}

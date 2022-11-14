@@ -4,18 +4,19 @@ import bepo.au.Main;
 import bepo.au.base.PlayerData;
 import bepo.au.function.ItemList;
 import bepo.au.manager.LocManager;
-import net.minecraft.server.v1_16_R3.*;
-import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
-import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.MagmaCube;
+import net.minecraft.world.level.border.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ArmorStand.LockType;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -30,10 +31,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class PlayerUtil {
 
+
 	/*
-	 * ¼ÈÄ¿ ±â´É
+	 * ì…œì»¤ ê¸°ëŠ¥
 	 */
 	public static class ShulkerInfo {
 
@@ -64,9 +67,9 @@ public class PlayerUtil {
 
 			Location l = locationParser(loc);
 			if (shulkerinfo.containsKey(l.getBlock().getLocation())) {
-				PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(
+				ClientboundRemoveEntitiesPacket destroy = new ClientboundRemoveEntitiesPacket(
 						shulkerinfo.get(l.getBlock().getLocation()));
-				((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(destroy);
+				((CraftPlayer) getPlayer()).getHandle().connection.send(destroy);
 
 				shulkerinfo.remove(l.getBlock().getLocation());
 			}
@@ -81,22 +84,22 @@ public class PlayerUtil {
 
 			if (shulkerinfo.containsKey(l.getBlock().getLocation()))
 				removeShulker(l);
+			ServerLevel ws = ((CraftWorld) loc.getWorld()).getHandle();
 
-			WorldServer ws = ((CraftWorld) loc.getWorld()).getHandle();
-			EntityMagmaCube es = new EntityMagmaCube(EntityTypes.MAGMA_CUBE, ws);
+			MagmaCube es = new MagmaCube(EntityType.MAGMA_CUBE, ws);
 			// EntityShulker es = new EntityShulker(EntityTypes.SHULKER, ws);
 
-			es.setPosition(loc.getX(), loc.getBlockY() + 0.25D, loc.getZ());
+			es.setPos(loc.getX(), loc.getBlockY() + 0.25D, loc.getZ());
 			es.setInvulnerable(true);
-			es.setNoAI(true);
+			es.setNoAi(true);
 			es.setSize(1, true);
 			es.setSilent(true);
 
-			es.setFlag(6, true); // ¹à±â
-			es.setFlag(5, true); // Åõ¸íÈ­
+			es.setSharedFlag(6, true); // ë°ê¸°
+			es.setSharedFlag(5, true); // íˆ¬ëª…í™”
 
 			es.setInvisible(true);
-			es.glowing = true;
+			es.setGlowingTag(true);
 
 			if (c != ColorUtil.WHITE) {
 				Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
@@ -112,15 +115,16 @@ public class PlayerUtil {
 					team.setColor(c.getChatColor());
 				}
 
-				team.addEntry(es.getUniqueIDString());
+				team.addEntry(es.getStringUUID());
 			}
 
-			PacketPlayOutSpawnEntityLiving packet = new PacketPlayOutSpawnEntityLiving(es);
-			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(packet);
 
-			PacketPlayOutEntityMetadata metaPacket = new PacketPlayOutEntityMetadata(es.getId(), es.getDataWatcher(),
+			ClientboundAddEntityPacket packet = new ClientboundAddEntityPacket(es);
+			((CraftPlayer) getPlayer()).getHandle().connection.send(packet);
+
+			ClientboundSetEntityDataPacket metaPacket = new ClientboundSetEntityDataPacket(es.getId(), es.getEntityData(),
 					true);
-			((CraftPlayer) getPlayer()).getHandle().playerConnection.sendPacket(metaPacket);
+			((CraftPlayer) getPlayer()).getHandle().connection.send(metaPacket);
 
 			shulkerinfo.put(l.getBlock().getLocation(), es.getId());
 		}
@@ -168,7 +172,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ÀÇÀÚ ±â´É
+	 * ì˜ì ê¸°ëŠ¥
 	 */
 	private static HashMap<Player, ArmorStand> chair = new HashMap<Player, ArmorStand>();
 
@@ -214,7 +218,7 @@ public class PlayerUtil {
 
 	private static ArmorStand dropSeat(Block chair) {
 		Location location = chair.getLocation().add(0.5, -1.0, 0.5);
-		ArmorStand drop = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+		ArmorStand drop = (ArmorStand) location.getWorld().spawnEntity(location, org.bukkit.entity.EntityType.ARMOR_STAND);
 		drop.setInvulnerable(true);
 		drop.setVisible(false);
 		drop.setGravity(false);
@@ -224,7 +228,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ Áö±Ş
+	 * í”Œë ˆì´ì–´ ì•„ì´í…œ ì§€ê¸‰
 	 */
 
 	public static void getImposterSet(Player p, boolean first) {
@@ -242,17 +246,17 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ¾×¼Ç¹Ù
+	 * ì•¡ì…˜ë°”
 	 */
 
 	public static void sendActionBar(Player p, String string) {
 		p.sendActionBar(string);
 	}
-	
-	
+
+
 
 	/*
-	 * ÇÃ·¹ÀÌ¾î ¼û±â±â
+	 * í”Œë ˆì´ì–´ ìˆ¨ê¸°ê¸°
 	 */
 	private static HashMap<Player, List<Player>> hidden = new HashMap<Player, List<Player>>();
 	private static List<String> invisible = new ArrayList<String>();
@@ -286,7 +290,7 @@ public class PlayerUtil {
 	public static boolean isHidden(Player p, Player target) {
 		return ((hidden.containsKey(p) && hidden.get(p).contains(target)));
 	}
-	
+
 	public static boolean isInvisible(Player p) {
 		return invisible.contains(p.getName());
 	}
@@ -358,14 +362,14 @@ public class PlayerUtil {
 	}
 
 	public static void showTabList(Player player) {
-		PacketPlayOutPlayerInfo pack = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.ADD_PLAYER,
+		ClientboundPlayerInfoPacket pack = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER,
 				((CraftPlayer) player).getHandle());
 		for (Player ap : Bukkit.getOnlinePlayers())
-			((CraftPlayer) ap).getHandle().playerConnection.sendPacket(pack);
+			((CraftPlayer) ap).getHandle().connection.send(pack);
 	}
 
 	public static ArmorStand spawnDecoy(Location loc, PlayerData pd) {
-		ArmorStand as = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+		ArmorStand as = (ArmorStand) loc.getWorld().spawnEntity(loc, org.bukkit.entity.EntityType.ARMOR_STAND);
 		as.setBasePlate(false);
 		as.setArms(true);
 		as.setSilent(true);
@@ -383,33 +387,33 @@ public class PlayerUtil {
 	private static ArrayList<Location> SEATS;
 	private static List<PlayerData> DATALIST;
 
-	public static void setSeats(boolean checkAlive) { // ÀÚ¸®·Î TP
+	public static void setSeats(boolean checkAlive) { // ìë¦¬ë¡œ TP
 		DATALIST = PlayerData.getPlayerDataList();
 		SEATS = LocManager.getLoc("SEATS");
 		if (DATALIST.size() > SEATS.size()) {
-			Util.debugMessage("ÇÃ·¹ÀÌ¾î ¼öº¸´Ù ÀÚ¸®°¡ Àû½À´Ï´Ù.");
-		} 
+			Util.debugMessage("í”Œë ˆì´ì–´ ìˆ˜ë³´ë‹¤ ìë¦¬ê°€ ì ìŠµë‹ˆë‹¤.");
+		}
 		for (int idx = 0; idx < DATALIST.size(); idx++) {
 			Player currentPlayer = Bukkit.getPlayer(DATALIST.get(idx).getName());
 			if (currentPlayer != null && currentPlayer.getVehicle() == null && (!checkAlive || DATALIST.get(idx).isAlive())) {
-				currentPlayer.teleport(SEATS.get(idx));// ÇÃ·¹ÀÌ¾î¸¦ °¢ ÀÚ¸®·Î ÀÌµ¿
+				currentPlayer.teleport(SEATS.get(idx));// í”Œë ˆì´ì–´ë¥¼ ê° ìë¦¬ë¡œ ì´ë™
 			}
 		}
 	}
-	
-	
+
+
 	public static void toggleRedEffect(Player p, boolean bool) {
 		CraftPlayer cp = (CraftPlayer) p;
-		WorldBorder wb = cp.getHandle().world.getWorldBorder();
+		WorldBorder wb = cp.getHandle().level.getWorldBorder();
 		if(bool) {
 			wb.setSize(1D);
 			wb.setCenter(p.getLocation().getX() + 10_000, p.getLocation().getZ() + 10_000);
-			cp.getHandle().playerConnection.sendPacket(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
+			cp.getHandle().connection.send(new ClientboundInitializeBorderPacket(wb));
 		} else {
 			wb.setSize(30_000_000);
 			wb.setCenter(p.getLocation().getX(), p.getLocation().getZ());
-			cp.getHandle().playerConnection.sendPacket
-			(new PacketPlayOutWorldBorder(wb, EnumWorldBorderAction.INITIALIZE));
+			cp.getHandle().connection.send
+			(new ClientboundInitializeBorderPacket(wb));
 		}
 	}
 }

@@ -30,49 +30,49 @@ public class ScoreboardManager implements AssembleAdapter{
 		List<String> line = new ArrayList<String>();
 		
 		if(pd == null) {
-			line.add("¡×7´ç½ÅÀº °üÀüÀÚÀÔ´Ï´Ù.");
-			line.add("¡×f");
-			line.add("»ıÁ¸ÇÑ ÀÓÆ÷½ºÅÍ (" + GameTimer.getRemainImposter() + "¸í)");
+			line.add("Â§7ë‹¹ì‹ ì€ ê´€ì „ìì…ë‹ˆë‹¤.");
+			line.add("Â§f");
+			line.add("ìƒì¡´í•œ ì„í¬ìŠ¤í„° (" + GameTimer.getRemainImposter() + "ëª…)");
 			for(String name : GameTimer.ALIVE_IMPOSTERS) {
 				line.add(PlayerData.getPlayerData(name).getColor().getChatColor() + name);
 			}
-			line.add("¡×f ");
-			line.add("ÀÏ°ú ÁøÇàµµ " + GameTimer.CLEARED_MISSION + "/" + GameTimer.REQUIRED_MISSION);
+			line.add("Â§f ");
+			line.add("ì¼ê³¼ ì§„í–‰ë„ " + GameTimer.CLEARED_MISSION + "/" + GameTimer.REQUIRED_MISSION);
 		} else {
 			
 			boolean alive = pd.isAlive();
 			boolean imposter = GameTimer.IMPOSTER.contains(player.getName());
 			
 			if(imposter) {
-				line.add("¡×7ÇÏ´Ü ¹Ì¼ÇÀº À§Àå¿ë ¹Ì¼ÇÀÔ´Ï´Ù.");
+				line.add("Â§7í•˜ë‹¨ ë¯¸ì…˜ì€ ìœ„ì¥ìš© ë¯¸ì…˜ì…ë‹ˆë‹¤.");
 			}
 			
 			if(!alive) {
 				if(imposter) {
-					line.add("¡×c´ç½ÅÀº Á×¾úÁö¸¸, ");
-					line.add("¡×c¿©ÀüÈ÷ »çº¸Å¸Áö¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+					line.add("Â§cë‹¹ì‹ ì€ ì£½ì—ˆì§€ë§Œ, ");
+					line.add("Â§cì—¬ì „íˆ ì‚¬ë³´íƒ€ì§€ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 				}
 				else {
-					line.add("¡×7´ç½ÅÀº Á×¾úÁö¸¸,");
-					line.add("¡×7¿©ÀüÈ÷ ÀÏ°ú¸¦ ¼öÇàÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+					line.add("Â§7ë‹¹ì‹ ì€ ì£½ì—ˆì§€ë§Œ,");
+					line.add("Â§7ì—¬ì „íˆ ì¼ê³¼ë¥¼ ìˆ˜í–‰í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 				}
 			}
 			
 			if(Sabotage.isActivating(0)) {
 				switch(Sabotage.Sabos.getType()) {
-				case COMM: line.add("¡×cÅë½Å ±â±â ÆÄ¼Õ"); return line;
+				case COMM: line.add("Â§cí†µì‹  ê¸°ê¸° íŒŒì†"); return line;
 				case NUCL:
 					int i = (S_Fingerprint.lowerPlayerList.size() > 0 ? 1 : 0) + (S_Fingerprint.upperPlayerList.size() > 0 ? 1 : 0);
-					line.add("¡×c¿øÀÚ·Î ¿ëÇØ±îÁö (" + i + "/2) (" + (Sabotage.Remain_Tick[0]/20+1) + "s)");
+					line.add("Â§cì›ìë¡œ ìš©í•´ê¹Œì§€ (" + i + "/2) (" + (Sabotage.Remain_Tick[0]/20+1) + "s)");
 					break;
 				case OXYG:
 					int i2 = (S_Oxygen.CLEARED);
-					line.add("¡×c»ê¼Ò °í°¥±îÁö (" + i2 + "/2) (" + (Sabotage.Remain_Tick[0]/20+1) + "s)");
+					line.add("Â§cì‚°ì†Œ ê³ ê°ˆê¹Œì§€ (" + i2 + "/2) (" + (Sabotage.Remain_Tick[0]/20+1) + "s)");
 					break;
 				case DOOR:
 					break;
 				case ELEC:
-					line.add("¡×cÀüµî °íÄ¡±â");
+					line.add("Â§cì „ë“± ê³ ì¹˜ê¸°");
 					break;
 				}
 			}

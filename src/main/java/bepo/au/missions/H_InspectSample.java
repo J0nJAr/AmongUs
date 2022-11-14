@@ -20,7 +20,7 @@ import bepo.au.base.Mission;
 import bepo.au.base.TimerBase;
 import bepo.au.utils.Util;
 
-//8Æ½ -> 2Æ½
+//8í‹± -> 2í‹±
 public class H_InspectSample extends Mission{
 	
 	public H_InspectSample(MissionType mt, String name, String korean, int clear, Location loc) {
@@ -52,10 +52,10 @@ public class H_InspectSample extends Mission{
 		String s = getKoreanName();
 		if(timer != null) {
 			s += " (" + remain_time + "s)";
-			s = "¡×e" + s;
+			s = "Â§e" + s;
 		}
 		if (cleared.size() > 0) {
-			s = "¡×a" + s;
+			s = "Â§a" + s;
 		}
 		return s;
 	}
@@ -63,8 +63,8 @@ public class H_InspectSample extends Mission{
 	public class Timer extends TimerBase {
 
 		@Override
-		public void EventStartTimer() { // Å¸ÀÌ¸Ó ½ÃÀÛ
-			Util.debugMessage(" Å¸ÀÌ¸Ó ½ÃÀÛµÊ");
+		public void EventStartTimer() { // íƒ€ì´ë¨¸ ì‹œì‘
+			Util.debugMessage(" íƒ€ì´ë¨¸ ì‹œì‘ë¨");
 			P_timer = new PreparingTimer();
 			P_timer.StartTimer(45, false, 1);
 		}
@@ -106,7 +106,7 @@ public class H_InspectSample extends Mission{
 
 	}
 
-	public class PreparingTimer extends TimerBase {// È£ÆÛ ¿Å±â´Â Å¸ÀÌ¸Ó
+	public class PreparingTimer extends TimerBase {// í˜¸í¼ ì˜®ê¸°ëŠ” íƒ€ì´ë¨¸
 		int hopperidx = 0;
 
 		@Override
@@ -123,28 +123,28 @@ public class H_InspectSample extends Mission{
 			
 			
 			if (count == 45) {
-				Util.debugMessage("È£ÆÛ ÀÌµ¿ Å¸ÀÔ 0");
+				Util.debugMessage("í˜¸í¼ ì´ë™ íƒ€ì… 0");
 				Util.Stack(gui.get(0), hopperidx, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 				hopperidx = 0;
 				Util.Stack(gui.get(0), hopperidx, Material.HOPPER, 1, " ");
 
 			} else if (count % 10 == 8 && count < 43) {
-				Util.debugMessage("È£ÆÛ ÀÌµ¿ Å¸ÀÔ 1");
+				Util.debugMessage("í˜¸í¼ ì´ë™ íƒ€ì… 1");
 				hopperidx++;
 				Util.Stack(gui.get(0), hopperidx - 1, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 				Util.Stack(gui.get(0), hopperidx, Material.HOPPER, 1, " ");
 
 			} else if (count % 10 == 2 && count < 43 && count > 8) {
-				Util.debugMessage("È£ÆÛ ÀÌµ¿ Å¸ÀÔ 2");
+				Util.debugMessage("í˜¸í¼ ì´ë™ íƒ€ì… 2");
 				hopperidx++;
 				Util.Stack(gui.get(0), hopperidx - 1, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
-				Util.StackPotion(gui.get(0), 18 + hopperidx, Color.BLUE, 1, "¡×fÈ®ÀÎµÇÁö ¾ÊÀº ½Ã¾à");
+				Util.StackPotion(gui.get(0), 18 + hopperidx, Color.BLUE, 1, "Â§fí™•ì¸ë˜ì§€ ì•Šì€ ì‹œì•½");
 				if (getPlayer().getOpenInventory().getTitle().split(" ")[0].equals("InspectSample"))
 					p.playSound(p.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1.0f, 1.2f);
 				Util.Stack(gui.get(0), hopperidx, Material.HOPPER, 1, " ");
 
 			} else if (count == 0) {
-				Util.StackPotion(gui.get(0), 18 + hopperidx, Color.BLUE, 1, "¡×fÈ®ÀÎµÇÁö ¾ÊÀº ½Ã¾à");
+				Util.StackPotion(gui.get(0), 18 + hopperidx, Color.BLUE, 1, "Â§fí™•ì¸ë˜ì§€ ì•Šì€ ì‹œì•½");
 				if (p.getOpenInventory().getTitle().split(" ")[0].equals("InspectSample"))
 					p.playSound(p.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1.0f, 1.2f);
 			}
@@ -163,22 +163,22 @@ public class H_InspectSample extends Mission{
 
 	Timer timer;
 	PreparingTimer P_timer;
-	int status = 0; // 0 ½ÇÇà¾ÈµÊ | 1,2 ½ÇÇàµÊ | 3 ½Ã¾àºĞ¼®Áß | 4 ºĞ¼®°¡´É | 100 Å¬¸®¾î »óÅÂ
+	int status = 0; // 0 ì‹¤í–‰ì•ˆë¨ | 1,2 ì‹¤í–‰ë¨ | 3 ì‹œì•½ë¶„ì„ì¤‘ | 4 ë¶„ì„ê°€ëŠ¥ | 100 í´ë¦¬ì–´ ìƒíƒœ
 	int bad;
 	private int remain_time = 60;
-	final int time = 60; // ±â´Ù¸² ½Ã°£
+	final int time = 60; // ê¸°ë‹¤ë¦¼ ì‹œê°„
 
-	private List<String> lore = Arrays.asList("¡×7", "¡×71. ¿À¸¥ÂÊ ¾Æ·¡ ÆÄ¶õ»ö ¹öÆ°À» ´©¸¥´Ù.", "¡×72. " + time + "ÃÊ µ¿¾È ±â´Ù¸°´Ù.",
-			"¡×73. ÀÌ»ó Ç¥º»À» ¼±ÅÃÇÑ´Ù.", "¡×7Àß¸øµÈ Ç¥º»À» ¼±ÅÃÇÏ¸é ´Ù½Ã ½ÃÀÛÇÕ´Ï´Ù.", "¡×7±â´Ù¸®´Â µ¿¾È ´Ù¸¥ °÷¿¡ °¡µµ µË´Ï´Ù.");
+	private List<String> lore = Arrays.asList("Â§7", "Â§71. ì˜¤ë¥¸ìª½ ì•„ë˜ íŒŒë€ìƒ‰ ë²„íŠ¼ì„ ëˆ„ë¥¸ë‹¤.", "Â§72. " + time + "ì´ˆ ë™ì•ˆ ê¸°ë‹¤ë¦°ë‹¤.",
+			"Â§73. ì´ìƒ í‘œë³¸ì„ ì„ íƒí•œë‹¤.", "Â§7ì˜ëª»ëœ í‘œë³¸ì„ ì„ íƒí•˜ë©´ ë‹¤ì‹œ ì‹œì‘í•©ë‹ˆë‹¤.", "Â§7ê¸°ë‹¤ë¦¬ëŠ” ë™ì•ˆ ë‹¤ë¥¸ ê³³ì— ê°€ë„ ë©ë‹ˆë‹¤.");
 
 	
 	public void inspectsample(Player p) {
-		Util.debugMessage("inspctsample ½ÇÇà");
+		Util.debugMessage("inspctsample ì‹¤í–‰");
 		switch (status) {
-		case 0: // ½ÇÇà µÊ
+		case 0: // ì‹¤í–‰ ë¨
 
-			Util.debugMessage("status 0 ½ÇÇà");
-			bad = Util.random(0, 4); // ÀÌ»ó Ç¥º» ¸¸µé±â
+			Util.debugMessage("status 0 ì‹¤í–‰");
+			bad = Util.random(0, 4); // ì´ìƒ í‘œë³¸ ë§Œë“¤ê¸°
 			gui.set(0, Bukkit.createInventory(p, 54, "InspectSample"));
 			for (int slot = 0; slot < 54; slot++) {
 				switch (slot) {
@@ -190,46 +190,46 @@ public class H_InspectSample extends Mission{
 				case 22:
 				case 24:
 				case 26:
-					Util.Stack(gui.get(0), slot, Material.GLASS_BOTTLE, 1, "¡×fºó ½Ã¾à º´", "¡×4Å¬¸¯ºÒ°¡");
+					Util.Stack(gui.get(0), slot, Material.GLASS_BOTTLE, 1, "Â§fë¹ˆ ì‹œì•½ ë³‘", "Â§4í´ë¦­ë¶ˆê°€");
 					break;
 				case 36:
 				case 38:
 				case 40:
 				case 42:
 				case 44:
-					Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ", "¡×4Å¬¸¯ºÒ°¡");
+					Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ", "Â§4í´ë¦­ë¶ˆê°€");
 					break;
 				case 49:
-					Util.Stack(gui.get(0), slot, Material.BOOK, 1, "¡×f¡×lÇ¥º» ºĞ¼®", lore);
+					Util.Stack(gui.get(0), slot, Material.BOOK, 1, "Â§fÂ§lí‘œë³¸ ë¶„ì„", lore);
 					break;
 				case 53:
-					Util.Stack(gui.get(0), slot, Material.BLUE_STAINED_GLASS_PANE, 1, "¡×a¡×l½Ã¾à Ãß°¡ÇÏ±â");
+					Util.Stack(gui.get(0), slot, Material.BLUE_STAINED_GLASS_PANE, 1, "Â§aÂ§lì‹œì•½ ì¶”ê°€í•˜ê¸°");
 					break;
 				default:
-					Util.Stack(gui.get(0), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ¹è°æ
+					Util.Stack(gui.get(0), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ë°°ê²½
 				}
 			}
 
 			status = 1;
-		case 1: // ¾Æ·¡ °úÁ¤ ¹İº¹ ¹æÁö
-			p.openInventory(gui.get(0)); // gui.get(0) ¿­±â
+		case 1: // ì•„ë˜ ê³¼ì • ë°˜ë³µ ë°©ì§€
+			p.openInventory(gui.get(0)); // gui.get(0) ì—´ê¸°
 			break;
-		case 2: // ½Ã¾à ÁØºñÁß
-			Util.debugMessage("status 2 ½ÇÇà");
-			Util.Stack(gui.get(0), 53, Material.ORANGE_STAINED_GLASS_PANE, 1, " ", "¡×4Å¬¸¯ºÒ°¡");
+		case 2: // ì‹œì•½ ì¤€ë¹„ì¤‘
+			Util.debugMessage("status 2 ì‹¤í–‰");
+			Util.Stack(gui.get(0), 53, Material.ORANGE_STAINED_GLASS_PANE, 1, " ", "Â§4í´ë¦­ë¶ˆê°€");
 			timer = new Timer();
 			timer.StartTimer(time, true, 20);
 			status = 3;
 			p.openInventory(gui.get(0));
 			break;
 		case 4:
-			Util.debugMessage("status 4 ½ÇÇà");
-			prepareSample();// ½Ã¾à ÁØºñ ¿Ï·á
+			Util.debugMessage("status 4 ì‹¤í–‰");
+			prepareSample();// ì‹œì•½ ì¤€ë¹„ ì™„ë£Œ
 			p.openInventory(gui.get(0));
 			break;
 		}
-		Util.debugMessage("switch¹® ºüÁ®³ª¿È");
-		p.openInventory(gui.get(0)); // gui.get(0) ¿­±â
+		Util.debugMessage("switchë¬¸ ë¹ ì ¸ë‚˜ì˜´");
+		p.openInventory(gui.get(0)); // gui.get(0) ì—´ê¸°
 	}
 
 	public void inspectsampleagain(Player p) {
@@ -237,15 +237,15 @@ public class H_InspectSample extends Mission{
 	}
 
 	public void prepareSample() {
-		Util.debugMessage("½Ã¾à ÁØºñ¿Ï·á ´Ü°è");
+		Util.debugMessage("ì‹œì•½ ì¤€ë¹„ì™„ë£Œ ë‹¨ê³„");
 
 		for (int slot = 36; slot <= 44; slot += 2)
-			Util.Stack(gui.get(0), slot, Material.GREEN_STAINED_GLASS_PANE, 1, "¡×fÇ¥º»À» ¼±ÅÃÇÏ¼¼¿ä");
+			Util.Stack(gui.get(0), slot, Material.GREEN_STAINED_GLASS_PANE, 1, "Â§fí‘œë³¸ì„ ì„ íƒí•˜ì„¸ìš”");
 		for (int slot = 18; slot < 27; slot += 2) {
 			if ((slot - 18) / 2 != bad)
-				Util.StackPotion(gui.get(0), slot, Color.BLUE, 1, "¡×fÁ¤»ó ½Ã¾à");
+				Util.StackPotion(gui.get(0), slot, Color.BLUE, 1, "Â§fì •ìƒ ì‹œì•½");
 			else
-				Util.StackPotion(gui.get(0), slot, Color.RED, 1, "¡×cÀÌ»ó ½Ã¾à");
+				Util.StackPotion(gui.get(0), slot, Color.RED, 1, "Â§cì´ìƒ ì‹œì•½");
 		}
 
 	}
@@ -255,15 +255,15 @@ public class H_InspectSample extends Mission{
 	}
 
 	public void checkSample(Player p, int num) {
-		Util.debugMessage(num + "°ú" + bad + "ºñ±³");
+		Util.debugMessage(num + "ê³¼" + bad + "ë¹„êµ");
 		if (num == bad) {
 			for (int slot = 36; slot <= 44; slot += 2)
-				Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ", "¡×4Å¬¸¯ºÒ°¡");
+				Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ", "Â§4í´ë¦­ë¶ˆê°€");
 			status = 100;
 			onClear(p, 0);
 		} else {
 			p.playSound(p.getLocation(), Sound.ITEM_SHIELD_BREAK, 1.0f, 0.1f);
-			Util.debugMessage(" Æ²¸², Àç½ÃÀÛ");
+			Util.debugMessage(" í‹€ë¦¼, ì¬ì‹œì‘");
 			status = 0;
 			inspectsampleagain(p);
 		}

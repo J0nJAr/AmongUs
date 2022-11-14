@@ -18,33 +18,33 @@ public class MissionList {
 	public static List<Mission> EASY = new ArrayList<Mission>();
 	public static List<Mission> HARD = new ArrayList<Mission>();
 	
-	// COMMON 2°³
-	public final static C_FixWriting fixwriting = 				new C_FixWriting(MissionType.COMMON, "FixWiring", "¹è¼± ¼ö¸®", 3, (Location) null);
-	public final static C_Card card 		= 							new C_Card(MissionType.COMMON, "Card", "Ä«µå ±Ü±â", 1, (Location) null);
+	// COMMON 2ê°œ
+	public final static C_FixWriting fixwriting = 				new C_FixWriting(MissionType.COMMON, "FixWiring", "ë°°ì„  ìˆ˜ë¦¬", 3, (Location) null);
+	public final static C_Card card 		= 							new C_Card(MissionType.COMMON, "Card", "ì¹´ë“œ ê¸ê¸°", 1, (Location) null);
 	
-	// EASY 8°³
-	public final static E_ChartCourse chartcourse = 			new E_ChartCourse(MissionType.EASY, "ChartCourse", "Ç×·Î °èÈ¹", 1, (Location) null);
-	public final static E_StablizeSteering stablizesteering = 	new E_StablizeSteering(MissionType.EASY, "StablizeSteering", "Ç×·Î Á¶Á¤", 1, (Location) null);
-	public final static E_EmptyChute emptychute = 			new E_EmptyChute(MissionType.EASY, "EmptyChute", "»ê¼ÒÇÊÅÍ Ã»¼Ò", 1, (Location) null);
-	public final static E_ActivatingShield activatingshield = 	new E_ActivatingShield(MissionType.EASY, "ActivatingShield", "½Çµå °íÄ¡±â", 1, (Location) null);
-	public final static E_DivertPower divertpower =			new E_DivertPower(MissionType.EASY, "DivertPower", "¿¡³ÊÁö ÀüÈ¯ÇÏ±â", 2, (Location) null);
-	public final static E_DistributePower distributepower =	new E_DistributePower(MissionType.EASY, "DistributePower", "¹èÀü±â Á¶Á¤ÇÏ±â", 1, (Location) null);
-	public final static E_OpenManifold openmanifold =		new E_OpenManifold(MissionType.EASY, "OpenManifold", "¸Å´ÏÆúµå ¿­±â", 1, (Location) null);
-	public final static E_Data data =								new E_Data(MissionType.EASY, "Data", "µ¥ÀÌÅÍ Àü¼ÛÇÏ±â", 2, (Location) null);
+	// EASY 8ê°œ
+	public final static E_ChartCourse chartcourse = 			new E_ChartCourse(MissionType.EASY, "ChartCourse", "í•­ë¡œ ê³„íš", 1, (Location) null);
+	public final static E_StablizeSteering stablizesteering = 	new E_StablizeSteering(MissionType.EASY, "StablizeSteering", "í•­ë¡œ ì¡°ì •", 1, (Location) null);
+	public final static E_EmptyChute emptychute = 			new E_EmptyChute(MissionType.EASY, "EmptyChute", "ì‚°ì†Œí•„í„° ì²­ì†Œ", 1, (Location) null);
+	public final static E_ActivatingShield activatingshield = 	new E_ActivatingShield(MissionType.EASY, "ActivatingShield", "ì‹¤ë“œ ê³ ì¹˜ê¸°", 1, (Location) null);
+	public final static E_DivertPower divertpower =			new E_DivertPower(MissionType.EASY, "DivertPower", "ì—ë„ˆì§€ ì „í™˜í•˜ê¸°", 2, (Location) null);
+	public final static E_DistributePower distributepower =	new E_DistributePower(MissionType.EASY, "DistributePower", "ë°°ì „ê¸° ì¡°ì •í•˜ê¸°", 1, (Location) null);
+	public final static E_OpenManifold openmanifold =		new E_OpenManifold(MissionType.EASY, "OpenManifold", "ë§¤ë‹ˆí´ë“œ ì—´ê¸°", 1, (Location) null);
+	public final static E_Data data =								new E_Data(MissionType.EASY, "Data", "ë°ì´í„° ì „ì†¡í•˜ê¸°", 2, (Location) null);
 	 
-	// HARD 7°³
-	public final static H_InspectSample inspectsample = 	new H_InspectSample(MissionType.HARD, "InspectSample", "»ùÇÃ ºĞ¼®", 1, (Location) null);
-	public final static H_Scanning scanning =					new H_Scanning(MissionType.HARD, "Scanning", "½ºÄµ Á¦Ãâ", 1, (Location) null);
-	public final static H_ActivatingReactor activatingreactor = new H_ActivatingReactor(MissionType.HARD, "ActivatingReactor", "¿øÀÚ·Î °¡µ¿ÇÏ±â", 1, (Location) null);
-	public final static H_AlignEngine alignengine =			new H_AlignEngine(MissionType.HARD, "AlignEngine", "¿£Áø Ãâ·Â Á¤·Ä½ÃÅ°±â", 2, (Location) null);
-	public final static H_Gas gas = 								new H_Gas(MissionType.HARD, "Gas", "¿¬·á °ø±ŞÇÏ±â", 4, (Location) null);
-	public final static H_Shooting shooting =					new H_Shooting(MissionType.HARD, "Shooting", "¼ÒÇà¼º ÆÄ±«ÇÏ±â", 1, (Location) null);
-	public final static H_EmptyGarbage emptygarbage = 	new H_EmptyGarbage(MissionType.HARD, "EmptyGarbage", "¾²·¹±â ¹ö¸®±â", 2, (Location) null);
+	// HARD 7ê°œ
+	public final static H_InspectSample inspectsample = 	new H_InspectSample(MissionType.HARD, "InspectSample", "ìƒ˜í”Œ ë¶„ì„", 1, (Location) null);
+	public final static H_Scanning scanning =					new H_Scanning(MissionType.HARD, "Scanning", "ìŠ¤ìº” ì œì¶œ", 1, (Location) null);
+	public final static H_ActivatingReactor activatingreactor = new H_ActivatingReactor(MissionType.HARD, "ActivatingReactor", "ì›ìë¡œ ê°€ë™í•˜ê¸°", 1, (Location) null);
+	public final static H_AlignEngine alignengine =			new H_AlignEngine(MissionType.HARD, "AlignEngine", "ì—”ì§„ ì¶œë ¥ ì •ë ¬ì‹œí‚¤ê¸°", 2, (Location) null);
+	public final static H_Gas gas = 								new H_Gas(MissionType.HARD, "Gas", "ì—°ë£Œ ê³µê¸‰í•˜ê¸°", 4, (Location) null);
+	public final static H_Shooting shooting =					new H_Shooting(MissionType.HARD, "Shooting", "ì†Œí–‰ì„± íŒŒê´´í•˜ê¸°", 1, (Location) null);
+	public final static H_EmptyGarbage emptygarbage = 	new H_EmptyGarbage(MissionType.HARD, "EmptyGarbage", "ì“°ë ˆê¸° ë²„ë¦¬ê¸°", 2, (Location) null);
 	
-	// SABOTAGE 5°³
-	public final static S_Communication communication =	new S_Communication(MissionType.SABOTAGE, "Communication", "Åë½Å ±â±â ¼ö¸®", 1, (Location) null);
-	public final static S_Fingerprint fingerprint	=				new S_Fingerprint(MissionType.SABOTAGE, "Fingerprint", "¿øÀÚ·Î È°¼ºÈ­", 1, (Location) null);
-	public final static S_FixLights fixlights = 					new S_FixLights(MissionType.SABOTAGE, "FixLights", "Àü±â ¼ö¸®", 1, (Location) null);
-	public final static S_Oxygen oxygen =						new S_Oxygen(MissionType.SABOTAGE, "Oxygen", "»ê¼Ò È°¼ºÈ­", 2, (Location) null);
+	// SABOTAGE 5ê°œ
+	public final static S_Communication communication =	new S_Communication(MissionType.SABOTAGE, "Communication", "í†µì‹  ê¸°ê¸° ìˆ˜ë¦¬", 1, (Location) null);
+	public final static S_Fingerprint fingerprint	=				new S_Fingerprint(MissionType.SABOTAGE, "Fingerprint", "ì›ìë¡œ í™œì„±í™”", 1, (Location) null);
+	public final static S_FixLights fixlights = 					new S_FixLights(MissionType.SABOTAGE, "FixLights", "ì „ê¸° ìˆ˜ë¦¬", 1, (Location) null);
+	public final static S_Oxygen oxygen =						new S_Oxygen(MissionType.SABOTAGE, "Oxygen", "ì‚°ì†Œ í™œì„±í™”", 2, (Location) null);
 
 }

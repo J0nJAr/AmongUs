@@ -1,16 +1,16 @@
 package bepo.au.manager;
 
 
+import java.io.File;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class LocManager {
@@ -86,10 +86,10 @@ public class LocManager {
 	
 	public String[] getList() {return locList;};
 	
-	public void loadLocs() { //·ÎÄÉÀÌ¼Ç ºÒ·¯¿À±â
+	public void loadLocs() { //ë¡œì¼€ì´ì…˜ ë¶ˆëŸ¬ì˜¤ê¸°
 		loadLocations();
 	}
-	public void inputLoc(String locName, World w, int x, int y, int z) { //·ÎÄÉÀÌ¼Ç ¸Ê¿¡ ³Ö±â
+	public void inputLoc(String locName, World w, int x, int y, int z) { //ë¡œì¼€ì´ì…˜ ë§µì— ë„£ê¸°
 		Location loc = new Location(w,x,y,z);
 		inputALocation(locName, loc);
 		
@@ -302,10 +302,10 @@ public class LocManager {
             	Location loc=StringToLoc(coor);
                 LocationMap.put(line.split(":")[0], loc);
             }
-            //.readLine()Àº ³¡¿¡ °³Çà¹®ÀÚ¸¦ ÀĞÁö ¾Ê´Â´Ù.            
+            //.readLine()ì€ ëì— ê°œí–‰ë¬¸ìë¥¼ ì½ì§€ ì•ŠëŠ”ë‹¤.            
             bufReader.close();
         }catch (FileNotFoundException e) {
-            Util.debugMessage("ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù");
+            Util.debugMessage("íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
         }catch(IOException e){
             System.out.println(e);
         }

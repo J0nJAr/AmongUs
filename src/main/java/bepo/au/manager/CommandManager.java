@@ -1,12 +1,9 @@
 package bepo.au.manager;
 
-import bepo.au.GameTimer;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.function.MiniMap;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -17,9 +14,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.Main.SETTING;
+import bepo.au.function.MiniMap;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
+import net.md_5.bungee.api.ChatColor;
 
 public class CommandManager implements CommandExecutor {
 	public static List<String> opCOMMANDS = Arrays.asList("start", "stop", "config", "player", "observer","settings", "list", "debug", "des", "reload", "locate");
@@ -32,7 +33,7 @@ public class CommandManager implements CommandExecutor {
 		Player p = sender instanceof Player ? (Player) sender : null;
 
 		if (p == null) {
-			sender.sendMessage(Main.PREFIX + "¡×cÀÌ ¸í·É¾î´Â ÇÃ·¹ÀÌ¾î¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.");
+			sender.sendMessage(Main.PREFIX + "Â§cì´ ëª…ë ¹ì–´ëŠ” í”Œë ˆì´ì–´ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 			return true;
 		}
 		
@@ -41,14 +42,14 @@ public class CommandManager implements CommandExecutor {
 			return true;
 		}
 
-		if (userCOMMANDS.contains(args[0])) {//À¯Àú¸í·É¾îÀÎ°¡?
+		if (userCOMMANDS.contains(args[0])) {//ìœ ì €ëª…ë ¹ì–´ì¸ê°€?
 			if (args[0].equalsIgnoreCase("settings")) {
 				settings(p);
 			} else if (args[0].equalsIgnoreCase("list")) {
 				list(p,args);
 			}
-		} else if (opCOMMANDS.contains(args[0])) {//op¸í·É¾îÀÎ°¡?
-			if (p.isOp()) {//opÀÎ°¡?
+		} else if (opCOMMANDS.contains(args[0])) {//opëª…ë ¹ì–´ì¸ê°€?
+			if (p.isOp()) {//opì¸ê°€?
 				if (args[0].equalsIgnoreCase("start")) {
 					start(p);
 				} else if (args[0].equalsIgnoreCase("stop")) {
@@ -68,10 +69,10 @@ public class CommandManager implements CommandExecutor {
 				} else if (args[0].equalsIgnoreCase("des")) {
 					des(p, args);
 				}
-			} else {//op°¡ ¾Æ´Ñµ¥ ÀÌ°É½á?
-				p.sendMessage(Main.PREFIX + "¡×cÀÌ ¸í·É¾î´Â °ü¸®ÀÚ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.");
+			} else {//opê°€ ì•„ë‹Œë° ì´ê±¸ì¨?
+				p.sendMessage(Main.PREFIX + "Â§cì´ ëª…ë ¹ì–´ëŠ” ê´€ë¦¬ìë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 			}
-		} else {//µî·ÏµÈ ¸í·É¾î°¡ ¾Æ´Ô
+		} else {//ë“±ë¡ëœ ëª…ë ¹ì–´ê°€ ì•„ë‹˜
 			help(p);
 		}
 		return true;
@@ -161,7 +162,7 @@ public class CommandManager implements CommandExecutor {
 
 	private void locate(Player p, String[] args) {
 		if (args.length <= 1) {
-			p.sendMessage(Main.PREFIX + "¡×c¿Ã¹Ù¸¥ ¸í·É¾î : /au locate [ÀÌ¸§] [block]");
+			p.sendMessage(Main.PREFIX + "Â§cì˜¬ë°”ë¥¸ ëª…ë ¹ì–´ : /au locate [ì´ë¦„] [block]");
 			return;
 		}
 		boolean target = args.length == 3 && args[2].equalsIgnoreCase("block");
@@ -170,8 +171,8 @@ public class CommandManager implements CommandExecutor {
 		Location loc = target ? p.getTargetBlock(10).getLocation() : p.getLocation();
 
 		Main.getLocManager().inputLocation(name, loc);
-		p.sendMessage(Main.PREFIX + "¡×e" + name + " ¡×f¿¡ " + (target ? "ÇöÀç ¹Ù¶óº¸°í ÀÖ´Â ºí·°" : "ÇöÀç À§Ä¡") + " Ãß°¡ (ÃÑ "
-				+ LocManager.getLoc(name).size() + "°³)");
+		p.sendMessage(Main.PREFIX + "Â§e" + name + " Â§fì— " + (target ? "í˜„ì¬ ë°”ë¼ë³´ê³  ìˆëŠ” ë¸”ëŸ­" : "í˜„ì¬ ìœ„ì¹˜") + " ì¶”ê°€ (ì´ "
+				+ LocManager.getLoc(name).size() + "ê°œ)");
 	}
 
 
@@ -192,48 +193,49 @@ public class CommandManager implements CommandExecutor {
 	
 	private void config(Player p, String[] args) {
 		if (args.length < 3) {
-			p.sendMessage(Main.PREFIX + "¡×c¿Ã¹Ù¸¥ ¸í·É¾î : /au config [¼³Á¤] [°ª]");
+//			p.sendMessage(Main.PREFIX + "Â§cì˜¬ë°”ë¥¸ ëª…ë ¹ì–´ : /au config [ì„¤ì •] [ê°’]");
+			ConfigScreenManager.openGUI(p);
 			return;
 		}else{
 			Object obj = null;
 			
-			if (args[2].equalsIgnoreCase("true")||args[2].equalsIgnoreCase("Âü")){
+			if (args[2].equalsIgnoreCase("true")||args[2].equalsIgnoreCase("ì°¸")){
 				obj = true;
-			}else if(args[2].equalsIgnoreCase("false")||args[2].equalsIgnoreCase("°ÅÁş")){
+			}else if(args[2].equalsIgnoreCase("false")||args[2].equalsIgnoreCase("ê±°ì§“")){
 				obj = false;
 			}else if (args[2].contains(".")){
 				try {
-					obj = Double.parseDouble(args[2]);//doubleÀÓ
+					obj = Double.parseDouble(args[2]);//doubleì„
 					} catch(NumberFormatException e) {}
 			}else{
 				try {
-					obj = Integer.parseInt(args[2]);//intÀÓ
+					obj = Integer.parseInt(args[2]);//intì„
 				}catch(NumberFormatException e1) {
 					try {
-					obj = GameTimer.GameType.valueOf(args[2]);//gametypeÀÓ
+					obj = GameTimer.GameType.valueOf(args[2]);//gametypeì„
 					} catch(IllegalArgumentException e){
-						p.sendMessage(Main.PREFIX + "¡×cÀß¸øµÈ ¼³Á¤ ÀÌ¸§ÀÔ´Ï´Ù.");
+						p.sendMessage(Main.PREFIX + "Â§cì˜ëª»ëœ ì„¤ì • ì´ë¦„ì…ë‹ˆë‹¤.");
 						return;
 					}catch(Exception e) {
-					p.sendMessage(Main.PREFIX + "¡×c/au settings¸¦ Âü°íÇØÁÖ¼¼¿ä. ¿Ã¹Ù¸¥ ¸í·É¾î : /au config [¼³Á¤] [°ª]");
+					p.sendMessage(Main.PREFIX + "Â§c/au settingsë¥¼ ì°¸ê³ í•´ì£¼ì„¸ìš”. ì˜¬ë°”ë¥¸ ëª…ë ¹ì–´ : /au config [ì„¤ì •] [ê°’]");
 					return;
 					}
 				} //
 			}	
-			try{//ÀÔ·Â ¿À·ù È®ÀÎ.
+			try{//ì…ë ¥ ì˜¤ë¥˜ í™•ì¸.
 				 
 			SETTING to = SETTING.valueOf(args[1]);
 			Object from = obj;
 			
 			if(!to.getType().isInstance(from)){
-				p.sendMessage(Main.PREFIX + "¡×cÀß¸øµÈ °ªÀÔ´Ï´Ù.");
+				p.sendMessage(Main.PREFIX + "Â§cì˜ëª»ëœ ê°’ì…ë‹ˆë‹¤.");
 				return;
 			}
-			to.setSetting(from); // ¼­¼ø ¾Ë¾Æ¼­ Á¤¸®ÇÏ¼À
-			p.sendMessage(Main.PREFIX +"¡×e"+ args[1]+"¡×f ¿¡ ¡×e"+args[2] +"¡×f (À»)¸¦ ³Ö¾ú½À´Ï´Ù.");
+			to.setSetting(from); // ì„œìˆœ ì•Œì•„ì„œ ì •ë¦¬í•˜ì…ˆ
+			p.sendMessage(Main.PREFIX +"Â§e"+ args[1]+"Â§f ì— Â§e"+args[2] +"Â§f (ì„)ë¥¼ ë„£ì—ˆìŠµë‹ˆë‹¤.");
 			}catch(Exception e){
 				e.printStackTrace();
-				p.sendMessage(Main.PREFIX + "¡×c/au settings¸¦ Âü°íÇØÁÖ¼¼¿ä. ¿Ã¹Ù¸¥ ¸í·É¾î : /au config [¼³Á¤] [°ª]");
+				p.sendMessage(Main.PREFIX + "Â§c/au settingsë¥¼ ì°¸ê³ í•´ì£¼ì„¸ìš”. ì˜¬ë°”ë¥¸ ëª…ë ¹ì–´ : /au config [ì„¤ì •] [ê°’]");
 			}
 		} //
 	}
@@ -243,79 +245,79 @@ public class CommandManager implements CommandExecutor {
 			Main.gt = new GameTimer(p.getWorld(), Main.getInstance());
 			Main.gt.start(p);
 		} else {
-			p.sendMessage(Main.PREFIX + "¡×c°ÔÀÓÀÌ ÀÌ¹Ì ½ÃÀÛµÇ¾îÀÖ½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cê²Œì„ì´ ì´ë¯¸ ì‹œì‘ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		}
 	}
 
 	private void stop(Player p) {
 		if (Main.gt != null) {
 			Main.gt.stop();
-			Bukkit.broadcastMessage(Main.PREFIX + "¡×c¡×l" + p.getName() + "´Ô²²¼­ °ÔÀÓÀ» °­Á¦ Á¾·áÇÏ¼Ì½À´Ï´Ù.");
+			Bukkit.broadcastMessage(Main.PREFIX + "Â§cÂ§l" + p.getName() + "ë‹˜ê»˜ì„œ ê²Œì„ì„ ê°•ì œ ì¢…ë£Œí•˜ì…¨ìŠµë‹ˆë‹¤.");
 		} else {
-			p.sendMessage(Main.PREFIX + "¡×c°ÔÀÓÀÌ ½ÃÀÛµÇ¾îÀÖÁö ¾Ê½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cê²Œì„ì´ ì‹œì‘ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 	}
 
 	private void toggle(Player p, String[] args, boolean player) {
 
 		if (args.length <= 1) {
-			p.sendMessage(Main.PREFIX + "¡×c¿Ã¹Ù¸¥ ¸í·É¾î : /au " + args[0] + " [ÀÌ¸§]");
+			p.sendMessage(Main.PREFIX + "Â§cì˜¬ë°”ë¥¸ ëª…ë ¹ì–´ : /au " + args[0] + " [ì´ë¦„]");
 			return;
 		}
 
 		String name = args[1].toLowerCase();
-		String s = player ? "Âü°¡ÀÚ" : "°üÀüÀÚ";
+		String s = player ? "ì°¸ê°€ì" : "ê´€ì „ì";
 
 		if (player && GameTimer.OBSERVER.contains(name)) {
 			GameTimer.OBSERVER.remove(name);
-			p.sendMessage(Main.PREFIX + "¡×f" + args[1] + " ´ÔÀ» °üÀüÀÚ¿¡¼­ Á¦°ÅÇß½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§f" + args[1] + " ë‹˜ì„ ê´€ì „ìì—ì„œ ì œê±°í–ˆìŠµë‹ˆë‹¤.");
 		} else if (!player && !GameTimer.OBSERVER.contains(name)) {
 			GameTimer.OBSERVER.add(name);
-			p.sendMessage(Main.PREFIX + "¡×f" + args[1] + " ´ÔÀ» °üÀüÀÚ¿¡ Ãß°¡Çß½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§f" + args[1] + " ë‹˜ì„ ê´€ì „ìì— ì¶”ê°€í–ˆìŠµë‹ˆë‹¤.");
 		} else {
-			p.sendMessage(Main.PREFIX + "¡×cÀÌ¹Ì " + args[1] + "´ÔÀº " + s + "¿¡ µî·ÏµÇ¾îÀÖ½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cì´ë¯¸ " + args[1] + "ë‹˜ì€ " + s + "ì— ë“±ë¡ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	private void list(Player p, String[] args) {
 		if (args.length == 1|| (!args[1].equalsIgnoreCase("observer")&&!args[1].equalsIgnoreCase("ob"))) {
-			p.sendMessage(Main.PREFIX + "¡×f=====================");
-			p.sendMessage(Main.PREFIX + "¡×e°ÔÀÓ Âü°¡ÀÚ ¸ñ·Ï");
+			p.sendMessage(Main.PREFIX + "Â§f=====================");
+			p.sendMessage(Main.PREFIX + "Â§eê²Œì„ ì°¸ê°€ì ëª©ë¡");
 			for (int i = 0; i < GameTimer.PLAYERS.size(); i++) {
-				p.sendMessage(Main.PREFIX + "¡×f" + (i + 1) + ". ¡×a" + GameTimer.PLAYERS.get(i));
+				p.sendMessage(Main.PREFIX + "Â§f" + (i + 1) + ". Â§a" + GameTimer.PLAYERS.get(i));
 				}
-			p.sendMessage(Main.PREFIX + "¡×f=====================");
+			p.sendMessage(Main.PREFIX + "Â§f=====================");
 		}else{
-			p.sendMessage(Main.PREFIX + "¡×f=====================");
-			p.sendMessage(Main.PREFIX + "¡×e°üÀüÀÚ ¸ñ·Ï");
+			p.sendMessage(Main.PREFIX + "Â§f=====================");
+			p.sendMessage(Main.PREFIX + "Â§eê´€ì „ì ëª©ë¡");
 			for (int i = 0; i < GameTimer.OBSERVER.size(); i++) {
-				p.sendMessage(Main.PREFIX + "¡×f" + (i + 1) + ". ¡×a" + GameTimer.OBSERVER.get(i));
+				p.sendMessage(Main.PREFIX + "Â§f" + (i + 1) + ". Â§a" + GameTimer.OBSERVER.get(i));
 				}
-			p.sendMessage(Main.PREFIX + "¡×f=====================");
+			p.sendMessage(Main.PREFIX + "Â§f=====================");
 		}
 
 	}
 	
 	private void settings(Player p) {
-		p.sendMessage(Main.PREFIX + "¡×f=====================");
-		p.sendMessage(Main.PREFIX + "¡×eÇöÀç ¼³Á¤ ¸ñ·Ï");
+		p.sendMessage(Main.PREFIX + "Â§f=====================");
+		p.sendMessage(Main.PREFIX + "Â§eí˜„ì¬ ì„¤ì • ëª©ë¡");
 		for (SETTING setting : SETTING.values()) {
-			p.sendMessage(Main.PREFIX + "¡×e" + setting.getName() + "¡×f : " + setting.get());
+			p.sendMessage(Main.PREFIX + "Â§e" + setting.getName() + "Â§f : " + setting.get());
 		}
-		p.sendMessage(Main.PREFIX + "¡×f=====================");
+		p.sendMessage(Main.PREFIX + "Â§f=====================");
 	}
 
 
 	private void help(Player p) {
 		
 		if(p.isOp()) {
-			p.sendMessage(Main.PREFIX + "¡×f/au start ¡×e°ÔÀÓÀ» ½ÃÀÛÇÕ´Ï´Ù.");
-			p.sendMessage(Main.PREFIX + "¡×f/au stop ¡×e°ÔÀÓÀ» °­Á¦Á¾·áÇÕ´Ï´Ù.");
-			p.sendMessage(Main.PREFIX + "¡×f/au config ¡×e°ÔÀÓÀ» ¼¼ÆÃÇÕ´Ï´Ù.");
-			p.sendMessage(Main.PREFIX + "¡×f/au reload ¡×e¼³Á¤°ú Àå¼Ò¸¦ ´Ù½Ã ºÒ·¯¿É´Ï´Ù.");
-			p.sendMessage(Main.PREFIX + "¡×f/au [player/observer] [ÀÌ¸§] ¡×eÇØ´ç ÇÃ·¹ÀÌ¾î¸¦ °üÀüÀÚ/Âü¿©ÀÚ·Î µî·ÏÇÕ´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§f/au start Â§eê²Œì„ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
+			p.sendMessage(Main.PREFIX + "Â§f/au stop Â§eê²Œì„ì„ ê°•ì œì¢…ë£Œí•©ë‹ˆë‹¤.");
+			p.sendMessage(Main.PREFIX + "Â§f/au config Â§eê²Œì„ì„ ì„¸íŒ…í•©ë‹ˆë‹¤.");
+			p.sendMessage(Main.PREFIX + "Â§f/au reload Â§eì„¤ì •ê³¼ ì¥ì†Œë¥¼ ë‹¤ì‹œ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.");
+			p.sendMessage(Main.PREFIX + "Â§f/au [player/observer] [ì´ë¦„] Â§eí•´ë‹¹ í”Œë ˆì´ì–´ë¥¼ ê´€ì „ì/ì°¸ì—¬ìë¡œ ë“±ë¡í•©ë‹ˆë‹¤.");
 		}
-		p.sendMessage(Main.PREFIX + "¡×f/au list (observer) ¡×eÇöÀç °ÔÀÓ¿¡ Âü¿©ÁßÀÎ ÇÃ·¹ÀÌ¾î ¸ñ·ÏÀ» Ãâ·ÂÇÕ´Ï´Ù. ÇÃ·¹ÀÌ¾î ¸ñ·ÏÀº °ÔÀÓÀÌ ½ÃÀÛµÈ ÈÄ ¾÷µ¥ÀÌÆ®µË´Ï´Ù.");
-		p.sendMessage(Main.PREFIX + "¡×f/au settings ¡×eÇöÀç °ÔÀÓ ¼³Á¤À» Ãâ·ÂÇÕ´Ï´Ù.");
+		p.sendMessage(Main.PREFIX + "Â§f/au list (observer) Â§eí˜„ì¬ ê²Œì„ì— ì°¸ì—¬ì¤‘ì¸ í”Œë ˆì´ì–´ ëª©ë¡ì„ ì¶œë ¥í•©ë‹ˆë‹¤. í”Œë ˆì´ì–´ ëª©ë¡ì€ ê²Œì„ì´ ì‹œì‘ëœ í›„ ì—…ë°ì´íŠ¸ë©ë‹ˆë‹¤.");
+		p.sendMessage(Main.PREFIX + "Â§f/au settings Â§eí˜„ì¬ ê²Œì„ ì„¤ì •ì„ ì¶œë ¥í•©ë‹ˆë‹¤.");
 	}
 
 }
