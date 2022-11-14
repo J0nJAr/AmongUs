@@ -95,7 +95,7 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		
 		public GameTimer.GameType getAsGameType(){
-			return (GameType) obj;
+			return GameType.valueOf((String)obj);
 		}
 		
 		public void setSetting(Object obj) {
@@ -174,6 +174,7 @@ public class Main extends JavaPlugin implements Listener{
         }
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§f버전 확인 완료! 플러그인 활성화를 시작합니다.");
 
+		Bukkit.getConsoleSender().sendMessage(PREFIX+SETTING.GAMEMODE.obj);
 		Mission.MISSIONS.addAll(MissionList.EASY);
 
 		Mission.MISSIONS.addAll(MissionList.HARD);
