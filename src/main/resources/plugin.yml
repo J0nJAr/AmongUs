@@ -1,7 +1,0 @@
-name: AmongUs
-version: 1.19-pre
-main: bepo.au.Main
-api-version: 1.19
-commands:
-  au:
-    description: AmongUs Commands.

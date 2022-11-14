@@ -1,9 +1,12 @@
 import org.apache.tools.ant.filters.ReplaceTokens
-//import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     `java-library`
     id("io.papermc.paperweight.userdev") version "1.3.9"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2" // Generates plugin.yml
+    id("xyz.jpenilla.run-paper") version "1.1.0" // Adds runServer and runMojangMappedServer tasks for testing
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "bepo.au"
@@ -29,7 +32,8 @@ repositories{
 
 dependencies {
     paperDevBundle("1.19.2-R0.1-SNAPSHOT")
-    implementation("com.comphenix.protocol:ProtocolLib:5.0.0-20220727.143709-4")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.0.0-20220727.143709-4")
+    implementation("cloud.commandframework", "cloud-paper", "1.7.1")
 //    compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
 //    compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT'
 }
@@ -70,10 +74,19 @@ java {
 }
 
 
-//bukkit {
-//    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-//    main = "bepo.au.Main"
-//    apiVersion = "1.19"
-//    authors = listOf("J0nJAr","Kimbepo","Macham")
-//
-//}
+bukkit {
+    load = BukkitPluginDescription.PluginLoadOrder.POSTWORLD
+    main = "bepo.au.Main"
+    apiVersion = "1.19"
+    authors = listOf("J0nJAr","Kimbepo","Macham")
+    softDepend = listOf("ProtocolLib")
+
+
+    commands {
+        register("au") {
+            description = "AmongUs"
+            // permissionMessage = "You may not test this command!"
+        }
+        // ...
+    }
+}
