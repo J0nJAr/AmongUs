@@ -11,9 +11,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ConfigScreenManager {
     public static String guiName = "Config";
@@ -66,21 +64,24 @@ public class ConfigScreenManager {
 
         if (!e.getView().getTitle().contains(guiName))
             return;
+
+
         if(e.getCurrentItem() != null && e.getClick() != ClickType.DOUBLE_CLICK){
             switch(e.getCurrentItem().getType()){
                 case PAPER:
                     Main.SETTING setting;
+                    Util.debugMessage("1");
                     int i = e.getRawSlot();
                     try {
                         setting = arr[i];
                     } catch (Exception exception) {
-                        e.setCancelled(true);
                         return;
                     }
                     if(e.getClick() != ClickType.MIDDLE) {
                         modifyConfig(setting, e.getClick().isRightClick(), e.isShiftClick());
                     }
                     stack(i, arr[i]);
+                    break;
                 case RED_WOOL:
                     Main.SETTING.GAMEMODE.getAsGameType().getGameTicker().config(1);
                     reset();
