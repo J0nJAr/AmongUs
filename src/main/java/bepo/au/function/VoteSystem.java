@@ -1,15 +1,18 @@
 package bepo.au.function;
 
-import bepo.au.GameTimer;
-import bepo.au.GameTimer.Status;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.base.PlayerData;
-import bepo.au.base.Sabotage;
-import bepo.au.manager.LocManager;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
-import org.bukkit.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Skull;
@@ -31,7 +34,15 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import bepo.au.GameTimer;
+import bepo.au.GameTimer.Status;
+import bepo.au.Main;
+import bepo.au.Main.SETTING;
+import bepo.au.base.PlayerData;
+import bepo.au.base.Sabotage;
+import bepo.au.manager.LocManager;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
 
 public class VoteSystem extends BukkitRunnable implements Listener {
 

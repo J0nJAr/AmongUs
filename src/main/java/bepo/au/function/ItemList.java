@@ -1,14 +1,15 @@
 package bepo.au.function;
 
-import bepo.au.utils.Util;
+import java.util.Arrays;
+import java.util.HashMap;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.MapMeta;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import bepo.au.utils.Util;
 
 @SuppressWarnings("deprecation")
 public class ItemList {
@@ -33,24 +34,24 @@ public class ItemList {
 	public final static HashMap<Integer, ItemStack> I_SET;
 	
 	static {
-		I_SWORD = Util.createItem(Material.DIAMOND_SWORD, 1, "ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½", Arrays.asList("ï¿½ï¿½7ï¿½ï¿½ï¿½Ù´Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ê½Ã¿ï¿½."));
+		I_SWORD = Util.createItem(Material.DIAMOND_SWORD, 1, "¡×cÀÓÆ÷½ºÅÍÀÇ °Ë", Arrays.asList("¡×7µé°í´Ù´Ï´Â °É µéÅ°Áö ¾Êµµ·Ï ÁÖÀÇÇÏ½Ê½Ã¿À."));
 		Damageable im = (Damageable) I_SWORD.getItemMeta();
 		im.setDamage(I_SWORD.getType().getMaxDurability());
 		I_SWORD.setItemMeta((ItemMeta) im);
 		
-		I_SABOTAGE_CRIT = Util.createItem(Material.IRON_PICKAXE, 1, "ï¿½ï¿½cÄ¡ï¿½ï¿½ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Arrays.asList("ï¿½ï¿½7ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½7ï¿½ï¿½ï¿½Ù³àµµ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½7ï¿½ï¿½ ï¿½Ù²Ù±ï¿½(F) Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½Å³ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½."));
+		I_SABOTAGE_CRIT = Util.createItem(Material.IRON_PICKAXE, 1, "¡×cÄ¡¸íÀû »çº¸Å¸Áö ¼±ÅÃ", Arrays.asList("¡×7¼Õ¿¡ µé¸é ÇöÀç ¼±ÅÃÇÑ Ä¡¸íÀûÀÎ »çº¸Å¸ÁöÀÇ Á¾·ù¸¦ ¹Ù²Ü ¼ö ÀÖ½À´Ï´Ù.", "¡×7µé°í´Ù³àµµ µéÅ°Áö ¾Ê½À´Ï´Ù.", "¡×7¼Õ ¹Ù²Ù±â(F) Å°·Î ¼±ÅÃÇÑ »çº¸Å¸Áö¸¦ ¹ßµ¿½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù."));
 		Damageable im2 = (Damageable) I_SABOTAGE_CRIT.getItemMeta();
 		im2.setDamage(I_SABOTAGE_CRIT.getType().getMaxDurability());
 		I_SABOTAGE_CRIT.setItemMeta((ItemMeta) im2);
 		
-		I_SABOTAGE_DOOR = Util.createItem(Material.IRON_HOE, 1, "ï¿½ï¿½cï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Arrays.asList("ï¿½ï¿½7ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½7ï¿½ï¿½ï¿½Ù³àµµ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½7ï¿½ï¿½ ï¿½Ù²Ù±ï¿½(F) Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½Å³ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½."));
+		I_SABOTAGE_DOOR = Util.createItem(Material.IRON_HOE, 1, "¡×c¹® »çº¸Å¸Áö ¼±ÅÃ", Arrays.asList("¡×7¼Õ¿¡ µé¸é ÇöÀç ¼±ÅÃÇÑ ¹® »çº¸Å¸ÁöÀÇ ¹ßµ¿ À§Ä¡¸¦ ¹Ù²Ü ¼ö ÀÖ½À´Ï´Ù.", "¡×7µé°í´Ù³àµµ µéÅ°Áö ¾Ê½À´Ï´Ù.", "¡×7¼Õ ¹Ù²Ù±â(F) Å°·Î ¼±ÅÃÇÑ »çº¸Å¸Áö¸¦ ¹ßµ¿½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù."));
 		Damageable im3 = (Damageable) I_SABOTAGE_DOOR.getItemMeta();
 		im3.setDamage(I_SABOTAGE_DOOR.getType().getMaxDurability());
 		I_SABOTAGE_DOOR.setItemMeta((ItemMeta) im3);
 		
-		I_SABOTAGE_GUI = Util.createItem(Material.ENDER_EYE, 1, "ï¿½ï¿½cï¿½çº¸Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½", Arrays.asList("ï¿½ï¿½7Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.", "ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½Ì¸é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½, ï¿½Æ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½."));
+		I_SABOTAGE_GUI = Util.createItem(Material.ENDER_EYE, 1, "¡×c»çº¸Å¸Áö ¼±ÅÃÃ¢ ¿­±â", Arrays.asList("¡×7Å¬¸¯ÇÏ¸é ¼±ÅÃ ÆäÀÌÁö¸¦ ¿±´Ï´Ù.", "¡×c¿òÁ÷ÀÌ¸é¼­ »ç¿ëÇÒ ¼ö ¾øÀ¸¹Ç·Î, ¾Æ¹«µµ ¾ø´Â °÷¿¡¼­ »ç¿ëÇÏ¼¼¿ä."));
 		
-		VOTE_PAPER = Util.createItem(Material.BOOK, 1, "ï¿½ï¿½aï¿½ï¿½Ç¥Ã¢ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Å¬ï¿½ï¿½)", Arrays.asList("ï¿½ï¿½7ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Ç¥Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."));
+		VOTE_PAPER = Util.createItem(Material.BOOK, 1, "¡×aÅõÇ¥Ã¢ ¿­±â (¿ìÅ¬¸¯)", Arrays.asList("¡×7¼Õ¿¡ µé°í ¿ìÅ¬¸¯ÇÏ¸é ÅõÇ¥Ã¢ÀÌ ¿­¸³´Ï´Ù."));
 		
 		I_SET = new HashMap<Integer, ItemStack>();
 		I_SET.put(1, I_SWORD.clone());
@@ -58,11 +59,11 @@ public class ItemList {
 		I_SET.put(5, I_SABOTAGE_CRIT.clone());
 		I_SET.put(22, I_SABOTAGE_GUI.clone());
 		
-		I_VENT_NEXT = Util.createItem(Material.RED_STAINED_GLASS, 1, "ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡", Arrays.asList(""));
-		I_VENT_CONFIRM = Util.createItem(Material.YELLOW_STAINED_GLASS, 1, "ï¿½ï¿½eï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½", Arrays.asList("ï¿½ï¿½7ï¿½ï¿½ï¿½ ï¿½ï¿½Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½É´Ï´ï¿½."));
-		I_VENT_PREV = Util.createItem(Material.BLUE_STAINED_GLASS, 1, "ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡", Arrays.asList(""));
+		I_VENT_NEXT = Util.createItem(Material.RED_STAINED_GLASS, 1, "¡×c´ÙÀ½ À§Ä¡", Arrays.asList(""));
+		I_VENT_CONFIRM = Util.createItem(Material.YELLOW_STAINED_GLASS, 1, "¡×eÀÌ °÷À¸·Î ÀÌµ¿", Arrays.asList("¡×7µé°í ¿ìÅ¬¸¯ ½Ã ÀÌ º¥Æ®·Î ³ª¿É´Ï´Ù."));
+		I_VENT_PREV = Util.createItem(Material.BLUE_STAINED_GLASS, 1, "¡×bÀÌÀü À§Ä¡", Arrays.asList(""));
 		
-		CCTV_EXIT = Util.createItem(Material.IRON_DOOR, 1, "ï¿½ï¿½cCCTV ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½", Arrays.asList("ï¿½ï¿½7CCTVï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."));
+		CCTV_EXIT = Util.createItem(Material.IRON_DOOR, 1, "¡×cCCTV ±×¸¸ º¸±â", Arrays.asList("¡×7CCTV¸¦ ±×¸¸º¾´Ï´Ù."));
 		
 		MINIMAP = Util.createItem(Material.FILLED_MAP, 1, "", Arrays.asList(""));
 		MapMeta mm = (MapMeta) MINIMAP.getItemMeta();

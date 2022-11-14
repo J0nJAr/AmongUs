@@ -23,7 +23,7 @@ public class SabotageGUI {
 	
 	private static SabotageGUITimer sgt;
 	private static Inventory gui;
-	public final static String guiName = "ì‚¬ë³´íƒ€ì§€ GUI";
+	public final static String guiName = "»çº¸Å¸Áö GUI";
 	
 	
 	public static void startTimer() {
@@ -57,11 +57,12 @@ public class SabotageGUI {
 			ROOMS room = ROOMS.getROOMBySignature(mat);
 			boolean crit = event.isRightClick();
 			
+			
 			PlayerData pd = PlayerData.getPlayerData(p.getName());
 			
 			if(room != null && Main.gt.getStatus() == Status.WORKING) {
 				if(pd.getVent() != null) {
-					p.sendMessage(Main.PREFIX + "ï¿½ï¿½cï¿½ï¿½Æ® ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½çº¸Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+					p.sendMessage(Main.PREFIX + "¡×cº¥Æ® ³»ºÎ¿¡¼­ »çº¸Å¸Áö¸¦ ¹ßµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.");
 				} else {
 					int id = room.getSaboDoorId();
 					SaboType[] stlist = room.getSabos();

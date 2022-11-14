@@ -1,10 +1,28 @@
 package bepo.au;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.GameRule;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import bepo.au.Main.SETTING;
 import bepo.au.base.Mission;
 import bepo.au.base.PlayerData;
 import bepo.au.base.Sabotage;
-import bepo.au.function.*;
+import bepo.au.function.AdminMap;
+import bepo.au.function.CCTV;
+import bepo.au.function.SabotageGUI;
+import bepo.au.function.SightTimer;
+import bepo.au.function.Vent;
+import bepo.au.function.VoteSystem;
 import bepo.au.games.AGameTicker;
 import bepo.au.manager.BossBarManager;
 import bepo.au.manager.BossBarManager.BossBarList;
@@ -15,14 +33,6 @@ import bepo.au.utils.PlayerUtil;
 import bepo.au.utils.Util;
 import io.github.thatkawaiisam.assemble.Assemble;
 import io.github.thatkawaiisam.assemble.AssembleStyle;
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameTimer extends BukkitRunnable {
 
@@ -63,6 +73,9 @@ public class GameTimer extends BukkitRunnable {
 			return this.gameticker;
 		}
 
+		public GameType getNextType(){
+			return this == NORMAL ? CHASETAG : NORMAL;
+		}
 		static {
 			for (GameType type : GameType.values()){
 					TYPES.add(type.toString());
@@ -241,11 +254,6 @@ public class GameTimer extends BukkitRunnable {
 			Bukkit.broadcastMessage(Main.PREFIX + "§e게임 참가자 목록");
 			for (int i = 0; i < PLAYERS.size(); i++) {
 				Bukkit.broadcastMessage(Main.PREFIX + "§f" + (i + 1) + ". §a" + PLAYERS.get(i));
-				Player ap = Bukkit.getPlayer(PLAYERS.get(i));
-				if(ap != null){
-					ap.setGameMode(GameMode.ADVENTURE);
-					ap.getInventory().clear();
-				}
 			}
 			Bukkit.broadcastMessage(Main.PREFIX + "§f=====================");
 			break;

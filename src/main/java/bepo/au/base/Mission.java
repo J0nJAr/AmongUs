@@ -1,15 +1,8 @@
 package bepo.au.base;
 
-import bepo.au.GameTimer;
-import bepo.au.GameTimer.WinReason;
-import bepo.au.Main;
-import bepo.au.base.Sabotage.SaboType;
-import bepo.au.function.MissionList;
-import bepo.au.manager.BossBarManager;
-import bepo.au.manager.BossBarManager.BossBarList;
-import bepo.au.utils.ColorUtil;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,14 +11,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import bepo.au.GameTimer;
+import bepo.au.GameTimer.WinReason;
+import bepo.au.base.Sabotage.SaboType;
+import bepo.au.Main;
+import bepo.au.function.MissionList;
+import bepo.au.manager.BossBarManager;
+import bepo.au.manager.BossBarManager.BossBarList;
+import bepo.au.utils.ColorUtil;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
 
 public abstract class Mission implements Listener, Cloneable {
 
@@ -36,7 +41,7 @@ public abstract class Mission implements Listener, Cloneable {
 	}
 
 	public static List<Mission> MISSIONS = new ArrayList<Mission>();
-
+	
 	public static List<Mission> ActivatedMission = new ArrayList<Mission>();
 
 	protected static Main main;
@@ -75,18 +80,18 @@ public abstract class Mission implements Listener, Cloneable {
 	protected String name;
 	protected String korean;
 	protected MissionType type;
-
+	
 	protected boolean order;
 
 	protected List<Inventory> gui = new ArrayList<Inventory>();
 	protected List<String> gui_title = new ArrayList<String>();
 	protected List<Location> locs;
 	protected List<Integer> cleared = new ArrayList<Integer>();
-
+	
 	protected int required_clear = 0;
-
+	
 	@Override
-	public Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException { 
 		Mission m = (Mission) super.clone();
 		m.gui = new ArrayList<Inventory>(gui);
 		m.gui_title = new ArrayList<String>(gui_title);
@@ -94,7 +99,7 @@ public abstract class Mission implements Listener, Cloneable {
 		m.cleared = new ArrayList<Integer>(cleared);
 		return m;
 	}
-
+	
 
 	public Mission(boolean order, MissionType mt, String name, String korean, int required_clear, Location... loc) {
 		this.name = name;
@@ -117,7 +122,7 @@ public abstract class Mission implements Listener, Cloneable {
 			MissionList.HARD.add(this);
 		else MissionList.SABOTAGE.add((Sabotage) this);
 	}
-
+	
 	public Mission(MissionType mt, String name, String korean, int required_clear, Location... loc) {
 		this.name = name;
 		this.order = false;
@@ -134,8 +139,8 @@ public abstract class Mission implements Listener, Cloneable {
 			MissionList.HARD.add(this);
 		else MissionList.SABOTAGE.add((Sabotage) this);
 	}
-
-
+	
+	
 
 	public void addLocation(Location loc) {
 		this.locs.add(loc);
@@ -148,7 +153,7 @@ public abstract class Mission implements Listener, Cloneable {
 	public String getKoreanName() {
 		return this.korean;
 	}
-
+	
 	public boolean getOrdered() {
 		return this.order;
 	}
@@ -169,34 +174,34 @@ public abstract class Mission implements Listener, Cloneable {
 		String s = getKoreanName() + (getRequiredClear() > 1 ? "(" + cleared.size() + "/" + getRequiredClear() + ")" : "");
 		if (cleared.size() > 0) {
 			if (cleared.size() < required_clear)
-				s = "Â§e" + s;
+				s = "¡×e" + s;
 			else
-				s = "Â§a" + s;
+				s = "¡×a" + s;
 		}
 		return s;
 	}
 
 	public void shinePosition(boolean order) {
 		if (getPlayer() == null || cleared.size() >= required_clear) return;
-
+		
 		for (int i = (order ? cleared.size() : 0); i < (order ? cleared.size()+1 : locs.size()); i++) {
 			if (!cleared.contains((Integer) i)) {
 				shinePosition(i, order);
 			}
 		}
 	}
-
+	
 	public void shinePosition(int i, boolean order) {
-
+		
 		Location loc = locs.get(i).clone();
 		if(this.getMissionName().equalsIgnoreCase("Gas")) {
 			loc = loc.getBlock().getLocation().add(0.4D, 0, 0.6D);
 		} else loc = loc.getBlock().getLocation().add(0.5D, 0, 0.5D);
-
+		
 		PlayerUtil.spawnGlowingBlock(getPlayer(), loc,
 				this instanceof Sabotage ? ColorUtil.RED : (order && i > 0 ? ColorUtil.YELLOW : ColorUtil.WHITE));
 	}
-
+	
 	public void shineReset() {
 		if(getPlayer() != null) for(Location loc : locs) PlayerUtil.removeGlowingBlock(getPlayer(), loc);
 	}
@@ -206,7 +211,7 @@ public abstract class Mission implements Listener, Cloneable {
 		return Bukkit.getPlayer(playername);
 	}
 
-
+	
 	public Mission getClone() {
 		try {
 			return (Mission) this.clone();
@@ -215,7 +220,7 @@ public abstract class Mission implements Listener, Cloneable {
 			return null;
 		}
 	}
-
+	
 	public void uploadInventory(InventoryHolder owner, int slot, String name) {
 		Inventory inv = Bukkit.createInventory(owner, slot, name);
 		gui.add(inv);
@@ -241,23 +246,23 @@ public abstract class Mission implements Listener, Cloneable {
 		if(order) {
 			if(locs.size() > code+1) shinePosition(code+1, true);
 		}
-
+		
 		cleared.add(code);
 		p.closeInventory();
-		p.sendMessage(Main.PREFIX + "ìž„ë¬´ ì™„ë£Œ!");
-
+		p.sendMessage(Main.PREFIX + "ÀÓ¹« ¿Ï·á!");
+		
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
-
+		
 		if(cleared.size() == required_clear) {
 			p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.2F);
 			shineReset();
 			if (pd != null && !GameTimer.IMPOSTER.contains(p.getName())) {
 				GameTimer.CLEARED_MISSION++;
 				pd.cleared_missions++;
-
+				
 				BossBarManager.updateBossBar(BossBarList.TASKS, Sabotage.Sabos != null && Sabotage.Sabos.getType() == SaboType.COMM);
-
-
+				
+				
 				if (GameTimer.CLEARED_MISSION == GameTimer.REQUIRED_MISSION) {
 
 					GameTimer.WIN_REASON = WinReason.CREW_MISSION;
@@ -289,7 +294,7 @@ public abstract class Mission implements Listener, Cloneable {
 		}
 
 	}
-
+	
 	public  boolean isCleared(int code) {
 		return cleared.contains(code);
 	}

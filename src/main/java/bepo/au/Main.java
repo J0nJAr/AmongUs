@@ -11,7 +11,6 @@ import bepo.au.manager.*;
 import bepo.au.utils.ColorUtil;
 import bepo.au.utils.PlayerUtil;
 import bepo.au.utils.SettingUtil;
-import bepo.au.utils.SettingUtil.ARMORSTANDS;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -27,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends JavaPlugin implements Listener{
-	
+
+
+
 	public enum SETTING {
 		
 		GAMEMODE("게임 종류", GameTimer.GameType.NORMAL, GameTimer.GameType.class),
@@ -43,9 +44,9 @@ public class Main extends JavaPlugin implements Listener{
 		NOTICE_IMPOSTER("추방 시 임포스터 여부 공개",true, Boolean.class),
 		VISUAL_TASK("시각 미션 보이기", true, Boolean.class),
 		BLOCK_PLAYER_SOUND("플레이어 소리 차단", true, Boolean.class),
-		COMMON_MISSION_AMOUNT("공통 임무", 1, Integer.class),
-		EASY_MISSION_AMOUNT("간단한 임무", 2, Integer.class),
-		HARD_MISSION_AMOUNT("어려운 임무", 1, Integer.class),
+		COMMON_MISSION_AMOUNT("공통 임무", 1, Integer.class,0,2),
+		EASY_MISSION_AMOUNT("간단한 임무", 2, Integer.class,0,8),
+		HARD_MISSION_AMOUNT("어려운 임무", 1, Integer.class,0,7),
 		IMPOSTER_AMOUNT("임포스터 수", 1, Integer.class),
 		MOVEMENT_SPEED("이동속도", 0.2D, Double.class),
 		
@@ -54,22 +55,33 @@ public class Main extends JavaPlugin implements Listener{
 		
 		IMPOSTER_ALWAYS_BLIND("(술래잡기) 임포스터 실명 부여", true, Boolean.class),
 		IMPOSTER_MOVEMENT_SPEED("(술래잡기) 임포스터 이동속도", 0.2D, Double.class);
-		
+
 		private Object obj;
 		private String name;
 		private Class<?> type;
+		public int min,max;
 		public static ArrayList<String> SETTING_LIST = new ArrayList<String>();
-		
+
 		SETTING(String name, Object obj, Class<?> type) {
-			this.obj = obj.toString();
+			this.obj = obj;
 			this.type = type;
 			this.name = name;
+			this.min = 0;
+			this.max = -1;
+		}
+
+		SETTING(String name, Object obj, Class<?> type,int min,int max) {
+			this.obj = obj;
+			this.type = type;
+			this.name = name;
+			this.min = min;
+			this.max = max;
 		}
 		
 		public String getName() {
 			return this.name;
 		}
-		
+
 		public Object get() {
 			return obj;
 		}
@@ -104,13 +116,17 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		
 		private void checkLimit() {
-			if(this == IMPOSTER_MOVEMENT_SPEED) {
+
 		
 				
-				if(obj instanceof Double) {
-					Double d = (Double) obj;
-					if(d > 1.0D) obj = 1.0D; else if(d < -1.0D) obj = -1.0D;
-				}
+			if(obj instanceof Double) {
+				Double d = (Double) obj;
+				if(d > 1.0D) obj = 1.0D; else if(d < -1.0D) obj = -1.0D;
+
+			}else if(obj instanceof Integer){
+				int num = (int) obj;
+				if(num<min) obj=0;
+				else if (num>max && max!=-1) obj=max;
 			}
 		}
 		
@@ -132,7 +148,6 @@ public class Main extends JavaPlugin implements Listener{
 	private static MissionList ml;
 	private static LocManager lm;
 	private static EventManager em;
-	
 	public static boolean isProtocolHooked = false;
 
 	
@@ -173,14 +188,22 @@ public class Main extends JavaPlugin implements Listener{
         	return;
         }
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§f버전 확인 완료! 플러그인 활성화를 시작합니다.");
-
-		Mission.MISSIONS.addAll(MissionList.EASY);
-
-		Mission.MISSIONS.addAll(MissionList.HARD);
-
-		Mission.MISSIONS.addAll(MissionList.COMMON);
-
-		Mission.MISSIONS.addAll(MissionList.SABOTAGE);
+		
+		for(Mission m : MissionList.EASY) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.HARD) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.COMMON) {
+			Mission.MISSIONS.add(m);
+		}
+		
+		for(Mission m : MissionList.SABOTAGE) {
+			Mission.MISSIONS.add(m);
+		}
 		
 		config = new ConfigManager(this);
 		config.loadConfig();
@@ -217,7 +240,7 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("au").setTabCompleter(new TabCompleteManager());
 		
 		Bukkit.getPluginManager().registerEvents(em, this);
-		
+
 		GameType.NORMAL.setGameTicker(new Normal());
 		GameType.CHASETAG.setGameTicker(new ChaseTag());
 		
@@ -225,33 +248,36 @@ public class Main extends JavaPlugin implements Listener{
 			isProtocolHooked = true;
 			SoundRemover.addListener();
 		}
-		
-		for(World w : Bukkit.getWorlds()) {
-			for(Entity e : w.getEntities()) {
-				if(e.getScoreboardTags().contains("au_reset")) {
-					e.remove();
-				} else {
-					if(e instanceof ArmorStand) {
-						for(ARMORSTANDS ass : ARMORSTANDS.values()) {
-							if(e.getScoreboardTags().contains(ass.getTag())) {
-								Bukkit.getConsoleSender().sendMessage("added " + ass.getTag());
-								ass.addArmorStands((ArmorStand) e);
+
+		Mission.initMain(this);
+
+
+
+		new BukkitRunnable() {
+			public void run() {
+
+				for(World w : Bukkit.getWorlds()) {
+					for(Entity e : w.getEntities()) {
+						if(e.getScoreboardTags().contains("au_reset")) {
+							e.remove();
+						} else {
+							if(e instanceof ArmorStand) {
+								for(SettingUtil.ARMORSTANDS ass : SettingUtil.ARMORSTANDS.values()) {
+									if(e.getScoreboardTags().contains(ass.getTag())) {
+										Bukkit.getConsoleSender().sendMessage("added " + ass.getTag());
+										ass.addArmorStands((ArmorStand) e);
+									}
+								}
 							}
 						}
 					}
 				}
-			}
-		}
-		
-		Mission.initMain(this);
-		
-		new BukkitRunnable() {
-			public void run() {
+
 				SettingUtil.startSetting();
 				//SettingUtil.logo_Frames();
 			}
 		}.runTaskLater(this, 20L);
-		
+
 		Bukkit.getConsoleSender().sendMessage(PREFIX + "§fAmongUs 활성화. By Team JonJAr");
 	}
 	

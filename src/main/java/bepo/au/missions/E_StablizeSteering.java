@@ -1,20 +1,24 @@
 package bepo.au.missions;
 
-import bepo.au.Main;
-import bepo.au.base.Mission;
-import bepo.au.utils.Util;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.List;
+import bepo.au.Main;
+import bepo.au.base.Mission;
+import bepo.au.utils.Util;
+
 import java.util.Random;
 
 public class E_StablizeSteering extends Mission {
@@ -24,19 +28,19 @@ public class E_StablizeSteering extends Mission {
 	private final String guiName = "StablizeSteering";
 	private Material[] Clickable = {Material.ELYTRA};
 	/*
-	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨, GUI ì—´ê¸° ì‹œë„.
+	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ, GUI ¿­±â ½Ãµµ.
 	 */
-
+	
 	public E_StablizeSteering(MissionType mt, String name, String korean, int clear, Location loc) {
 		super(mt, name, korean, clear, loc);
 	}
-
+	
 	@Override
 	public void onAssigned(Player p) {
 		assign(p);
 		uploadInventory(p, maxslot, guiName);
 	}
-
+	
 	@Override
 	public void onStart(Player p, int code) {
 		int x, y;
@@ -44,13 +48,13 @@ public class E_StablizeSteering extends Mission {
 			x = random.nextInt(9);
 			y = random.nextInt(5);
 			if (!(2 < x && x < 6 && 0 < y && y < 4))
-				break; // ê°€ìš´ë° 3x3ì¹¸ì€ ã„´ã„´
+				break; // °¡¿îµ¥ 3x3Ä­Àº ¤¤¤¤
 		}
 		int elytraSlot = x + y * 9;
-		setGUI(elytraSlot); // GUI ë§Œë“¤ê¸°
+		setGUI(elytraSlot); // GUI ¸¸µé±â
 		p.openInventory(gui.get(0));
 	}
-
+	
 	@Override
 	public void onStop(Player p, int code) {
 		new BukkitRunnable() {
@@ -58,24 +62,24 @@ public class E_StablizeSteering extends Mission {
 				p.getInventory().remove(Material.ELYTRA);
 			}
 		}.runTaskLater(Main.getInstance(), 0L);
-
+		
 	}
-
+	
 	@Override
 	public void onClear(Player p, int code) {
 		generalClear(p, code);
 	}
 
 	private void setGUI(int elytraSlot) {
-		List<String> lore = Arrays.asList("Â§7ì¡°ì •ê°„ì„ ì • ê°€ìš´ë°ì˜ ë¹ˆ ê³µê°„ìœ¼ë¡œ ì˜®ê¸°ì„¸ìš”.");
+		List<String> lore = Arrays.asList("¡×7Á¶Á¤°£À» Á¤ °¡¿îµ¥ÀÇ ºó °ø°£À¸·Î ¿Å±â¼¼¿ä.");
 		for (int slot = 0; slot < maxslot; slot++) {
 			// int x = slot % 9, y = slot / 9;
 			if (slot == 22)
-				; // ê°€ìš´ë°ëŠ” ë¹ˆì¹¸
-			else if (slot == 21 || slot == 23 || slot == 13 || slot == 31) { // ì£¼ìœ„ 4ì¹¸ì€ í•˜ì–€ìƒ‰
+				; // °¡¿îµ¥´Â ºóÄ­
+			else if (slot == 21 || slot == 23 || slot == 13 || slot == 31) { // ÁÖÀ§ 4Ä­Àº ÇÏ¾á»ö
 				Util.Stack(gui.get(0), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
-			} else if (slot == elytraSlot) { // ê²‰ë‚ ê°œ ëœë¤ìœ„ì¹˜
-				Util.Stack(gui.get(0), slot, Material.ELYTRA, 1, "Â§fì¡°ì •ê°„", lore);
+			} else if (slot == elytraSlot) { // °Ñ³¯°³ ·£´ıÀ§Ä¡
+				Util.Stack(gui.get(0), slot, Material.ELYTRA, 1, "¡×fÁ¶Á¤°£", lore);
 			} else {
 				Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ");
 			}
@@ -84,41 +88,41 @@ public class E_StablizeSteering extends Mission {
 	}
 
 	/*
-	 * í´ë¦¬ì–´ í™•ì¸
+	 * Å¬¸®¾î È®ÀÎ
 	 */
 	private void check(Player p) {
 		new BukkitRunnable() {
 			public void run() {
 				if(gui.get(0).getItem(22) != null && gui.get(0).getItem(22).getType()==Clickable[0]) {
-					Util.debugMessage("í´ë¦¬ì–´!");
+					Util.debugMessage("Å¬¸®¾î!");
 					onClear(p, 0);
 				}
 			}
 		}.runTaskLater(main, 0L);
 	}
 
+	
 
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@EventHandler
 	private void onClick(InventoryClickEvent e) {
 		if(!checkPlayer(e)) return;
 
-		Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
+		Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
 		ItemStack itemstack = e.getCurrentItem();
 
 		// Inventory gui = e.getClickedInventory();
 		// Player p = (Player) e.getWhoClicked();
 
-		if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
-			Util.debugMessage("ë”ë¸” í´ë¦­ ë¶ˆê°€");
+		if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
+			Util.debugMessage("´õºí Å¬¸¯ ºÒ°¡");
 			e.setCancelled(true);
 		}
 		if (itemstack != null) {
 			if (Arrays.asList(Clickable).contains(itemstack.getType())) {
 				check((Player) e.getWhoClicked());
 			} else {
-				Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+				Util.debugMessage("Å¬¸¯ ºÒ°¡");
 				e.setCancelled(true);
 			}
 		} else {
@@ -136,7 +140,7 @@ public class E_StablizeSteering extends Mission {
 					break;
 				}
 			}
-		}
+			}
 
 	}
 

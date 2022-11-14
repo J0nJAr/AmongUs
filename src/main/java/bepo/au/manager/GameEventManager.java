@@ -1,20 +1,12 @@
 package bepo.au.manager;
 
-import bepo.au.GameTimer;
-import bepo.au.GameTimer.GameType;
-import bepo.au.GameTimer.Status;
-import bepo.au.Main;
-import bepo.au.Main.SETTING;
-import bepo.au.base.Mission;
-import bepo.au.base.PlayerData;
-import bepo.au.base.Sabotage;
-import bepo.au.base.Sabotage.SaboType;
-import bepo.au.function.*;
-import bepo.au.manager.BossBarManager.BossBarList;
-import bepo.au.utils.PlayerUtil;
-import bepo.au.utils.Util;
-import com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent;
-import org.bukkit.*;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -29,14 +21,40 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
-import java.util.List;
+import com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent;
+
+import bepo.au.GameTimer.GameType;
+import bepo.au.GameTimer.Status;
+import bepo.au.Main.SETTING;
+import bepo.au.GameTimer;
+import bepo.au.Main;
+import bepo.au.base.Mission;
+import bepo.au.base.PlayerData;
+import bepo.au.base.Sabotage;
+import bepo.au.base.Sabotage.SaboType;
+import bepo.au.function.AdminMap;
+import bepo.au.function.ItemList;
+import bepo.au.function.SabotageGUI;
+import bepo.au.function.Vent;
+import bepo.au.function.VoteSystem;
+import bepo.au.manager.BossBarManager.BossBarList;
+import bepo.au.utils.PlayerUtil;
+import bepo.au.utils.Util;
 
 public class GameEventManager implements Listener {
 	
@@ -249,6 +267,19 @@ public class GameEventManager implements Listener {
 
 	
 	@EventHandler
+	public void onInteractAt(PlayerInteractAtEntityEvent event) {
+		Player p = event.getPlayer();
+		PlayerData pd = PlayerData.getPlayerData(p.getName());
+		
+		if(pd == null)
+			return;
+		
+		if(event.getRightClicked() instanceof ArmorStand) {
+			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
@@ -325,12 +356,12 @@ public class GameEventManager implements Listener {
 						}
 					}
 				} else if(LocManager.getLoc("CCTVButton").contains(loc)){
-					if(p.getGameMode() != GameMode.SPECTATOR){
-						if(Sabotage.isActivating(0) && Sabotage.Sabos.getType() == SaboType.COMM) {
-							p.sendMessage(Main.PREFIX + "§c통신 사보타지 발동 중엔 확인하실 수 없습니다.");
-						} else {
-							pd.moveCCTV(p, true);
-						}
+					if(Sabotage.isActivating(0) && Sabotage.Sabos.getType() == SaboType.COMM) {
+						p.sendMessage(Main.PREFIX + "§c통신 사보타지 발동 중엔 확인하실 수 없습니다.");
+					} else if(p.getGameMode() != GameMode.SPECTATOR){
+						pd.moveCCTV(p, true);
+					} else {
+						p.sendMessage(Main.PREFIX + "§c유령은 CCTV를 확인하실 수 없습니다.");
 					}
 				} else if (LocManager.getLoc("EmergencyButton").contains(loc)) {
 					if(!pd.isAlive()) {
@@ -547,15 +578,6 @@ public class GameEventManager implements Listener {
 			pd.setVent(p, v, loc);
 		}
 	}
-
-	@EventHandler
-	public void onInteractAt(PlayerInteractAtEntityEvent event){
-		Player p = event.getPlayer();
-		if(event.getRightClicked() instanceof  ArmorStand){
-			if(PlayerData.getPlayerData(p.getName()) != null)
-				event.setCancelled(true);
-		}
-	}
 	
 	@EventHandler(priority=EventPriority.LOW)
 	public void onClick(InventoryClickEvent event) {
@@ -571,7 +593,7 @@ public class GameEventManager implements Listener {
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
 		
 		if(pd != null) {
-			if(p.getGameMode() == GameMode.SPECTATOR && !pd.isWatchingCCTV())
+			if(p.getGameMode() == GameMode.SPECTATOR && !pd.isWatchingCCTV()) 
 				event.setCancelled(false);
 			if(pd.isWatchingCCTV() && event.getCurrentItem() != null && event.getCurrentItem().getType() == ItemList.CCTV_EXIT.getType()) {
 				pd.exitCCTV(p);
@@ -582,6 +604,7 @@ public class GameEventManager implements Listener {
 		}
 		SabotageGUI.onClick(event);
 		AdminMap.onClick(event);
+
 	}
 
 }

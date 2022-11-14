@@ -1,16 +1,19 @@
 package bepo.au.function;
 
-import bepo.au.manager.LocManager;
-import bepo.au.utils.Util;
+import java.util.HashSet;
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.util.HashSet;
-import java.util.List;
+import bepo.au.manager.LocManager;
+import bepo.au.utils.Util;
 
 public class CCTV {
 	
