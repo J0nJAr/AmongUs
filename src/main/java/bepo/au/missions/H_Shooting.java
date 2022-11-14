@@ -50,9 +50,9 @@ public class H_Shooting extends Mission {
 		String s = getKoreanName();
 		s = s + "(" + (MaxScore-score) + "/" + MaxScore + ")";
 		if (cleared.size() > 0) {
-			s = "¡×a" + s;
+			s = "Â§a" + s;
 		} else if(score < MaxScore && score > 0) {
-			s = "¡×e" + s;
+			s = "Â§e" + s;
 		}
 		return s;
 	}
@@ -66,7 +66,7 @@ public class H_Shooting extends Mission {
 	
 	ShootingTimer Timer;
 
-	public void shooting(Player p) { // Á¶°Ç ¸¸Á·
+	public void shooting(Player p) { // ì¡°ê±´ ë§Œì¡±
 		if(Timer==null)	Timer = new ShootingTimer(p);
 		while(true) {
 			Dot = Util.random(0, 26);
@@ -80,7 +80,7 @@ public class H_Shooting extends Mission {
 		gui.get(0).clear();
 		Util.Stack(gui.get(0), 8, Material.OAK_SIGN, score, " ");
 		Util.Stack(gui.get(0), Dot, Material.FIREWORK_STAR, 1, " ");
-		Timer.StartTimer(-1, false, 1);// ·£´ıÇÑ Àå¼Ò¿¡ »¡°­¾çÅĞ »ı¼º
+		Timer.StartTimer(-1, false, 1);// ëœë¤í•œ ì¥ì†Œì— ë¹¨ê°•ì–‘í„¸ ìƒì„±
 		p.openInventory(gui.get(0));
 	}
 
@@ -96,7 +96,7 @@ public class H_Shooting extends Mission {
 			score--;
 			Util.Stack(gui.get(0), 8, Material.OAK_SIGN, score, " ");
 			p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 2);
-			inv.setItem(e.getSlot(), new ItemStack(Material.AIR)); // Å¬¸¯ÇÑ ¾çÅĞÀÌ »ç¶óÁü
+			inv.setItem(e.getSlot(), new ItemStack(Material.AIR)); // í´ë¦­í•œ ì–‘í„¸ì´ ì‚¬ë¼ì§
 			if(score <= 0) {
 				onClear(p, 0);
 			}

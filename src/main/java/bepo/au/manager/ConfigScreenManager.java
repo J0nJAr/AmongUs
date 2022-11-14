@@ -25,13 +25,13 @@ public class ConfigScreenManager {
 
     private static void stack(int slot, Main.SETTING setting){
         if (setting==Main.SETTING.GAMEMODE)
-            Util.Stack(gui,slot, Material.PAPER,1,arr[0].getName(), Arrays.asList(arr[0].get().toString(), ChatColor.RED + "·Îºñ¸¦ ÅëÇØ º¯°æÇÏ´Â °ÍÀ» ±ÇÀåÇÕ´Ï´Ù."));
+            Util.Stack(gui,slot, Material.PAPER,1,arr[0].getName(), Arrays.asList(arr[0].get().toString(), ChatColor.RED + "ë¡œë¹„ë¥¼ í†µí•´ ë³€ê²½í•˜ëŠ” ê²ƒì„ ê¶Œì¥í•©ë‹ˆë‹¤."));
         else {
 
             if(setting.getType() == Double.class)
-                Util.Stack(gui,slot, Material.PAPER,1,arr[slot].getName(),"¡×e" + Math.round(arr[slot].getAsDouble()*10)/10.0+"", "¡×7¡×oÁÂÅ¬¸¯/¿ìÅ¬¸¯ | 1 °¨¼Ò/Áõ°¡");
+                Util.Stack(gui,slot, Material.PAPER,1,arr[slot].getName(),"Â§e" + Math.round(arr[slot].getAsDouble()*10)/10.0+"", "Â§7Â§oì¢Œí´ë¦­/ìš°í´ë¦­ | 1 ê°ì†Œ/ì¦ê°€");
             else if(setting.getType() == Integer.class)
-                Util.Stack(gui, slot, Material.PAPER, 1, arr[slot].getName(), Arrays.asList("¡×e" + arr[slot].getAsInteger() + "", "¡×7¡×oÁÂÅ¬¸¯/¿ìÅ¬¸¯ | 1 °¨¼Ò/Áõ°¡", "¡×7¡×oShift+ÁÂÅ¬¸¯/¿ìÅ¬¸¯ | 10 °¨¼Ò/Áõ°¡"));
+                Util.Stack(gui, slot, Material.PAPER, 1, arr[slot].getName(), Arrays.asList("Â§e" + arr[slot].getAsInteger() + "", "Â§7Â§oì¢Œí´ë¦­/ìš°í´ë¦­ | 1 ê°ì†Œ/ì¦ê°€", "Â§7Â§oShift+ì¢Œí´ë¦­/ìš°í´ë¦­ | 10 ê°ì†Œ/ì¦ê°€"));
             else
                 Util.Stack(gui,slot, Material.PAPER,1,arr[slot].getName(), arr[slot].get().toString());
         }
@@ -47,7 +47,7 @@ public class ConfigScreenManager {
 
     public static void openGUI(Player p){
         int slot = reset();
-        Util.Stack(gui, slot, Material.RED_WOOL, 1, "¡×cÀüÃ¼ ÃÊ±âÈ­", "¡×7Å¬¸¯ ½Ã ¸ğµç ¼³Á¤À» ÃÊ±âÈ­");
+        Util.Stack(gui, slot, Material.RED_WOOL, 1, "Â§cì „ì²´ ì´ˆê¸°í™”", "Â§7í´ë¦­ ì‹œ ëª¨ë“  ì„¤ì •ì„ ì´ˆê¸°í™”");
         p.openInventory(gui);
     }
 

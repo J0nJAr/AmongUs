@@ -46,7 +46,7 @@ public class SightTimer extends BukkitRunnable {
 			return;
 		} else if(Main.gt.getStatus() != Status.WORKING) return;
 		
-		for(Player ap : Bukkit.getOnlinePlayers()) {//cctv ��ƼŬ
+		for(Player ap : Bukkit.getOnlinePlayers()) {//cctv 파티클
 			if(CCTV.watchingCCTVset.isEmpty()) break;
 			if(!CCTV.watchingCCTVset.contains(ap)) {
 				for(E_cctv cctv : E_cctv.values()) {
@@ -59,7 +59,7 @@ public class SightTimer extends BukkitRunnable {
 			}
 		}
 		
-		for(Player ap : Bukkit.getOnlinePlayers()) {//�þ� ��ƼŬ
+		for(Player ap : Bukkit.getOnlinePlayers()) {//시야 파티클
 			
 			Util.sendCorpse(ap);
 			

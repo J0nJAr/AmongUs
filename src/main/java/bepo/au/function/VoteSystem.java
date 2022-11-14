@@ -58,8 +58,8 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		GameTimer.EMERG_REMAIN_TICK = SETTING.EMER_BUTTON_COOL_SEC.getAsInteger() * 20;
 		Main.gt.setStatus(Status.VOTING);
 		Bukkit.getPluginManager().registerEvents(PROGRESSED_VOTE, Main.getInstance());
-		String title = reported ? "¡×c[½ÃÃ¼ ¹ß°ß]" : "¡×a[±ä±Ş ¼ÒÁı]";
-		String msg = PlayerData.getPlayerData(name).getColor().getChatColor() + name + (reported ? "¡×f´Ô²²¼­ " + PlayerData.getPlayerData(corpse).getColor().getChatColor() + corpse + "¡×f´ÔÀÇ ½ÃÃ¼¸¦ ¹ß°ßÇÏ¼Ì½À´Ï´Ù." : "¡×f´Ô²²¼­ ±ä±Ş ¼ÒÁı ¹öÆ°À» ´­·¶½À´Ï´Ù.");
+		String title = reported ? "Â§c[ì‹œì²´ ë°œê²¬]" : "Â§a[ê¸´ê¸‰ ì†Œì§‘]";
+		String msg = PlayerData.getPlayerData(name).getColor().getChatColor() + name + (reported ? "Â§fë‹˜ê»˜ì„œ " + PlayerData.getPlayerData(corpse).getColor().getChatColor() + corpse + "Â§fë‹˜ì˜ ì‹œì²´ë¥¼ ë°œê²¬í•˜ì…¨ìŠµë‹ˆë‹¤." : "Â§fë‹˜ê»˜ì„œ ê¸´ê¸‰ ì†Œì§‘ ë²„íŠ¼ì„ ëˆŒë €ìŠµë‹ˆë‹¤.");
 		for (Player ap : Bukkit.getOnlinePlayers()) {
 			PlayerData pd = PlayerData.getPlayerData(ap.getName());
 			if (pd != null) {
@@ -71,11 +71,11 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 			ap.closeInventory();
 		}
 		
-		Bukkit.broadcastMessage("¡×f=======================");
-		Bukkit.broadcastMessage("¡×f");
+		Bukkit.broadcastMessage("Â§f=======================");
+		Bukkit.broadcastMessage("Â§f");
 		Bukkit.broadcastMessage(title + " " + msg);
-		Bukkit.broadcastMessage("¡×f");
-		Bukkit.broadcastMessage("¡×f=======================");
+		Bukkit.broadcastMessage("Â§f");
+		Bukkit.broadcastMessage("Â§f=======================");
 		
 		new BukkitRunnable() {
 			public void run() {
@@ -148,7 +148,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		armorstandList.clear();
 	}
 
-	public void voteover() {// Á¾·á ÆäÀÌÁî
+	public void voteover() {// ì¢…ë£Œ í˜ì´ì¦ˆ
 		int maximum = -1;
 		int current;
 		boolean tied = false;
@@ -186,7 +186,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		startNotice();
 	}
 
-	String guiName = "ÅõÇ¥";
+	String guiName = "íˆ¬í‘œ";
 	private boolean isImposter;
 
 	private static HashMap<String, Inventory> gui_list = new HashMap<String, Inventory>();
@@ -233,9 +233,9 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 	private static resultType voteResult = null;
 
 	/*
-	 * ÅõÇ¥ ½ÃÀÛ °ü·Ã
+	 * íˆ¬í‘œ ì‹œì‘ ê´€ë ¨
 	 */
-	public void onAssigned(Player p) {// p´Â ÁÖÃ¼
+	public void onAssigned(Player p) {// pëŠ” ì£¼ì²´
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
 		pd.confirmVent(p, true);
 		if (pd.isWatchingCCTV())
@@ -248,8 +248,8 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 
 	}
 
-	public void setGUI(Player p) { // ÅõÇ¥ÇÒ¶§ GUI¿ë
-		guiSize = ((DATALIST.size() + 3) / 9 + 1) * 9; // ÇÃ·¹ÀÌ¾î ¼ö¿¡ µû¶ó À¯µ¿ÀûÀ¸·Î gui Å©±â Á¶Àı
+	public void setGUI(Player p) { // íˆ¬í‘œí• ë•Œ GUIìš©
+		guiSize = ((DATALIST.size() + 3) / 9 + 1) * 9; // í”Œë ˆì´ì–´ ìˆ˜ì— ë”°ë¼ ìœ ë™ì ìœ¼ë¡œ gui í¬ê¸° ì¡°ì ˆ
 		int idx = 0;
 
 		Inventory gui = Bukkit.createInventory(p, guiSize, guiName);
@@ -259,26 +259,26 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 			ItemMeta meta = item.getItemMeta();
 			voteMap.put(pd.getName(), new HashSet<String>());
 
-			isImposter = GameTimer.IMPOSTER.contains(p.getName());// ÀÓÆ÷½ºÅÍÀÏ½Ã ¼­·Î ±¸º°¿ë
+			isImposter = GameTimer.IMPOSTER.contains(p.getName());// ì„í¬ìŠ¤í„°ì¼ì‹œ ì„œë¡œ êµ¬ë³„ìš©
 			if (isImposter && GameTimer.IMPOSTER.contains(name)) {
-				meta.setDisplayName("¡×l¡×n¡×4"+ name);
+				meta.setDisplayName("Â§lÂ§nÂ§4"+ name);
 				meta.addEnchant(Enchantment.MENDING, idx, true);
 				meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 			} else
 				meta.setDisplayName(pd.getColor().getChatColor() + name);
 
 			if (!pd.isAlive()) {
-				meta.setLore(Arrays.asList("¡×7»ç¸Á"));
-			} // »ç¸ÁÈ®ÀÎ
+				meta.setLore(Arrays.asList("Â§7ì‚¬ë§"));
+			} // ì‚¬ë§í™•ì¸
 			else {
-				meta.setLore(Arrays.asList("¡×7ÅõÇ¥"));
+				meta.setLore(Arrays.asList("Â§7íˆ¬í‘œ"));
 			}
 			item.setItemMeta(meta);
 			gui.setItem(idx, item);
 			idx++;
 		}
-		Util.Stack(gui, guiSize - 2, Material.CLOCK, voteTimer / 20 + 1, "³²Àº½Ã°£ : " + (voteTimer / 20 + 1));
-		Util.Stack(gui, guiSize - 1, Material.MAGENTA_GLAZED_TERRACOTTA, 1, "¡×fSKIP", "¡×7ÅõÇ¥");
+		Util.Stack(gui, guiSize - 2, Material.CLOCK, voteTimer / 20 + 1, "ë‚¨ì€ì‹œê°„ : " + (voteTimer / 20 + 1));
+		Util.Stack(gui, guiSize - 1, Material.MAGENTA_GLAZED_TERRACOTTA, 1, "Â§fSKIP", "Â§7íˆ¬í‘œ");
 		gui_list.put(p.getName(), gui);
 	}
 
@@ -314,7 +314,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		if (guiName == e.getView().getTitle()) {
 			e.setCancelled(true);
 			if (its != null && voteResult == null) {
-				if (its.getItemMeta().hasLore() && its.getItemMeta().getLore().get(0).equals("¡×7ÅõÇ¥")) {
+				if (its.getItemMeta().hasLore() && its.getItemMeta().getLore().get(0).equals("Â§7íˆ¬í‘œ")) {
 					putVoter((Player) e.getWhoClicked(), its);
 				}
 			}
@@ -343,7 +343,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 			if (currentPlayer != null && currentPlayer.getVehicle() == null && DATALIST.get(idx).isAlive()) {
 
 				if (first)
-					currentPlayer.teleport(SEATS.get(idx));// ÇÃ·¹ÀÌ¾î¸¦ °¢ ÀÚ¸®·Î ÀÌµ¿
+					currentPlayer.teleport(SEATS.get(idx));// í”Œë ˆì´ì–´ë¥¼ ê° ìë¦¬ë¡œ ì´ë™
 
 				PlayerUtil.sitChair(currentPlayer, SEATS.get(idx));
 			}
@@ -355,11 +355,11 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 			Material.LEATHER_CHESTPLATE, ItemList.I_SABOTAGE_CRIT.getType(), ItemList.I_SABOTAGE_DOOR.getType(),
 			ItemList.I_SABOTAGE_GUI.getType(), ItemList.I_SWORD.getType(), ItemList.VOTE_PAPER.getType() };
 */
-	public void setSeats() { // ÅõÇ¥°¡ ½ÃÀÛµÉ ¶§ ÀÚ¸® ¼¼ÆÃ
+	public void setSeats() { // íˆ¬í‘œê°€ ì‹œì‘ë  ë•Œ ìë¦¬ ì„¸íŒ…
 
 		SEATS = LocManager.getLoc("SEATS");
 		if (DATALIST.size() > SEATS.size()) {
-			Util.debugMessage("ÇÃ·¹ÀÌ¾î ¼öº¸´Ù ÀÚ¸®°¡ Àû½À´Ï´Ù. ÀÓÀÇ·Î ÀÚ¸®¸¦ ´Ã¸®°í ½ÍÀ¸¸é /au locate¸¦ »ç¿ëÇØÁÖ¼¼¿ä.");
+			Util.debugMessage("í”Œë ˆì´ì–´ ìˆ˜ë³´ë‹¤ ìë¦¬ê°€ ì ìŠµë‹ˆë‹¤. ì„ì˜ë¡œ ìë¦¬ë¥¼ ëŠ˜ë¦¬ê³  ì‹¶ìœ¼ë©´ /au locateë¥¼ ì‚¬ìš©í•´ì£¼ì„¸ìš”.");
 		}
 
 		user_sit(true);
@@ -382,7 +382,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 	}
 
 	/*
-	 * ÅõÇ¥ ÁøÇà °ü·Ã
+	 * íˆ¬í‘œ ì§„í–‰ ê´€ë ¨
 	 */
 	private void putVoter(Player p, ItemStack is) {
 
@@ -391,20 +391,20 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		voted = ChatColor.stripColor(is.getItemMeta().getDisplayName());
 
 		if (voteTimer > SETTING.VOTE_MAIN_SEC.getAsInteger() * 20) {
-			p.sendMessage(Main.PREFIX + "¡×c¾ÆÁ÷ ÅõÇ¥ ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cì•„ì§ íˆ¬í‘œ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.");
 			return;
 		}
 
 		if (voteTimer <= 0)
 			return;
 		if (VOTERS.contains(voter)) {
-			p.sendMessage(Main.PREFIX + "¡×cÅõÇ¥¸¦ ¹øº¹ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cíˆ¬í‘œë¥¼ ë²ˆë³µí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 
 		if (!PlayerData.getPlayerData(voter).isAlive()) {
-			p.sendMessage(Main.PREFIX + "¡×cÁ×Àº »ç¶÷Àº ÅõÇ¥¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
-			Util.debugMessage("Á×Àº»ç¶÷ÀÌ ÅõÇ¥¸¦ ½ÃµµÇß½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "Â§cì£½ì€ ì‚¬ëŒì€ íˆ¬í‘œë¥¼ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+			Util.debugMessage("ì£½ì€ì‚¬ëŒì´ íˆ¬í‘œë¥¼ ì‹œë„í–ˆìŠµë‹ˆë‹¤.");
 			return;
 		}
 
@@ -416,13 +416,13 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		remainedVoter--;
 		VOTERS.add(voter);
 		Bukkit.broadcastMessage(Main.PREFIX + PlayerData.getPlayerData(voter).getColor().getChatColor() + voter
-				+ "¡×f´ÔÀÌ ÅõÇ¥ÇÏ¼Ì½À´Ï´Ù. ¡×e(³²Àº ÀÎ¿ø : " + remainedVoter + "¸í)");
+				+ "Â§fë‹˜ì´ íˆ¬í‘œí•˜ì…¨ìŠµë‹ˆë‹¤. Â§e(ë‚¨ì€ ì¸ì› : " + remainedVoter + "ëª…)");
 
 		if (!voted.equalsIgnoreCase("SKIP"))
 			p.sendMessage(
-					Main.PREFIX + PlayerData.getPlayerData(voted).getColor().getChatColor() + voted + "¡×f¿¡°Ô ÅõÇ¥Çß½À´Ï´Ù.");
+					Main.PREFIX + PlayerData.getPlayerData(voted).getColor().getChatColor() + voted + "Â§fì—ê²Œ íˆ¬í‘œí–ˆìŠµë‹ˆë‹¤.");
 		else
-			p.sendMessage(Main.PREFIX + "½ºÅµ¿¡ ÅõÇ¥Çß½À´Ï´Ù.");
+			p.sendMessage(Main.PREFIX + "ìŠ¤í‚µì— íˆ¬í‘œí–ˆìŠµë‹ˆë‹¤.");
 		Util.enchantItem(is);
 		updateGUI(gui_list.get(p.getName()));
 		if (remainedVoter == 0) {
@@ -431,16 +431,16 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 	}
 
 	/*
-	 * ÅõÇ¥ Á¾·á °ü·Ã
+	 * íˆ¬í‘œ ì¢…ë£Œ ê´€ë ¨
 	 */
-	private void timeover() { // ½Ã°£ ¿À¹ö
+	private void timeover() { // ì‹œê°„ ì˜¤ë²„
 		voteover();
 	}
 
 	public static String top = null;
 
 	/*
-	 * ½Ã°£°ü·Ã
+	 * ì‹œê°„ê´€ë ¨
 	 */
 	public int getRemainedTick() {
 		return voteTimer;
@@ -461,7 +461,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 			return;
 		}
 
-		switch (voteTimer) {// ÅõÇ¥ Á¾·á ÈÄ ÀÌº¥Æ® °ü·Ã
+		switch (voteTimer) {// íˆ¬í‘œ ì¢…ë£Œ í›„ ì´ë²¤íŠ¸ ê´€ë ¨
 		case 0:
 			timeover();
 			this.cancel();
@@ -471,13 +471,13 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 		if (voteTimer >= -1 && voteTimer % 20 == 0) {
 			if (voteTimer >= SETTING.VOTE_MAIN_SEC.getAsInteger() * 20)
 				Util.getEmergArmorStand().setCustomName(
-						"¡×fÅõÇ¥ ½ÃÀÛ±îÁö : ¡×a" + ((voteTimer - SETTING.VOTE_MAIN_SEC.getAsInteger() * 20) / 20 + 1) + "¡×fÃÊ");
+						"Â§fíˆ¬í‘œ ì‹œì‘ê¹Œì§€ : Â§a" + ((voteTimer - SETTING.VOTE_MAIN_SEC.getAsInteger() * 20) / 20 + 1) + "Â§fì´ˆ");
 			else
-				Util.getEmergArmorStand().setCustomName("¡×fÅõÇ¥ Á¾·á±îÁö : ¡×a" + (voteTimer / 20 + 1) + "¡×fÃÊ");
+				Util.getEmergArmorStand().setCustomName("Â§fíˆ¬í‘œ ì¢…ë£Œê¹Œì§€ : Â§a" + (voteTimer / 20 + 1) + "Â§fì´ˆ");
 			user_sit(false);
 			for (Inventory gui : gui_list.values()) {
 				Util.Stack(gui, guiSize - 2, Material.CLOCK, voteTimer / 20 + 1,
-						"¡×f³²Àº½Ã°£ : ¡×a" + (voteTimer / 20 + 1) + "¡×fÃÊ");
+						"Â§fë‚¨ì€ì‹œê°„ : Â§a" + (voteTimer / 20 + 1) + "Â§fì´ˆ");
 
 				for (HumanEntity he : gui.getViewers()) {
 					((Player) he).updateInventory();
@@ -554,7 +554,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 
 		private String getGeneralTitle() {
 			if (SETTING.NOTICE_IMPOSTER.getAsBoolean())
-				return "³²Àº ÀÓÆ÷½ºÅÍ : ¡×c" + getRemainImposters() + "¸í";
+				return "ë‚¨ì€ ì„í¬ìŠ¤í„° : Â§c" + getRemainImposters() + "ëª…";
 			else
 				return "";
 		}
@@ -651,7 +651,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 					end();
 			}
 
-			// Ãß¹æ
+			// ì¶”ë°©
 			if (reset_time > 0 && reset_time <= timer) {
 				if (timer == reset_time) {
 					resetField();
@@ -659,16 +659,16 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 					title = getGeneralTitle();
 					switch (voteResult) {
 					case TIE:
-						subtitle = "¾Æ¹«µµ Ãß¹æµÇÁö ¾Ê¾Ò½À´Ï´Ù (µ¿Á¡)";
+						subtitle = "ì•„ë¬´ë„ ì¶”ë°©ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤ (ë™ì )";
 						break;
 					case SKIP:
-						subtitle = "¾Æ¹«µµ Ãß¹æµÇÁö ¾Ê¾Ò½À´Ï´Ù (ÅõÇ¥ °Ç³Ê ¶Ü)";
+						subtitle = "ì•„ë¬´ë„ ì¶”ë°©ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤ (íˆ¬í‘œ ê±´ë„ˆ ëœ€)";
 						break;
 					case CHOOSED:
 						if(Main.SETTING.NOTICE_IMPOSTER.getAsBoolean())
-							subtitle = top + "´ÔÀº ÀÓÆ÷½ºÅÍ" + (GameTimer.ALIVE_IMPOSTERS.contains(top) ? "¿´½À´Ï´Ù." : "°¡ ¾Æ´Ï¾ú½À´Ï´Ù.");
+							subtitle = top + "ë‹˜ì€ ì„í¬ìŠ¤í„°" + (GameTimer.ALIVE_IMPOSTERS.contains(top) ? "ì˜€ìŠµë‹ˆë‹¤." : "ê°€ ì•„ë‹ˆì—ˆìŠµë‹ˆë‹¤.");
 						else
-							subtitle = top + "´ÔÀÌ Ãß¹æµÇ¼Ì½À´Ï´Ù.";
+							subtitle = top + "ë‹˜ì´ ì¶”ë°©ë˜ì…¨ìŠµë‹ˆë‹¤.";
 						break;
 					}
 				} else if (timer > reset_time + 40) {
@@ -709,7 +709,7 @@ public class VoteSystem extends BukkitRunnable implements Listener {
 				}
 			}
 
-			// ÅõÇ¥ °á°ú ¾Ë¸²
+			// íˆ¬í‘œ ê²°ê³¼ ì•Œë¦¼
 			if (timer % 20 == 0) {
 				if (timer >= 60) {
 

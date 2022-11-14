@@ -174,9 +174,9 @@ public abstract class Mission implements Listener, Cloneable {
 		String s = getKoreanName() + (getRequiredClear() > 1 ? "(" + cleared.size() + "/" + getRequiredClear() + ")" : "");
 		if (cleared.size() > 0) {
 			if (cleared.size() < required_clear)
-				s = "¡×e" + s;
+				s = "Â§e" + s;
 			else
-				s = "¡×a" + s;
+				s = "Â§a" + s;
 		}
 		return s;
 	}
@@ -249,7 +249,7 @@ public abstract class Mission implements Listener, Cloneable {
 		
 		cleared.add(code);
 		p.closeInventory();
-		p.sendMessage(Main.PREFIX + "ÀÓ¹« ¿Ï·á!");
+		p.sendMessage(Main.PREFIX + "ìž„ë¬´ ì™„ë£Œ!");
 		
 		PlayerData pd = PlayerData.getPlayerData(p.getName());
 		

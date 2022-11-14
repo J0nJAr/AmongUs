@@ -23,7 +23,7 @@ public class SabotageGUI {
 	
 	private static SabotageGUITimer sgt;
 	private static Inventory gui;
-	public final static String guiName = "»çº¸Å¸Áö GUI";
+	public final static String guiName = "ì‚¬ë³´íƒ€ì§€ GUI";
 	
 	
 	public static void startTimer() {
@@ -62,7 +62,7 @@ public class SabotageGUI {
 			
 			if(room != null && Main.gt.getStatus() == Status.WORKING) {
 				if(pd.getVent() != null) {
-					p.sendMessage(Main.PREFIX + "¡×cº¥Æ® ³»ºÎ¿¡¼­ »çº¸Å¸Áö¸¦ ¹ßµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+					p.sendMessage(Main.PREFIX + "Â§cë²¤íŠ¸ ë‚´ë¶€ì—ì„œ ì‚¬ë³´íƒ€ì§€ë¥¼ ë°œë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 				} else {
 					int id = room.getSaboDoorId();
 					SaboType[] stlist = room.getSabos();

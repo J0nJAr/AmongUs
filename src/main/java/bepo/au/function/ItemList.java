@@ -34,24 +34,24 @@ public class ItemList {
 	public final static HashMap<Integer, ItemStack> I_SET;
 	
 	static {
-		I_SWORD = Util.createItem(Material.DIAMOND_SWORD, 1, "¡×cÀÓÆ÷½ºÅÍÀÇ °Ë", Arrays.asList("¡×7µé°í´Ù´Ï´Â °É µéÅ°Áö ¾Êµµ·Ï ÁÖÀÇÇÏ½Ê½Ã¿À."));
+		I_SWORD = Util.createItem(Material.DIAMOND_SWORD, 1, "Â§cì„í¬ìŠ¤í„°ì˜ ê²€", Arrays.asList("Â§7ë“¤ê³ ë‹¤ë‹ˆëŠ” ê±¸ ë“¤í‚¤ì§€ ì•Šë„ë¡ ì£¼ì˜í•˜ì‹­ì‹œì˜¤."));
 		Damageable im = (Damageable) I_SWORD.getItemMeta();
 		im.setDamage(I_SWORD.getType().getMaxDurability());
 		I_SWORD.setItemMeta((ItemMeta) im);
 		
-		I_SABOTAGE_CRIT = Util.createItem(Material.IRON_PICKAXE, 1, "¡×cÄ¡¸íÀû »çº¸Å¸Áö ¼±ÅÃ", Arrays.asList("¡×7¼Õ¿¡ µé¸é ÇöÀç ¼±ÅÃÇÑ Ä¡¸íÀûÀÎ »çº¸Å¸ÁöÀÇ Á¾·ù¸¦ ¹Ù²Ü ¼ö ÀÖ½À´Ï´Ù.", "¡×7µé°í´Ù³àµµ µéÅ°Áö ¾Ê½À´Ï´Ù.", "¡×7¼Õ ¹Ù²Ù±â(F) Å°·Î ¼±ÅÃÇÑ »çº¸Å¸Áö¸¦ ¹ßµ¿½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù."));
+		I_SABOTAGE_CRIT = Util.createItem(Material.IRON_PICKAXE, 1, "Â§cì¹˜ëª…ì  ì‚¬ë³´íƒ€ì§€ ì„ íƒ", Arrays.asList("Â§7ì†ì— ë“¤ë©´ í˜„ì¬ ì„ íƒí•œ ì¹˜ëª…ì ì¸ ì‚¬ë³´íƒ€ì§€ì˜ ì¢…ë¥˜ë¥¼ ë°”ê¿€ ìˆ˜ ìˆìŠµë‹ˆë‹¤.", "Â§7ë“¤ê³ ë‹¤ë…€ë„ ë“¤í‚¤ì§€ ì•ŠìŠµë‹ˆë‹¤.", "Â§7ì† ë°”ê¾¸ê¸°(F) í‚¤ë¡œ ì„ íƒí•œ ì‚¬ë³´íƒ€ì§€ë¥¼ ë°œë™ì‹œí‚¬ ìˆ˜ ìˆìŠµë‹ˆë‹¤."));
 		Damageable im2 = (Damageable) I_SABOTAGE_CRIT.getItemMeta();
 		im2.setDamage(I_SABOTAGE_CRIT.getType().getMaxDurability());
 		I_SABOTAGE_CRIT.setItemMeta((ItemMeta) im2);
 		
-		I_SABOTAGE_DOOR = Util.createItem(Material.IRON_HOE, 1, "¡×c¹® »çº¸Å¸Áö ¼±ÅÃ", Arrays.asList("¡×7¼Õ¿¡ µé¸é ÇöÀç ¼±ÅÃÇÑ ¹® »çº¸Å¸ÁöÀÇ ¹ßµ¿ À§Ä¡¸¦ ¹Ù²Ü ¼ö ÀÖ½À´Ï´Ù.", "¡×7µé°í´Ù³àµµ µéÅ°Áö ¾Ê½À´Ï´Ù.", "¡×7¼Õ ¹Ù²Ù±â(F) Å°·Î ¼±ÅÃÇÑ »çº¸Å¸Áö¸¦ ¹ßµ¿½ÃÅ³ ¼ö ÀÖ½À´Ï´Ù."));
+		I_SABOTAGE_DOOR = Util.createItem(Material.IRON_HOE, 1, "Â§cë¬¸ ì‚¬ë³´íƒ€ì§€ ì„ íƒ", Arrays.asList("Â§7ì†ì— ë“¤ë©´ í˜„ì¬ ì„ íƒí•œ ë¬¸ ì‚¬ë³´íƒ€ì§€ì˜ ë°œë™ ìœ„ì¹˜ë¥¼ ë°”ê¿€ ìˆ˜ ìˆìŠµë‹ˆë‹¤.", "Â§7ë“¤ê³ ë‹¤ë…€ë„ ë“¤í‚¤ì§€ ì•ŠìŠµë‹ˆë‹¤.", "Â§7ì† ë°”ê¾¸ê¸°(F) í‚¤ë¡œ ì„ íƒí•œ ì‚¬ë³´íƒ€ì§€ë¥¼ ë°œë™ì‹œí‚¬ ìˆ˜ ìˆìŠµë‹ˆë‹¤."));
 		Damageable im3 = (Damageable) I_SABOTAGE_DOOR.getItemMeta();
 		im3.setDamage(I_SABOTAGE_DOOR.getType().getMaxDurability());
 		I_SABOTAGE_DOOR.setItemMeta((ItemMeta) im3);
 		
-		I_SABOTAGE_GUI = Util.createItem(Material.ENDER_EYE, 1, "¡×c»çº¸Å¸Áö ¼±ÅÃÃ¢ ¿­±â", Arrays.asList("¡×7Å¬¸¯ÇÏ¸é ¼±ÅÃ ÆäÀÌÁö¸¦ ¿±´Ï´Ù.", "¡×c¿òÁ÷ÀÌ¸é¼­ »ç¿ëÇÒ ¼ö ¾øÀ¸¹Ç·Î, ¾Æ¹«µµ ¾ø´Â °÷¿¡¼­ »ç¿ëÇÏ¼¼¿ä."));
+		I_SABOTAGE_GUI = Util.createItem(Material.ENDER_EYE, 1, "Â§cì‚¬ë³´íƒ€ì§€ ì„ íƒì°½ ì—´ê¸°", Arrays.asList("Â§7í´ë¦­í•˜ë©´ ì„ íƒ í˜ì´ì§€ë¥¼ ì—½ë‹ˆë‹¤.", "Â§cì›€ì§ì´ë©´ì„œ ì‚¬ìš©í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ, ì•„ë¬´ë„ ì—†ëŠ” ê³³ì—ì„œ ì‚¬ìš©í•˜ì„¸ìš”."));
 		
-		VOTE_PAPER = Util.createItem(Material.BOOK, 1, "¡×aÅõÇ¥Ã¢ ¿­±â (¿ìÅ¬¸¯)", Arrays.asList("¡×7¼Õ¿¡ µé°í ¿ìÅ¬¸¯ÇÏ¸é ÅõÇ¥Ã¢ÀÌ ¿­¸³´Ï´Ù."));
+		VOTE_PAPER = Util.createItem(Material.BOOK, 1, "Â§aíˆ¬í‘œì°½ ì—´ê¸° (ìš°í´ë¦­)", Arrays.asList("Â§7ì†ì— ë“¤ê³  ìš°í´ë¦­í•˜ë©´ íˆ¬í‘œì°½ì´ ì—´ë¦½ë‹ˆë‹¤."));
 		
 		I_SET = new HashMap<Integer, ItemStack>();
 		I_SET.put(1, I_SWORD.clone());
@@ -59,11 +59,11 @@ public class ItemList {
 		I_SET.put(5, I_SABOTAGE_CRIT.clone());
 		I_SET.put(22, I_SABOTAGE_GUI.clone());
 		
-		I_VENT_NEXT = Util.createItem(Material.RED_STAINED_GLASS, 1, "¡×c´ÙÀ½ À§Ä¡", Arrays.asList(""));
-		I_VENT_CONFIRM = Util.createItem(Material.YELLOW_STAINED_GLASS, 1, "¡×eÀÌ °÷À¸·Î ÀÌµ¿", Arrays.asList("¡×7µé°í ¿ìÅ¬¸¯ ½Ã ÀÌ º¥Æ®·Î ³ª¿É´Ï´Ù."));
-		I_VENT_PREV = Util.createItem(Material.BLUE_STAINED_GLASS, 1, "¡×bÀÌÀü À§Ä¡", Arrays.asList(""));
+		I_VENT_NEXT = Util.createItem(Material.RED_STAINED_GLASS, 1, "Â§cë‹¤ìŒ ìœ„ì¹˜", Arrays.asList(""));
+		I_VENT_CONFIRM = Util.createItem(Material.YELLOW_STAINED_GLASS, 1, "Â§eì´ ê³³ìœ¼ë¡œ ì´ë™", Arrays.asList("Â§7ë“¤ê³  ìš°í´ë¦­ ì‹œ ì´ ë²¤íŠ¸ë¡œ ë‚˜ì˜µë‹ˆë‹¤."));
+		I_VENT_PREV = Util.createItem(Material.BLUE_STAINED_GLASS, 1, "Â§bì´ì „ ìœ„ì¹˜", Arrays.asList(""));
 		
-		CCTV_EXIT = Util.createItem(Material.IRON_DOOR, 1, "¡×cCCTV ±×¸¸ º¸±â", Arrays.asList("¡×7CCTV¸¦ ±×¸¸º¾´Ï´Ù."));
+		CCTV_EXIT = Util.createItem(Material.IRON_DOOR, 1, "Â§cCCTV ê·¸ë§Œ ë³´ê¸°", Arrays.asList("Â§7CCTVë¥¼ ê·¸ë§Œë´…ë‹ˆë‹¤."));
 		
 		MINIMAP = Util.createItem(Material.FILLED_MAP, 1, "", Arrays.asList(""));
 		MapMeta mm = (MapMeta) MINIMAP.getItemMeta();

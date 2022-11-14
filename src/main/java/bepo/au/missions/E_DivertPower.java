@@ -22,23 +22,23 @@ public class E_DivertPower extends Mission {
 
 	protected int roomNum;
 
-	final Material[] material = { Material.RED_STAINED_GLASS, // ·¹¹ö0
-			Material.REDSTONE_BLOCK, // È°¼ºÈ­µÈ ·¹¹ö1
-			Material.YELLOW_STAINED_GLASS_PANE, // Àü±â2
-			Material.GRAY_STAINED_GLASS_PANE, // È¸»ö¹è°æ3
-			Material.WHITE_STAINED_GLASS_PANE, // ÇÏ¾ç¹è°æ4
-			Material.LIGHT_GRAY_STAINED_GLASS_PANE// ¿¬È¸»ö5
+	final Material[] material = { Material.RED_STAINED_GLASS, // ë ˆë²„0
+			Material.REDSTONE_BLOCK, // í™œì„±í™”ëœ ë ˆë²„1
+			Material.YELLOW_STAINED_GLASS_PANE, // ì „ê¸°2
+			Material.GRAY_STAINED_GLASS_PANE, // íšŒìƒ‰ë°°ê²½3
+			Material.WHITE_STAINED_GLASS_PANE, // í•˜ì–‘ë°°ê²½4
+			Material.LIGHT_GRAY_STAINED_GLASS_PANE// ì—°íšŒìƒ‰5
 	};
 
-	final String[] rooms = { "¡×fÇÏºÎ ¿£Áø", // ·¹¹ö
-			"»óºÎ ¿£Áø", //
-			"¹«±â°í", //
-			"º¸È£¸· Á¦¾î½Ç", //
-			"Á¤ÀÇµÇÁö ¾ÊÀº ¹æ", //
-			"Ç×ÇØ½Ç", //
-			"Åë½Å½Ç", //
-			"»ê¼Ò °ø±Ş½Ç", //
-			"º¸¾È½Ç" };// ¹è°æ
+	final String[] rooms = { "Â§fí•˜ë¶€ ì—”ì§„", // ë ˆë²„
+			"ìƒë¶€ ì—”ì§„", //
+			"ë¬´ê¸°ê³ ", //
+			"ë³´í˜¸ë§‰ ì œì–´ì‹¤", //
+			"ì •ì˜ë˜ì§€ ì•Šì€ ë°©", //
+			"í•­í•´ì‹¤", //
+			"í†µì‹ ì‹¤", //
+			"ì‚°ì†Œ ê³µê¸‰ì‹¤", //
+			"ë³´ì•ˆì‹¤" };// ë°°ê²½
 
 	public E_DivertPower(MissionType mt2, String name, String korean, int clear, Location loc) {
 		super(true, mt2, name, korean, clear, loc);
@@ -49,9 +49,9 @@ public class E_DivertPower extends Mission {
 		uploadInventory(p, 54, "DivertPower 0");
 		uploadInventory(p, 27, "DivertPower 1");
 		roomNum = Util.random(1, 8);
-		//   0 1 2 3 4 5 6 7 8 roomnum ¸ñ·Ï. 4´Â X
-		// 0 1 2 3 4   5 6 7 8 loc ¸ñ·Ï
-		//   1 2 3 4   5 6 7 8 ·£´ı¹èÁ¤ ¸ñ·Ï
+		//   0 1 2 3 4 5 6 7 8 roomnum ëª©ë¡. 4ëŠ” X
+		// 0 1 2 3 4   5 6 7 8 loc ëª©ë¡
+		//   1 2 3 4   5 6 7 8 ëœë¤ë°°ì • ëª©ë¡
 		Location elec = locs.get(0);
 		Location loc1 = locs.get(roomNum);
 		
@@ -77,17 +77,17 @@ public class E_DivertPower extends Mission {
 	}
 
 	public void reset1(Player p) {
-		for (int slot = 0; slot < 54; slot++) {// guiÀÎº¥Åä¸®
+		for (int slot = 0; slot < 54; slot++) {// guiì¸ë²¤í† ë¦¬
 			int y = slot / 9, x = slot % 9;
 			if (y == 3 || y == 5)
-				Util.Stack(gui.get(0), slot, x == roomNum ? Material.AIR : material[3], 1, " "); // ¹è°æ °¡·ÎÁÙ Ã¤¿ì±â
+				Util.Stack(gui.get(0), slot, x == roomNum ? Material.AIR : material[3], 1, " "); // ë°°ê²½ ê°€ë¡œì¤„ ì±„ìš°ê¸°
 			else if (x == 4) {
-				Util.Stack(gui.get(0), slot, material[3], 1, " ");// ¹è°æ ¼¼·ÎÁÙ Ã¤¿ì±â
-			} else if (y == 4) { // y°¡ 7ÀÏ¶§
+				Util.Stack(gui.get(0), slot, material[3], 1, " ");// ë°°ê²½ ì„¸ë¡œì¤„ ì±„ìš°ê¸°
+			} else if (y == 4) { // yê°€ 7ì¼ë•Œ
 				if (x == roomNum) {
-					Util.Stack(gui.get(0), slot, material[1], 1, "¡×e" + rooms[x] + " ¡×f·¹¹ö", "¡×7À§·Î ¿Ã·Á Àü·ÂÀ» °ø±ŞÇÏ¼¼¿ä."); // Å¬¸¯°¡´É ·¹¹ö
+					Util.Stack(gui.get(0), slot, material[1], 1, "Â§e" + rooms[x] + " Â§fë ˆë²„", "Â§7ìœ„ë¡œ ì˜¬ë ¤ ì „ë ¥ì„ ê³µê¸‰í•˜ì„¸ìš”."); // í´ë¦­ê°€ëŠ¥ ë ˆë²„
 				} else {
-					Util.Stack(gui.get(0), slot, material[0], 1, "¡×e" + rooms[x] + " ¡×f·¹¹ö", "¡×4Å¬¸¯ºÒ°¡"); // Å¬¸¯ºÒ°¡ ·¹¹ö
+					Util.Stack(gui.get(0), slot, material[0], 1, "Â§e" + rooms[x] + " Â§fë ˆë²„", "Â§4í´ë¦­ë¶ˆê°€"); // í´ë¦­ë¶ˆê°€ ë ˆë²„
 				}
 			} else if (x == 4) {
 				Util.Stack(gui.get(0), slot, material[3], 1, " ");
@@ -100,36 +100,36 @@ public class E_DivertPower extends Mission {
 	}
 
 	public void reset2(Player p) {
-		for (int slot = 0; slot < 27; slot++) {// guiÀÎº¥Åä¸®
+		for (int slot = 0; slot < 27; slot++) {// guiì¸ë²¤í† ë¦¬
 			int y = slot / 9, x = slot % 9;
 			if (y == 0 || y == 2)
 				Util.Stack(gui.get(1), slot, material[4], 1, " ");
 			else if (x < 4)
 				Util.Stack(gui.get(1), slot, material[2], 1, " ");
 			else if (x == 4)
-				Util.Stack(gui.get(1), slot, Material.OAK_FENCE_GATE, 1, "¡×f·¹¹ö", "¡×aÅ¬¸¯ÇØ Àü·ÂÀ» ¿¬°áÇÏ¼¼¿ä");
+				Util.Stack(gui.get(1), slot, Material.OAK_FENCE_GATE, 1, "Â§fë ˆë²„", "Â§aí´ë¦­í•´ ì „ë ¥ì„ ì—°ê²°í•˜ì„¸ìš”");
 			else
-				Util.Stack(gui.get(1), slot, material[3], 1, "¡× ");
+				Util.Stack(gui.get(1), slot, material[3], 1, "Â§ ");
 		}
 		p.openInventory(gui.get(1));
 	}
 
 	public void checkLever(Player p, int num) {
-		Util.debugMessage(num + "¿¡ checklever ½ÇÇà");
+		Util.debugMessage(num + "ì— checklever ì‹¤í–‰");
 		if (num / 9 == 3) {
-			Util.debugMessage("0¹ø");
+			Util.debugMessage("0ë²ˆ");
 			Util.Stack(gui.get(0), num - 27, material[2], 1, " ");
 			Util.Stack(gui.get(0), num - 18, material[2], 1, " ");
 			for (int slot = 0; slot < 18; slot++) {
 				if (slot % 9 != num % 9)
 					Util.Stack(gui.get(0), slot, material[5], 1, " ");
-			} // ³ª¸ÓÁö Àü±â 1´Ü°è
-			clear(p, 1); // Å¬¸®¾î
+			} // ë‚˜ë¨¸ì§€ ì „ê¸° 1ë‹¨ê³„
+			clear(p, 1); // í´ë¦¬ì–´
 		}
 		if (num / 9 == 4) {
 			for (int slot = 0; slot < 27; slot++) {
 				if (slot / 9 == 0)
-					Util.Stack(gui.get(0), slot, material[5], 1, " ");// Àü±â 2´Ü°è
+					Util.Stack(gui.get(0), slot, material[5], 1, " ");// ì „ê¸° 2ë‹¨ê³„
 				else
 					Util.Stack(gui.get(0), slot, material[2], 1, " ");
 			}
@@ -138,7 +138,7 @@ public class E_DivertPower extends Mission {
 			Util.Stack(gui.get(0), num - 45, material[5], 1, " ");
 			for (int slot = 0; slot < 18; slot++)
 				if (slot % 9 != num % 9)
-					Util.Stack(gui.get(0), slot, material[2], 1, " ");// ³ª¸ÓÁö Àü±â 3´Ü°è
+					Util.Stack(gui.get(0), slot, material[2], 1, " ");// ë‚˜ë¨¸ì§€ ì „ê¸° 3ë‹¨ê³„
 		}
 		for (int slot = 4; slot < 24; slot += 9)
 			Util.Stack(gui.get(0), slot, material[3], 1, " ");
@@ -173,7 +173,7 @@ public class E_DivertPower extends Mission {
 		
 		Player p = (Player) e.getWhoClicked();
 		
-			Util.debugMessage((e.getCurrentItem() == null) + "," + (e.getCursor().getType() == material[1]) + "Å¬¸¯ ÀÎ½ÄµÊ");
+			Util.debugMessage((e.getCurrentItem() == null) + "," + (e.getCursor().getType() == material[1]) + "í´ë¦­ ì¸ì‹ë¨");
 			int slot = e.getRawSlot();
 			ItemStack itemstack = e.getCurrentItem();
 			if (e.getCurrentItem() != null) {
@@ -186,9 +186,9 @@ public class E_DivertPower extends Mission {
 				} else
 					e.setCancelled(true);
 			} else {
-				Util.debugMessage("°ø±â Å¬¸¯ÇÔ");
+				Util.debugMessage("ê³µê¸° í´ë¦­í•¨");
 				if (e.getCursor().getType() == material[1]) {
-					Util.debugMessage("·¹µå½ºÅæ ºí·° µé°íÀÖÀ½");
+					Util.debugMessage("ë ˆë“œìŠ¤í†¤ ë¸”ëŸ­ ë“¤ê³ ìˆìŒ");
 					checkLever(p, slot);
 				}
 
@@ -203,7 +203,7 @@ public class E_DivertPower extends Mission {
 		
 		if (!e.getRawSlots().isEmpty()) {
 			
-			Util.debugMessage("µå·¡±× ÀÎ½ÄµÊ");
+			Util.debugMessage("ë“œë˜ê·¸ ì¸ì‹ë¨");
 			for (int slot : e.getRawSlots()) {
 				
 				if (slot>54) continue;

@@ -20,7 +20,7 @@ import bepo.au.base.Mission;
 
 public class C_Card extends Mission{
 
-	private List<String> lore = Arrays.asList("¡×7", "¡×71. Ä«µå¸¦ µç´Ù.", "¡×72. ÁÂÃø ºó °ø°£¿¡ ¸¶¿ì½º¸¦ °¡Á®´Ù´í´Ù.", "¡×73. ¿ìÃø ºó °ø°£ ³¡±îÁö ¿ìÅ¬¸¯À» ´©¸¥Ã¤·Î µå·¡±×ÇÑ´Ù.", "¡×71~3ÀÇ µ¿ÀÛÀ» ÀûÀıÇÑ ¼Óµµ·Î ÁøÇàÇØÁÖ¼¼¿ä.");
+	private List<String> lore = Arrays.asList("Â§7", "Â§71. ì¹´ë“œë¥¼ ë“ ë‹¤.", "Â§72. ì¢Œì¸¡ ë¹ˆ ê³µê°„ì— ë§ˆìš°ìŠ¤ë¥¼ ê°€ì ¸ë‹¤ëŒ„ë‹¤.", "Â§73. ìš°ì¸¡ ë¹ˆ ê³µê°„ ëê¹Œì§€ ìš°í´ë¦­ì„ ëˆ„ë¥¸ì±„ë¡œ ë“œë˜ê·¸í•œë‹¤.", "Â§71~3ì˜ ë™ì‘ì„ ì ì ˆí•œ ì†ë„ë¡œ ì§„í–‰í•´ì£¼ì„¸ìš”.");
 	
 	public C_Card(MissionType mt, String name, String korean, int clear, Location loc) {
 		super(mt, name, korean, clear, loc);
@@ -29,17 +29,17 @@ public class C_Card extends Mission{
 	@Override
 	public void onAssigned(Player p) {
 		assign(p);
-		uploadInventory(p, 27, "Ä«µåÅ° ¹Ì¼Ç");
+		uploadInventory(p, 27, "ì¹´ë“œí‚¤ ë¯¸ì…˜");
 		
 		
 	}
 
 	@Override
 	public void onStart(Player p, int i) {
-		Stack(gui.get(0), 17, Material.BOOK, 1, "¡×e¼ÒÀ¯ÇÏ½Å Ä«µå¸¦ ±Ü¾îÁÖ¼¼¿ä.", lore);
+		Stack(gui.get(0), 17, Material.BOOK, 1, "Â§eì†Œìœ í•˜ì‹  ì¹´ë“œë¥¼ ê¸ì–´ì£¼ì„¸ìš”.", lore);
 		for(int slot=0;slot<27;slot++) {
 			int temp = slot/9;
-			if(temp != 1) Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, "¡×f" + (temp < 1 ? "ÇÏ" : "»ó") + "´Ü ºó °ø°£ ³¡±îÁö Ä«µå¸¦ µå·¡±×ÇØÁÖ¼¼¿ä.", null);
+			if(temp != 1) Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, "Â§f" + (temp < 1 ? "í•˜" : "ìƒ") + "ë‹¨ ë¹ˆ ê³µê°„ ëê¹Œì§€ ì¹´ë“œë¥¼ ë“œë˜ê·¸í•´ì£¼ì„¸ìš”.", null);
 		}
 		p.openInventory(gui.get(0));
 		p.playSound(p.getLocation(), Sound.BLOCK_LEVER_CLICK, 1.0F, 1.0F);
@@ -81,10 +81,10 @@ public class C_Card extends Mission{
 			
 			if(timer > 20 + period) {
 				resetInv(p, event.getView().getTopInventory());
-				Stack(gui.get(0), 17, Material.BARRIER, 1, "¡×c¡×l³Ê¹« ´À¸®°Ô ±Ü¾ú½À´Ï´Ù!", lore);
+				Stack(gui.get(0), 17, Material.BARRIER, 1, "Â§cÂ§lë„ˆë¬´ ëŠë¦¬ê²Œ ê¸ì—ˆìŠµë‹ˆë‹¤!", lore);
 			} else if(timer < 20 - period) {
 				resetInv(p, event.getView().getTopInventory());
-				Stack(gui.get(0), 17, Material.BARRIER, 1, "¡×c¡×l³Ê¹« ºü¸£°Ô ±Ü¾ú½À´Ï´Ù!", lore);
+				Stack(gui.get(0), 17, Material.BARRIER, 1, "Â§cÂ§lë„ˆë¬´ ë¹ ë¥´ê²Œ ê¸ì—ˆìŠµë‹ˆë‹¤!", lore);
 			} else {
 				onClear(p, 0);
 			}
@@ -92,7 +92,7 @@ public class C_Card extends Mission{
 		} else {
 			
 			resetInv(p, event.getView().getTopInventory());
-			Stack(gui.get(0), 17, Material.BARRIER, 1, "¡×c¡×lÄ«µå¸¦ Á¦´ë·Î ±Ü¾îÁÖ¼¼¿ä!", lore);
+			Stack(gui.get(0), 17, Material.BARRIER, 1, "Â§cÂ§lì¹´ë“œë¥¼ ì œëŒ€ë¡œ ê¸ì–´ì£¼ì„¸ìš”!", lore);
 		}
 		
 		if(ct != null) {
@@ -108,7 +108,7 @@ public class C_Card extends Mission{
 				inv.remove(Material.PAPER);
 				p.setItemOnCursor(new ItemStack(Material.AIR, 1));
 				p.getInventory().remove(Material.PAPER);
-				Stack(inv, 9, Material.PAPER, 8, "¡×f[¹Ì¼Ç] Ä«µåÅ°", Arrays.asList("¡×7Ä«µåÅ° ¹Ì¼ÇÀ» »ç¿ëÇÏ´Â µ¥¿¡ »ç¿ëµË´Ï´Ù.", "¡×7¸¶¿ì½º·Î Àâ°í Ä«µå ÀÎ½Ä±âÀÇ ºó °ø°£¿¡ ³¡±îÁö µå·¡±×ÇØÁÖ¼¼¿ä."));
+				Stack(inv, 9, Material.PAPER, 8, "Â§f[ë¯¸ì…˜] ì¹´ë“œí‚¤", Arrays.asList("Â§7ì¹´ë“œí‚¤ ë¯¸ì…˜ì„ ì‚¬ìš©í•˜ëŠ” ë°ì— ì‚¬ìš©ë©ë‹ˆë‹¤.", "Â§7ë§ˆìš°ìŠ¤ë¡œ ì¡ê³  ì¹´ë“œ ì¸ì‹ê¸°ì˜ ë¹ˆ ê³µê°„ì— ëê¹Œì§€ ë“œë˜ê·¸í•´ì£¼ì„¸ìš”."));
 				p.updateInventory();
 			}
 		}.runTaskLater(main, 1L);
@@ -128,7 +128,7 @@ public class C_Card extends Mission{
 				ct.cancel();
 				ct = null;
 				resetInv(p, event.getView().getTopInventory());
-				Stack(gui.get(0), 17, Material.BARRIER, 1, "¡×c¡×lÄ«µå¸¦ Á¦´ë·Î ±Ü¾îÁÖ¼¼¿ä!", lore);
+				Stack(gui.get(0), 17, Material.BARRIER, 1, "Â§cÂ§lì¹´ë“œë¥¼ ì œëŒ€ë¡œ ê¸ì–´ì£¼ì„¸ìš”!", lore);
 				return;
 			}
 			CardTimer ct = new CardTimer(p);

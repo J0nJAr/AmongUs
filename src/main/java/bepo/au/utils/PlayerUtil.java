@@ -42,7 +42,7 @@ import net.minecraft.server.v1_16_R3.WorldServer;
 public class PlayerUtil {
 
 	/*
-	 * ¼ÈÄ¿ ±â´É
+	 * ì…œì»¤ ê¸°ëŠ¥
 	 */
 	public static class ShulkerInfo {
 
@@ -101,8 +101,8 @@ public class PlayerUtil {
 			es.setSize(1, true);
 			es.setSilent(true);
 
-			es.setFlag(6, true); // ¹à±â
-			es.setFlag(5, true); // Åõ¸íÈ­
+			es.setFlag(6, true); // ë°ê¸°
+			es.setFlag(5, true); // íˆ¬ëª…í™”
 
 			es.setInvisible(true);
 			es.glowing = true;
@@ -177,7 +177,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ÀÇÀÚ ±â´É
+	 * ì˜ì ê¸°ëŠ¥
 	 */
 	private static HashMap<Player, ArmorStand> chair = new HashMap<Player, ArmorStand>();
 
@@ -233,7 +233,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ Áö±Ş
+	 * í”Œë ˆì´ì–´ ì•„ì´í…œ ì§€ê¸‰
 	 */
 
 	public static void getImposterSet(Player p, boolean first) {
@@ -251,7 +251,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ¾×¼Ç¹Ù
+	 * ì•¡ì…˜ë°”
 	 */
 
 	public static void sendActionBar(Player p, String string) {
@@ -261,7 +261,7 @@ public class PlayerUtil {
 	
 
 	/*
-	 * ÇÃ·¹ÀÌ¾î ¼û±â±â
+	 * í”Œë ˆì´ì–´ ìˆ¨ê¸°ê¸°
 	 */
 	private static HashMap<Player, List<Player>> hidden = new HashMap<Player, List<Player>>();
 	private static List<String> invisible = new ArrayList<String>();
@@ -392,16 +392,16 @@ public class PlayerUtil {
 	private static ArrayList<Location> SEATS;
 	private static List<PlayerData> DATALIST;
 
-	public static void setSeats(boolean checkAlive) { // ÀÚ¸®·Î TP
+	public static void setSeats(boolean checkAlive) { // ìë¦¬ë¡œ TP
 		DATALIST = PlayerData.getPlayerDataList();
 		SEATS = LocManager.getLoc("SEATS");
 		if (DATALIST.size() > SEATS.size()) {
-			Util.debugMessage("ÇÃ·¹ÀÌ¾î ¼öº¸´Ù ÀÚ¸®°¡ Àû½À´Ï´Ù.");
+			Util.debugMessage("í”Œë ˆì´ì–´ ìˆ˜ë³´ë‹¤ ìë¦¬ê°€ ì ìŠµë‹ˆë‹¤.");
 		} 
 		for (int idx = 0; idx < DATALIST.size(); idx++) {
 			Player currentPlayer = Bukkit.getPlayer(DATALIST.get(idx).getName());
 			if (currentPlayer != null && currentPlayer.getVehicle() == null && (!checkAlive || DATALIST.get(idx).isAlive())) {
-				currentPlayer.teleport(SEATS.get(idx));// ÇÃ·¹ÀÌ¾î¸¦ °¢ ÀÚ¸®·Î ÀÌµ¿
+				currentPlayer.teleport(SEATS.get(idx));// í”Œë ˆì´ì–´ë¥¼ ê° ìë¦¬ë¡œ ì´ë™
 			}
 		}
 	}

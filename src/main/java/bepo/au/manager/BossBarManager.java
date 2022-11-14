@@ -38,13 +38,13 @@ public class BossBarManager {
 		case TASKS:
 			
 			if(comm) {
-				bb.setTitle("¡×cÅë½Å ±â±â °íÀå");
+				bb.setTitle("Â§cí†µì‹  ê¸°ê¸° ê³ ìž¥");
 				bb.setProgress(1.0D);
 				bb.setColor(BarColor.RED);
 			} else {
 				bb.setColor(BarColor.GREEN);
 				bb.setProgress((double) GameTimer.CLEARED_MISSION / (GameTimer.REQUIRED_MISSION > 0 ? GameTimer.REQUIRED_MISSION : 1));
-				bb.setTitle("¡×fÀÏ°ú ÁøÇàµµ ¡×a" + GameTimer.CLEARED_MISSION + "/" + (GameTimer.REQUIRED_MISSION > 0 ? GameTimer.REQUIRED_MISSION : 1));
+				bb.setTitle("Â§fì¼ê³¼ ì§„í–‰ë„ Â§a" + GameTimer.CLEARED_MISSION + "/" + (GameTimer.REQUIRED_MISSION > 0 ? GameTimer.REQUIRED_MISSION : 1));
 			}
 			break;
 		}

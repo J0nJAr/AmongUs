@@ -74,20 +74,20 @@ public class S_FixLights extends Sabotage {
 	}
 	
 	/*
-	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ, gui ¿­±â ½Ãµµ.
+	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨, gui ì—´ê¸° ì‹œë„.
 	 */
 	public void s_fixLightsOpen(Player p) {
 
 		if (Activated) {
 			p.openInventory(gui);
 		} else {
-			Util.debugMessage("Àüµî »çº¸Å¸ÁÖ´Â ¾ÆÁ÷ ½ÃÀÛµÇÁö ¾Ê¾Ò½À´Ï´Ù");
+			Util.debugMessage("ì „ë“± ì‚¬ë³´íƒ€ì£¼ëŠ” ì•„ì§ ì‹œì‘ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
 		}
 	}
 
 
 	/*
-	 * ÃÊ±âÈ­ ; gui¸¦ ¸¸µê.
+	 * ì´ˆê¸°í™” ; guië¥¼ ë§Œë“¦.
 	 */
 	public void initialize_fixLights() {
 		if(Activated == false) {
@@ -96,9 +96,9 @@ public class S_FixLights extends Sabotage {
 			gui.setMaxStackSize(1);
 			for (int i = 0; i < 5; i++)
 				connected[i] = false;
-			int init_connected = 1 + random.nextInt(4); // ¿¬°áµÈ ¼ö°¡ ÀûÀ» È®·üÀÌ ´õ Å­
+			int init_connected = 1 + random.nextInt(4); // ì—°ê²°ëœ ìˆ˜ê°€ ì ì„ í™•ë¥ ì´ ë” í¼
 			for (int i = 0; i < init_connected; i++)
-				connected[random.nextInt(5)] = true; // ¿¬°áµÈ ·¹¹ö´Â 1~4°³
+				connected[random.nextInt(5)] = true; // ì—°ê²°ëœ ë ˆë²„ëŠ” 1~4ê°œ
 			for (int i = 0; i < 5; i++) {
 				leverStatus[i] = random.nextBoolean();
 			}
@@ -106,37 +106,37 @@ public class S_FixLights extends Sabotage {
 			onRestart();
 		}
 		
-		// ·¹¹öÀÇ »óÅÂ´Â ·£´ı
-		setGUI(); // gui ¸¸µé±â
+		// ë ˆë²„ì˜ ìƒíƒœëŠ” ëœë¤
+		setGUI(); // gui ë§Œë“¤ê¸°
 	}
 	/*
-	 * GUI¸¦ ¸¸µç´Ù.
+	 * GUIë¥¼ ë§Œë“ ë‹¤.
 	 */
 
 	public void setGUI() {
-		List<String> lore = Arrays.asList("¡×7¾Æ·¡ÀÇ ÀüµîÀÌ ÄÑÁöµµ·Ï À§ ·¹¹ö¸¦ Å¬¸¯ÇØÁÖ¼¼¿ä.");
+		List<String> lore = Arrays.asList("Â§7ì•„ë˜ì˜ ì „ë“±ì´ ì¼œì§€ë„ë¡ ìœ„ ë ˆë²„ë¥¼ í´ë¦­í•´ì£¼ì„¸ìš”.");
 		for (int slot = 0; slot < maxslot; slot++) {
 			int x = slot % 9, y = slot / 9;
 
 			if (x % 2 == 0 && y == 1)
 				Util.Stack(gui, slot,
 						(leverStatus[x / 2] ? Material.RED_STAINED_GLASS_PANE : Material.BLUE_STAINED_GLASS_PANE), 1,
-						"¡×f·¹¹ö");
+						"Â§fë ˆë²„");
 			else if (x % 2 == 0 && y == 3)
 				Util.Stack(gui, slot, (connected[x / 2] ? Material.LANTERN : Material.SOUL_LANTERN), 1,
-						(connected[x / 2] ? "¡×a¿¬°áµÊ" : "¡×4¿¬°á¾ÈµÊ"));
+						(connected[x / 2] ? "Â§aì—°ê²°ë¨" : "Â§4ì—°ê²°ì•ˆë¨"));
 			else if (x == 4 && y == 4)
-				Util.Stack(gui, slot, Material.BOOK, 1, "¡×fÀüµî ¼ö¸®", lore);
+				Util.Stack(gui, slot, Material.BOOK, 1, "Â§fì „ë“± ìˆ˜ë¦¬", lore);
 			else
 				Util.Stack(gui, slot, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 		}
 	}
 
 	/*
-	 * ·¹¹ö¸¦ Åä±Û
+	 * ë ˆë²„ë¥¼ í† ê¸€
 	 */
 	public void toggleLever(int idx) {
-		Util.debugMessage("·¹¹ö Åä±Û");
+		Util.debugMessage("ë ˆë²„ í† ê¸€");
 		connected[idx] = !connected[idx];
 		leverStatus[idx] = !leverStatus[idx];
 		updateGUI();
@@ -144,7 +144,7 @@ public class S_FixLights extends Sabotage {
 	}
 
 	/*
-	 * Å¬¸®¾î È®ÀÎ
+	 * í´ë¦¬ì–´ í™•ì¸
 	 */
 	public void check() {
 		for (Boolean connection : connected) {
@@ -155,7 +155,7 @@ public class S_FixLights extends Sabotage {
 		for(Player ap : Bukkit.getOnlinePlayers()) {
 			ap.removePotionEffect(PotionEffectType.BLINDNESS);
 		}
-		Util.debugMessage("»çº¸Å¸ÁÖ Å¬¸®¾î");
+		Util.debugMessage("ì‚¬ë³´íƒ€ì£¼ í´ë¦¬ì–´");
 		List<HumanEntity> helist = new ArrayList<HumanEntity>();
 		for (HumanEntity he : gui.getViewers()) {
 			helist.add(he);
@@ -166,18 +166,18 @@ public class S_FixLights extends Sabotage {
 	}
 
 	/*
-	 * gui¸¦ º¸°íÀÖ´Â ¸ğµç ÇÃ·¹ÀÌ¾î ¾÷µ¥ÀÌÆ®
+	 * guië¥¼ ë³´ê³ ìˆëŠ” ëª¨ë“  í”Œë ˆì´ì–´ ì—…ë°ì´íŠ¸
 	 */
 	public void updateGUI() {
-		Util.debugMessage("GUI ¾÷µ¥ÀÌÆ®");
+		Util.debugMessage("GUI ì—…ë°ì´íŠ¸");
 		for (int slot = 9; slot < 18; slot += 2)
 			Util.Stack(gui, slot,
 					(leverStatus[slot % 9 / 2] ? Material.RED_STAINED_GLASS_PANE : Material.BLUE_STAINED_GLASS_PANE), 1,
-					"¡×f·¹¹ö");
+					"Â§fë ˆë²„");
 		for (int slot = 27; slot < 36; slot += 2)
 			Util.Stack(gui, slot, (connected[slot % 9 / 2] ? Material.LANTERN : Material.SOUL_LANTERN), 1,
-					(connected[slot % 9 / 2] ? "¡×a¿¬°áµÊ" : "¡×4¿¬°á¾ÈµÊ"));
-		for (HumanEntity he : gui.getViewers()) {((Player) he).updateInventory();}  //ÇÃ·¹ÀÌº° ÀÎº¥ ¾÷µ¥ÀÌÆ®
+					(connected[slot % 9 / 2] ? "Â§aì—°ê²°ë¨" : "Â§4ì—°ê²°ì•ˆë¨"));
+		for (HumanEntity he : gui.getViewers()) {((Player) he).updateInventory();}  //í”Œë ˆì´ë³„ ì¸ë²¤ ì—…ë°ì´íŠ¸
 		
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,25 +185,25 @@ public class S_FixLights extends Sabotage {
 	public void onClick(InventoryClickEvent e) {
 		if(!checkPlayer(e)) return;
 		
-			Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
+			Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
 			int slot = e.getRawSlot();
 			ItemStack itemstack = e.getCurrentItem();
 
 			// Inventory gui = e.getClickedInventory();
 			// Player p = (Player) e.getWhoClicked();
 
-			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
-				Util.debugMessage("´õºí Å¬¸¯ ºÒ°¡");
+			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
+				Util.debugMessage("ë”ë¸” í´ë¦­ ë¶ˆê°€");
 				e.setCancelled(true);
 			}
 			if (itemstack != null) {
 				if (itemstack.getType() == Material.BLUE_STAINED_GLASS_PANE
 						|| itemstack.getType() == Material.RED_STAINED_GLASS_PANE) {
-					Util.debugMessage("·¹¹ö Å¬¸¯ ÀÎ½ÄµÊ");
+					Util.debugMessage("ë ˆë²„ í´ë¦­ ì¸ì‹ë¨");
 					toggleLever(slot % 9 / 2);
 					e.setCancelled(true);
 				} else {
-					Util.debugMessage("Å¬¸¯ ºÒ°¡");
+					Util.debugMessage("í´ë¦­ ë¶ˆê°€");
 					e.setCancelled(true);
 				}
 			}
