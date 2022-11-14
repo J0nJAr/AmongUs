@@ -45,7 +45,7 @@ import bepo.au.function.SightTimer;
 import bepo.au.manager.LocManager;
 
 public class Util implements Listener {
-	static boolean debug = true;
+	static boolean debug = false;
 	static Random ran = new Random();
 
 	public static int random(int min, int max) { // min ~ max 의 정수를 출력
