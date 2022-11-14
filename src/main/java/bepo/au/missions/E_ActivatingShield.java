@@ -1,7 +1,10 @@
 package bepo.au.missions;
 
-import java.util.List;
-
+import bepo.au.Main.SETTING;
+import bepo.au.base.Mission;
+import bepo.au.base.VisualTask;
+import bepo.au.manager.LocManager;
+import bepo.au.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,11 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import bepo.au.Main.SETTING;
-import bepo.au.base.Mission;
-import bepo.au.base.VisualTask;
-import bepo.au.manager.LocManager;
-import bepo.au.utils.Util;
+import java.util.List;
 
 
 public class E_ActivatingShield extends Mission {
@@ -82,9 +81,9 @@ public class E_ActivatingShield extends Mission {
 	int Shield_score = 0;
 	
 	
-	public void activatingShield(Player p) { // 미션 시작
+	public void activatingShield(Player p) { // �̼� ����
 		Shield_score = 0;
-		Inventory inv = Bukkit.createInventory(p, 27, "ActivatingShield"); //gui 생성
+		Inventory inv = Bukkit.createInventory(p, 27, "ActivatingShield"); //gui ����
 		int a = Util.random(0, 1);
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 9; j++) {
@@ -116,19 +115,19 @@ public class E_ActivatingShield extends Mission {
 		int dot = e.getSlot();
 		Player p = (Player) e.getWhoClicked();
 		
-		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.RED_WOOL) {  // 빨강 양털을 클릭하면 파란양털로 변경 이후 점수 증가 
+		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.RED_WOOL) {  // ���� ������ Ŭ���ϸ� �Ķ����з� ���� ���� ���� ���� 
 			e.setCancelled(true);
 			Util.Stack(inv, dot, Material.WHITE_WOOL, 1, " ");
 			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);
 			Shield_score++;
 			
-			if(Shield_score >= 9) { //점수가 9점에 도달하면 gui가 닫히고 테스크 성공
+			if(Shield_score >= 9) { //������ 9���� �����ϸ� gui�� ������ �׽�ũ ����
 				p.closeInventory();
 				onClear(p, 0);
 				return;
 			}
 		}
-		else if(e.getCurrentItem().getType() == Material.WHITE_WOOL) {  //파란 양털을 클릭하면 빨강양털로 변경 이후 점수 감소
+		else if(e.getCurrentItem().getType() == Material.WHITE_WOOL) {  //�Ķ� ������ Ŭ���ϸ� �������з� ���� ���� ���� ����
 			e.setCancelled(true);
 			Util.Stack(inv, dot, Material.RED_WOOL, 1, " ");
 			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 1);

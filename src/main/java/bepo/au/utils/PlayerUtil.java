@@ -4,17 +4,15 @@ import bepo.au.Main;
 import bepo.au.base.PlayerData;
 import bepo.au.function.ItemList;
 import bepo.au.manager.LocManager;
-import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;
-import net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo;
-import net.minecraft.server.level.WorldServer;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.monster.EntityMagmaCube;
+import net.minecraft.server.v1_16_R3.*;
+import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
+import net.minecraft.server.v1_16_R3.PacketPlayOutWorldBorder.EnumWorldBorderAction;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ArmorStand.LockType;
 import org.bukkit.entity.EntityType;
@@ -33,8 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PlayerUtil {
+
 	/*
-	 * ï¿½ï¿½Ä¿ ï¿½ï¿½ï¿½
+	 * ¼ÈÄ¿ ±â´É
 	 */
 	public static class ShulkerInfo {
 
@@ -84,7 +83,7 @@ public class PlayerUtil {
 				removeShulker(l);
 
 			WorldServer ws = ((CraftWorld) loc.getWorld()).getHandle();
-			EntityMagmaCube es = new EntityMagmaCube(EntityTypes.aa, ws);
+			EntityMagmaCube es = new EntityMagmaCube(EntityTypes.MAGMA_CUBE, ws);
 			// EntityShulker es = new EntityShulker(EntityTypes.SHULKER, ws);
 
 			es.setPosition(loc.getX(), loc.getBlockY() + 0.25D, loc.getZ());
@@ -93,8 +92,8 @@ public class PlayerUtil {
 			es.setSize(1, true);
 			es.setSilent(true);
 
-			es.setFlag(6, true); // ï¿½ï¿½ï¿½
-			es.setFlag(5, true); // ï¿½ï¿½ï¿½ï¿½È­
+			es.setFlag(6, true); // ¹à±â
+			es.setFlag(5, true); // Åõ¸íÈ­
 
 			es.setInvisible(true);
 			es.glowing = true;
@@ -169,7 +168,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	 * ÀÇÀÚ ±â´É
 	 */
 	private static HashMap<Player, ArmorStand> chair = new HashMap<Player, ArmorStand>();
 
@@ -225,7 +224,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	 * ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ Áö±Þ
 	 */
 
 	public static void getImposterSet(Player p, boolean first) {
@@ -243,7 +242,7 @@ public class PlayerUtil {
 	}
 
 	/*
-	 * ï¿½×¼Ç¹ï¿½
+	 * ¾×¼Ç¹Ù
 	 */
 
 	public static void sendActionBar(Player p, String string) {
@@ -253,7 +252,7 @@ public class PlayerUtil {
 	
 
 	/*
-	 * ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ÇÃ·¹ÀÌ¾î ¼û±â±â
 	 */
 	private static HashMap<Player, List<Player>> hidden = new HashMap<Player, List<Player>>();
 	private static List<String> invisible = new ArrayList<String>();
@@ -384,16 +383,16 @@ public class PlayerUtil {
 	private static ArrayList<Location> SEATS;
 	private static List<PlayerData> DATALIST;
 
-	public static void setSeats(boolean checkAlive) { // ï¿½Ú¸ï¿½ï¿½ï¿½ TP
+	public static void setSeats(boolean checkAlive) { // ÀÚ¸®·Î TP
 		DATALIST = PlayerData.getPlayerDataList();
 		SEATS = LocManager.getLoc("SEATS");
 		if (DATALIST.size() > SEATS.size()) {
-			Util.debugMessage("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+			Util.debugMessage("ÇÃ·¹ÀÌ¾î ¼öº¸´Ù ÀÚ¸®°¡ Àû½À´Ï´Ù.");
 		} 
 		for (int idx = 0; idx < DATALIST.size(); idx++) {
 			Player currentPlayer = Bukkit.getPlayer(DATALIST.get(idx).getName());
 			if (currentPlayer != null && currentPlayer.getVehicle() == null && (!checkAlive || DATALIST.get(idx).isAlive())) {
-				currentPlayer.teleport(SEATS.get(idx));// ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+				currentPlayer.teleport(SEATS.get(idx));// ÇÃ·¹ÀÌ¾î¸¦ °¢ ÀÚ¸®·Î ÀÌµ¿
 			}
 		}
 	}

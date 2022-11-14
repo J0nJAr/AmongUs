@@ -35,7 +35,7 @@ public class GameTimer extends BukkitRunnable {
 	}
 
 	public enum GameType {
-		NORMAL("ì¼ë°˜", 137), CHASETAG("ìˆ ë˜ì¡ê¸°", 113); //HIDENSEEK("ì—­ìˆ ë˜ì¡ê¸°", 373);
+		NORMAL("ÀÏ¹İ", 137), CHASETAG("¼ú·¡Àâ±â", 113); //HIDENSEEK("¿ª¼ú·¡Àâ±â", 373);
 
 		private String name;
 		private int preview_map_id;
@@ -130,7 +130,7 @@ public class GameTimer extends BukkitRunnable {
 	}
 
 	public void start(Player p) {
-		Bukkit.broadcastMessage(Main.PREFIX + "Â§e" + p.getName() + "Â§fë‹˜ê»˜ì„œ ê²Œì„ì„ ì‹œì‘í•˜ì…¨ìŠµë‹ˆë‹¤!");
+		Bukkit.broadcastMessage(Main.PREFIX + "¡×e" + p.getName() + "¡×f´Ô²²¼­ °ÔÀÓÀ» ½ÃÀÛÇÏ¼Ì½À´Ï´Ù!");
 		gamemode = SETTING.GAMEMODE.getAsGameType();
 		game_ticker = gamemode.getGameTicker();
 		game_ticker.setting(p.getWorld());
@@ -217,9 +217,9 @@ public class GameTimer extends BukkitRunnable {
 
 				for (Player ap : Bukkit.getOnlinePlayers()) {
 					if (WIN_REASON.toString().contains("CREW"))
-						ap.sendTitle("Â§fí¬ë£¨ì› ìŠ¹ë¦¬", "Â§cì„í¬ìŠ¤í„° : " + imposters, 20, 100, 20);
+						ap.sendTitle("¡×fÅ©·ç¿ø ½Â¸®", "¡×cÀÓÆ÷½ºÅÍ : " + imposters, 20, 100, 20);
 					else
-						ap.sendTitle("Â§cì„í¬ìŠ¤í„° ìŠ¹ë¦¬", "Â§cì„í¬ìŠ¤í„° : " + imposters, 20, 100, 20);
+						ap.sendTitle("¡×cÀÓÆ÷½ºÅÍ ½Â¸®", "¡×cÀÓÆ÷½ºÅÍ : " + imposters, 20, 100, 20);
 				}
 				setStatus(Status.END);
 				break;
@@ -237,36 +237,36 @@ public class GameTimer extends BukkitRunnable {
 
 		switch (timer) {
 		case 60:
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§f=====================");
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§eê²Œì„ ì°¸ê°€ì ëª©ë¡");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×f=====================");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×e°ÔÀÓ Âü°¡ÀÚ ¸ñ·Ï");
 			for (int i = 0; i < PLAYERS.size(); i++) {
-				Bukkit.broadcastMessage(Main.PREFIX + "Â§f" + (i + 1) + ". Â§a" + PLAYERS.get(i));
+				Bukkit.broadcastMessage(Main.PREFIX + "¡×f" + (i + 1) + ". ¡×a" + PLAYERS.get(i));
 				Player ap = Bukkit.getPlayer(PLAYERS.get(i));
 				if(ap != null){
 					ap.setGameMode(GameMode.ADVENTURE);
 					ap.getInventory().clear();
 				}
 			}
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§f=====================");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×f=====================");
 			break;
 		case 160:
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§fì§ì—…ì„ ë¶„ë°°í•©ë‹ˆë‹¤...");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×fÁ÷¾÷À» ºĞ¹èÇÕ´Ï´Ù...");
 			break;
 		case 200:
 			game_ticker.team_split();
 			break;
 		case 300:
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§fì§ì—… ë¶„ë°°ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. 5ì´ˆ ë’¤ ê²Œì„ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×fÁ÷¾÷ ºĞ¹è°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù. 5ÃÊ µÚ °ÔÀÓÀ» ½ÃÀÛÇÕ´Ï´Ù.");
 			break;
 		case 320:
 		case 340:
 		case 360:
 		case 380:
 		case 400:
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§c" + ((420 - timer) / 20) + "ì´ˆ ì „");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×c" + ((420 - timer) / 20) + "ÃÊ Àü");
 			break;
 		case 420:
-			Bukkit.broadcastMessage(Main.PREFIX + "Â§aê²Œì„ ì‹œì‘!");
+			Bukkit.broadcastMessage(Main.PREFIX + "¡×a°ÔÀÓ ½ÃÀÛ!");
 			if (SETTING.CREW_SIGHT_BLOCK.getAsInteger() >= 0 && SETTING.IMPOSTER_SIGHT_BLOCK.getAsInteger() >= 0)
 				SightTimer.start();
 			
@@ -287,7 +287,7 @@ public class GameTimer extends BukkitRunnable {
 			break;
 		}
 
-		// ì†Œë¦¬ ë°©í•´
+		// ¼Ò¸® ¹æÇØ
 		if (SETTING.BLOCK_PLAYER_SOUND.getAsBoolean() && !Main.isProtocolHooked) {
 			for (Player p : GameTimer.ALIVE_PLAYERS) {
 				float v = (float) timer / 200F;

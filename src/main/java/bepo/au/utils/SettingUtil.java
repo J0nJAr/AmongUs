@@ -97,7 +97,7 @@ public class SettingUtil {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private static void placeFrame(int start_map_id, ItemFrame[][] array) {//í”„ë ˆì„ì„ ì„¤ì¹˜
+	private static void placeFrame(int start_map_id, ItemFrame[][] array) {//ÇÁ·¹ÀÓÀ» ¼³Ä¡
 		for(int x=0;x<array.length;x++) {
 			for(int y=0;y<array[x].length;y++) {
 				ItemFrame frame = array[x][y];
@@ -125,7 +125,7 @@ public class SettingUtil {
 		
 	}
 	
-	private static ItemFrame[][] getFrames(Location lc, Location rb) {//í”„ë ˆì„ì„ ì–»ì–´ì˜´
+	private static ItemFrame[][] getFrames(Location lc, Location rb) {//ÇÁ·¹ÀÓÀ» ¾ò¾î¿È
 		int lc_x = lc.getBlockX();
 		int lc_z = lc.getBlockZ();
 		int rb_x = rb.getBlockX();
@@ -164,7 +164,7 @@ public class SettingUtil {
 				if(frame == null) {
 					frame = (ItemFrame) lc.getWorld().spawnEntity(loc, EntityType.ITEM_FRAME);
 					frame.setFacingDirection(bf);
-					frame.addScoreboardTag("au_reset");//í•œë²ˆ ì§€ì›Œë³´ì
+					frame.addScoreboardTag("au_reset");//ÇÑ¹ø Áö¿öº¸ÀÚ
 					frame.setFixed(true);
 					frame.setVisible(false);
 					frame.setSilent(true);

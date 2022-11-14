@@ -32,14 +32,14 @@ public class S_Communication extends Sabotage {
 	
 	Random random = new Random();
 	private final int maxslot = 27;
-	private final int maxNum = 10; // ì£¼íŒŒìˆ˜ì˜ ìµœëŒ€ìˆ«ìì„. 1 : ì—ëŸ¬ | 2 : í•œë²ˆí´ë¦­í•˜ë©´ë¨ | 3 : ìµœëŒ€ ë‘ë²ˆí´ë¦­ | 5~6 : ì ë‹¹ | 10 : í•´ë³´ë‹ˆê¹Œ í•  ë§Œí•˜ê¸´í•¨
-								   // 20+ ì˜¤ë˜ê±¸ë¦´ë“¯
+	private final int maxNum = 10; // ÁÖÆÄ¼öÀÇ ÃÖ´ë¼ıÀÚÀÓ. 1 : ¿¡·¯ | 2 : ÇÑ¹øÅ¬¸¯ÇÏ¸éµÊ | 3 : ÃÖ´ë µÎ¹øÅ¬¸¯ | 5~6 : Àû´ç | 10 : ÇØº¸´Ï±î ÇÒ ¸¸ÇÏ±äÇÔ
+								   // 20+ ¿À·¡°É¸±µí
 	private int[] answerStatus;
 	private int[] currentStatus;
-	private final Material[] Color ={Material.LIME_WOOL,Material.ORANGE_WOOL,Material.WHITE_WOOL};  // ê° ì¸ë±ìŠ¤ëŠ” ì •ë‹µê³¼ì˜ ê±°ë¦¬ì„.
-																									// ê±°ë¦¬ëŠ” maxNumì— ì˜í–¥ì„
-																									// ë°›ìŒ. (ì˜ˆì‹œ)ì •ë‹µì´ 1ì´ê³ 
-																									// í˜„ì¬ 2 ì´ë¼ë©´ 1ë²ˆì§¸ ì¸ë±ìŠ¤.
+	private final Material[] Color ={Material.LIME_WOOL,Material.ORANGE_WOOL,Material.WHITE_WOOL};  // °¢ ÀÎµ¦½º´Â Á¤´ä°úÀÇ °Å¸®ÀÓ.
+																									// °Å¸®´Â maxNum¿¡ ¿µÇâÀ»
+																									// ¹ŞÀ½. (¿¹½Ã)Á¤´äÀÌ 1ÀÌ°í
+																									// ÇöÀç 2 ÀÌ¶ó¸é 1¹øÂ° ÀÎµ¦½º.
 	
 	public static boolean Activated = false;
 	
@@ -63,7 +63,7 @@ public class S_Communication extends Sabotage {
 			
 			if(pd.isWatchingCCTV()) {
 				pd.exitCCTV(p);
-				p.sendMessage(Main.PREFIX + "Â§cí†µì‹  ê¸°ê¸°ê°€ íŒŒì†ë˜ì–´ CCTVë¥¼ í™•ì¸í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+				p.sendMessage(Main.PREFIX + "¡×cÅë½Å ±â±â°¡ ÆÄ¼ÕµÇ¾î CCTV¸¦ È®ÀÎÇÒ ¼ö ¾ø½À´Ï´Ù.");
 			}
 			
 			if(GameTimer.IMPOSTER.contains(p.getName())) return;
@@ -101,31 +101,31 @@ public class S_Communication extends Sabotage {
 	
 	
 	/*
-	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨, GUI ì—´ê¸° ì‹œë„.
+	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ, GUI ¿­±â ½Ãµµ.
 	 */
 	public void s_communicationOpen(Player p) {
 		
 		if (Activated) {
 			p.openInventory(gui.get(0));
 		} else {
-			Util.debugMessage("í†µì‹  ì‚¬ë³´íƒ€ì£¼ëŠ” ì•„ì§ ì‹œì‘ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
+			Util.debugMessage("Åë½Å »çº¸Å¸ÁÖ´Â ¾ÆÁ÷ ½ÃÀÛµÇÁö ¾Ê¾Ò½À´Ï´Ù");
 		}
 	}
 
 	/*
-	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨. ì‚¬ë³´íƒ€ì£¼ ì‹œì‘.
+	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ. »çº¸Å¸ÁÖ ½ÃÀÛ.
 	 */
 	public void s_communicationsStart() {
 		if (Activated) {
-			Util.debugMessage("í†µì‹  ì‚¬ë³´íƒ€ì£¼ëŠ” ì´ë¯¸ ì‹œì‘ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			Util.debugMessage("Åë½Å »çº¸Å¸ÁÖ´Â ÀÌ¹Ì ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
 		} else {
 			
-			Util.debugMessage("í†µì‹  ì‚¬ë³´íƒ€ì£¼ ì‹¤í–‰ë¨");
+			Util.debugMessage("Åë½Å »çº¸Å¸ÁÖ ½ÇÇàµÊ");
 		}
 	}
 
 	/*
-	 * ì´ˆê¸°í™” ; GUIë¥¼ ë§Œë“¦.
+	 * ÃÊ±âÈ­ ; GUI¸¦ ¸¸µê.
 	 */
 	private void initialize_s_communications(Player p) {
 		
@@ -134,11 +134,11 @@ public class S_Communication extends Sabotage {
 		
 		while (true) {
 			for (int i = 0; i < 5; i++) {
-				answerStatus[i] = random.nextInt(maxNum); // ì˜³ì€ ì£¼íŒŒìˆ˜ ë§Œë“¤ê¸°, ì£¼íŒŒìˆ˜ëŠ” 0~4ê°’.
-				currentStatus[i] = random.nextInt(maxNum); // í˜„ì¬ ì£¼íŒŒìˆ˜ ì„¸íŒ…
+				answerStatus[i] = random.nextInt(maxNum); // ¿ÇÀº ÁÖÆÄ¼ö ¸¸µé±â, ÁÖÆÄ¼ö´Â 0~4°ª.
+				currentStatus[i] = random.nextInt(maxNum); // ÇöÀç ÁÖÆÄ¼ö ¼¼ÆÃ
 			}
 			if (!Arrays.equals(answerStatus, currentStatus))
-				break; // ì •ë‹µê³¼ í˜„ì¬ì˜ ê°’ì´ ê°™ìœ¼ë©´ ë°˜ë³µ.
+				break; // Á¤´ä°ú ÇöÀçÀÇ °ªÀÌ °°À¸¸é ¹İº¹.
 		}
 		
 		if(p.getOpenInventory() != null && p.getOpenInventory().getTitle().contains(AdminMap.guiName)) p.closeInventory();
@@ -146,28 +146,28 @@ public class S_Communication extends Sabotage {
 		Activated = true;
 		uploadInventory(p, maxslot, "Communication");
 		gui.get(0).setMaxStackSize(1);
-		setGUI(); // GUI ë§Œë“¤ê¸°
+		setGUI(); // GUI ¸¸µé±â
 
 	}
 	/*
-	 * GUIë¥¼ ë§Œë“ ë‹¤.
+	 * GUI¸¦ ¸¸µç´Ù.
 	 */
 
 	private void setGUI() {
-		List<String> lore = Arrays.asList("Â§7ì–‘í„¸ì„ í´ë¦­í•´ ëª¨ë“  ì–‘í„¸ì„ ì´ˆë¡ìƒ‰ìœ¼ë¡œ ë§Œë“œì„¸ìš”.");
+		List<String> lore = Arrays.asList("¡×7¾çÅĞÀ» Å¬¸¯ÇØ ¸ğµç ¾çÅĞÀ» ÃÊ·Ï»öÀ¸·Î ¸¸µå¼¼¿ä.");
 		for (int slot = 0; slot < maxslot; slot++) {
 			int x = slot % 9, y = slot / 9;
 
 			if (10 < slot && slot < 16) {
-				Util.debugMessage(slot + "ì— ì–‘í„¸ " + currentStatus[x - 2] + "ì™€ " + answerStatus[x - 2] + "ì°¨ ë¹„êµ");
+				Util.debugMessage(slot + "¿¡ ¾çÅĞ " + currentStatus[x - 2] + "¿Í " + answerStatus[x - 2] + "Â÷ ºñ±³");
 				int dif = difference(currentStatus[x - 2], answerStatus[x - 2], maxNum);
-				Util.debugMessage("ê±°ë¦¬ : " + dif);
+				Util.debugMessage("°Å¸® : " + dif);
 				if (dif >= Color.length)
-					dif = Color.length - 1; // ì •í•´ì§„ ìƒ‰ì´ ì—†ì„ë•Œ
-				Util.Stack(gui.get(0), slot, Color[dif], 1, "Â§f" + currentStatus[x - 2],
-						Arrays.asList("Â§7ì¢Œí´ë¦­ : ì¦ê°€", "Â§7ìš°í´ë¦­ : ê°ì†Œ"));
+					dif = Color.length - 1; // Á¤ÇØÁø »öÀÌ ¾øÀ»¶§
+				Util.Stack(gui.get(0), slot, Color[dif], 1, "¡×f" + currentStatus[x - 2],
+						Arrays.asList("¡×7ÁÂÅ¬¸¯ : Áõ°¡", "¡×7¿ìÅ¬¸¯ : °¨¼Ò"));
 			} else if (x == 0 && y == 1) {
-				Util.Stack(gui.get(0), slot, Material.BOOK, 1, "Â§fì „ë“± ìˆ˜ë¦¬", lore);
+				Util.Stack(gui.get(0), slot, Material.BOOK, 1, "¡×fÀüµî ¼ö¸®", lore);
 			} else {
 				Util.Stack(gui.get(0), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 			}
@@ -176,12 +176,12 @@ public class S_Communication extends Sabotage {
 	}
 
 	/*
-	 * ë‘ ìˆ˜ì‚¬ì´ì˜ ì°¨(ê±°ë¦¬) êµ¬í•˜ê¸°
+	 * µÎ ¼ö»çÀÌÀÇ Â÷(°Å¸®) ±¸ÇÏ±â
 	 */
 	private int difference(int a, int b, int max) {
-		Util.debugMessage(a + "ì™€" + b + "ë¥¼ ë¹„êµí•©ë‹ˆë‹¤.");
+		Util.debugMessage(a + "¿Í" + b + "¸¦ ºñ±³ÇÕ´Ï´Ù.");
 		int temp = Math.abs(a - b);
-		Util.debugMessage("ì°¨ : " + temp);
+		Util.debugMessage("Â÷ : " + temp);
 		if (temp > max / 2) {
 			return max - temp;
 		}
@@ -190,12 +190,12 @@ public class S_Communication extends Sabotage {
 	}
 
 	/*
-	 * ë ˆë²„ë¥¼ í† ê¸€
+	 * ·¹¹ö¸¦ Åä±Û
 	 */
 	private void toggleStatus(Player p, int idx, boolean increase) {
 		p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
-		Util.debugMessage("â”Œ-------í† ê¸€-------â”");
-		Util.debugMessage(idx + "ë²ˆ ì£¼íŒŒìˆ˜ í† ê¸€");
+		Util.debugMessage("¦£-------Åä±Û-------¦¤");
+		Util.debugMessage(idx + "¹ø ÁÖÆÄ¼ö Åä±Û");
 		if (increase) {
 			if (++currentStatus[idx] > maxNum - 1)
 				currentStatus[idx] = 0;
@@ -203,25 +203,25 @@ public class S_Communication extends Sabotage {
 			currentStatus[idx] = maxNum - 1;
 		int dif = difference(currentStatus[idx], answerStatus[idx], maxNum);
 		if (dif >= Color.length)
-			dif = Color.length - 1; // ì •í•´ì§„ ìƒ‰ì´ ì—†ì„ë•Œ ê°€ì¥ ë’¤ì— ìˆëŠ” ìƒ‰ì„ ê³ ë¦„.
-		Util.Stack(gui.get(0), 11 + idx, Color[dif], 1, "Â§f" + currentStatus[idx], Arrays.asList("Â§7ì¢Œí´ë¦­ : ì¦ê°€", "Â§7ìš°í´ë¦­ : ê°ì†Œ"));
+			dif = Color.length - 1; // Á¤ÇØÁø »öÀÌ ¾øÀ»¶§ °¡Àå µÚ¿¡ ÀÖ´Â »öÀ» °í¸§.
+		Util.Stack(gui.get(0), 11 + idx, Color[dif], 1, "¡×f" + currentStatus[idx], Arrays.asList("¡×7ÁÂÅ¬¸¯ : Áõ°¡", "¡×7¿ìÅ¬¸¯ : °¨¼Ò"));
 		p.updateInventory();
 		if (dif == 0)
 			check();
-		Util.debugMessage("â””------í† ê¸€ ë------â”˜");
+		Util.debugMessage("¦¦------Åä±Û ³¡------¦¥");
 	}
 
 	/*
-	 * í´ë¦¬ì–´ í™•ì¸
+	 * Å¬¸®¾î È®ÀÎ
 	 */
 	private void check() {
 		for (int i = 0; i < 5; i++) {
 			int dif = difference(currentStatus[i], answerStatus[i], maxNum);
-			Util.debugMessage("í´ë¦¬ì–´ í™•ì¸ " + Integer.toString(dif));
+			Util.debugMessage("Å¬¸®¾î È®ÀÎ " + Integer.toString(dif));
 			if (dif != 0)
 				return;
 		}
-		Util.debugMessage("ì‚¬ë³´íƒ€ì£¼ í´ë¦¬ì–´");
+		Util.debugMessage("»çº¸Å¸ÁÖ Å¬¸®¾î");
 		Sabotage.saboClear(0);
 	}
 
@@ -232,31 +232,31 @@ public class S_Communication extends Sabotage {
 		if(!checkPlayer(e)) return;
 		if(!(e.getAction() == InventoryAction.PICKUP_ALL || e.getAction() == InventoryAction.PICKUP_HALF || e.getAction() == InventoryAction.PICKUP_ONE)) return;
 		Player p = (Player) e.getWhoClicked();
-			Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
+			Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
 			int slot = e.getRawSlot();
 			ItemStack itemstack = e.getCurrentItem();
 
 			// Inventory gui = e.getClickedInventory();
 			// Player p = (Player) e.getWhoClicked();
 
-			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
-				Util.debugMessage("ë”ë¸” í´ë¦­ ë¶ˆê°€");
+			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
+				Util.debugMessage("´õºí Å¬¸¯ ºÒ°¡");
 				e.setCancelled(true);
 			}
 			if (itemstack != null) {
 				if (Arrays.asList(Color).contains(itemstack.getType())) {
 					if (e.isLeftClick()) {
-						Util.debugMessage("ì¢Œí´ë¦­ ì¸ì‹ë¨");
+						Util.debugMessage("ÁÂÅ¬¸¯ ÀÎ½ÄµÊ");
 						toggleStatus(p, slot % 9 - 2, true);
 						e.setCancelled(true);
 					} else {
-						Util.debugMessage("ìš°í´ë¦­ ì¸ì‹ë¨");
+						Util.debugMessage("¿ìÅ¬¸¯ ÀÎ½ÄµÊ");
 						toggleStatus(p, slot % 9 - 2, false);
 						e.setCancelled(true);
 					}
 
 				} else {
-					Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+					Util.debugMessage("Å¬¸¯ ºÒ°¡");
 					e.setCancelled(true);
 				}
 			}

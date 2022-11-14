@@ -56,22 +56,22 @@ public class S_Fingerprint extends Sabotage {
 	}
 	
 	/*
-	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨, GUI ì—´ê¸° ì‹œë„.
+	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ, GUI ¿­±â ½Ãµµ.
 	 */
 	public void s_fingerprintOpen(Player pl, boolean isLocationUpper) {
 		if (Activated) {
 			pl.openInventory(gui.get(isLocationUpper ? 0 : 1));
 		} else {
-			Util.debugMessage("ì›ìë¡œ ì‚¬ë³´íƒ€ì£¼ê°€ ì•„ì§ ì‹œì‘ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
+			Util.debugMessage("¿øÀÚ·Î »çº¸Å¸ÁÖ°¡ ¾ÆÁ÷ ½ÃÀÛµÇÁö ¾Ê¾Ò½À´Ï´Ù");
 		}
 	}
 
 	/*
-	 * ëª…ë ¹ì–´ ì³¤ì„ ë•Œ ì‹¤í–‰ë¨. ì‚¬ë³´íƒ€ì£¼ ì‹œì‘.
+	 * ¸í·É¾î ÃÆÀ» ¶§ ½ÇÇàµÊ. »çº¸Å¸ÁÖ ½ÃÀÛ.
 	 */
 
 	/*
-	 * ì´ˆê¸°í™” ; GUIë¥¼ ì„¤ì •í•¨.
+	 * ÃÊ±âÈ­ ; GUI¸¦ ¼³Á¤ÇÔ.
 	 */
 	private void initialize_Fingerprint(Player p) {
 		for(int i=0;i<2;i++) {
@@ -88,45 +88,45 @@ public class S_Fingerprint extends Sabotage {
 		}
 		
 		
-		 // GUI ë§Œë“¤ê¸°
+		 // GUI ¸¸µé±â
 	}
 
 	/*
-	 * GUIë¥¼ ë§Œë“ ë‹¤.
+	 * GUI¸¦ ¸¸µç´Ù.
 	 */
 
 	private void setGUI(boolean isUpper) {
 		
-		List<String> lore = Arrays.asList("Â§7í´ë¦­í•´ í™œì„±í™”í•˜ì„¸ìš”");
+		List<String> lore = Arrays.asList("¡×7Å¬¸¯ÇØ È°¼ºÈ­ÇÏ¼¼¿ä");
 		for (int slot = 0; slot < maxslot; slot++) {
-			Util.Stack(gui.get(isUpper ? 0 : 1), slot, Material.RED_STAINED_GLASS, 1, "Â§4í™œì„±í™” ë˜ì–´ìˆì§€ ì•ŠìŒ", lore);
+			Util.Stack(gui.get(isUpper ? 0 : 1), slot, Material.RED_STAINED_GLASS, 1, "¡×4È°¼ºÈ­ µÇ¾îÀÖÁö ¾ÊÀ½", lore);
 		}
 		
 		
 	}
 
 	/*
-	 * í™œì„±í™”
+	 * È°¼ºÈ­
 	 */
 
 	private void activate(boolean isUpper, UUID id) {
-		Util.debugMessage(isUpper + " í™œì„±í™”");
-		List<String> lore = Arrays.asList("Â§7ì¸ë²¤í† ë¦¬ë¥¼ ë‹«ìœ¼ë©´ í™œì„±í™”ê°€ í’€ë¦½ë‹ˆë‹¤.");
+		Util.debugMessage(isUpper + " È°¼ºÈ­");
+		List<String> lore = Arrays.asList("¡×7ÀÎº¥Åä¸®¸¦ ´İÀ¸¸é È°¼ºÈ­°¡ Ç®¸³´Ï´Ù.");
 		if(isUpper) {
 			upperPlayerList.add(id);
 		} else {
 			lowerPlayerList.add(id);
 		}
 		for (int slot = 0; slot < maxslot; slot++) {
-			Util.Stack(gui.get(isUpper ? 0 : 1), slot, Material. BLUE_STAINED_GLASS, 1, "Â§bí™œì„±í™” ë¨",lore);
+			Util.Stack(gui.get(isUpper ? 0 : 1), slot, Material. BLUE_STAINED_GLASS, 1, "¡×bÈ°¼ºÈ­ µÊ",lore);
 		}
 		check();
 	}
 	/*
-	 * ë¹„í™œì„±í™”
+	 * ºñÈ°¼ºÈ­
 	 */
 	private void deactivate(boolean isUpper, UUID id) {
-		Util.debugMessage(isUpper + " ë¹„í™œì„±í™”");
+		Util.debugMessage(isUpper + " ºñÈ°¼ºÈ­");
 		
 		if(isUpper) {
 			upperPlayerList.remove(id);
@@ -136,11 +136,11 @@ public class S_Fingerprint extends Sabotage {
 		setGUI(isUpper);
 	}
 	/*
-	 * í´ë¦¬ì–´ í™•ì¸
+	 * Å¬¸®¾î È®ÀÎ
 	 */
 	private void check() {
 		if(upperPlayerList.size()!=0&&lowerPlayerList.size()!=0){
-		Util.debugMessage("ì‚¬ë³´íƒ€ì£¼ í´ë¦¬ì–´");
+		Util.debugMessage("»çº¸Å¸ÁÖ Å¬¸®¾î");
 		Activated = false;
 		Sabotage.saboClear(0);
 		}
@@ -150,21 +150,21 @@ public class S_Fingerprint extends Sabotage {
 	@EventHandler
 	private void onClick(InventoryClickEvent e) {
 		if(!checkPlayer(e)) return;
-			Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
+			Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
 			ItemStack itemstack = e.getCurrentItem();
 			Player p = (Player) e.getWhoClicked();
-			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
-				Util.debugMessage("ë”ë¸” í´ë¦­ ë¶ˆê°€");
+			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
+				Util.debugMessage("´õºí Å¬¸¯ ºÒ°¡");
 				e.setCancelled(true);
 				return;
 			}
 			if (itemstack != null) {
 				if (itemstack.getType()==Material.RED_STAINED_GLASS) {
-						Util.debugMessage("ë¹¨ê°„ìƒ‰ í´ë¦­");
+						Util.debugMessage("»¡°£»ö Å¬¸¯");
 						activate(getCode(e.getView().getTitle()) == 0 ? true : false, p.getUniqueId());
 						e.setCancelled(true);
 					} else {
-						Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+						Util.debugMessage("Å¬¸¯ ºÒ°¡");
 						e.setCancelled(true);
 					}
 				}
@@ -173,7 +173,7 @@ public class S_Fingerprint extends Sabotage {
 	@EventHandler
 	private void onClose(InventoryCloseEvent e) {
 		if(!Activated || !checkPlayer(e)) return;
-			//Bukkit.broadcastMessage("ë‹«ê¸° ë°œë™ : " + e.getPlayer().getName());
+			//Bukkit.broadcastMessage("´İ±â ¹ßµ¿ : " + e.getPlayer().getName());
 			deactivate(getCode(e.getView().getTitle()) == 0 ? true : false, e.getPlayer().getUniqueId());
 	}
 

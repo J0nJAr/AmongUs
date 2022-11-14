@@ -42,7 +42,7 @@ public class H_AlignEngine extends Mission {
 	@Override
 	public void onStart(Player p, int i) {
 		p.openInventory(gui.get(i));
-		Util.Stack(gui.get(i), 9, m, 1, "Â§fì´ê²ƒì„ ê°€ìš´ë°ì— ë‘ì„¸ìš”.");
+		Util.Stack(gui.get(i), 9, m, 1, "¡×fÀÌ°ÍÀ» °¡¿îµ¥¿¡ µÎ¼¼¿ä.");
 		for (int slot = 10; slot < 18; slot++) gui.get(i).clear(slot);
 	}
 
@@ -64,9 +64,9 @@ public class H_AlignEngine extends Mission {
 		if (!checkPlayer(e))
 			return;
 
-		Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
-		if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true || e.getClick().equals(ClickType.NUMBER_KEY)) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
-			Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+		Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
+		if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true || e.getClick().equals(ClickType.NUMBER_KEY)) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
+			Util.debugMessage("Å¬¸¯ ºÒ°¡");
 			e.setCancelled(true);
 			return;
 		}
@@ -84,7 +84,7 @@ public class H_AlignEngine extends Mission {
 
 			}
 			else {
-				Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+				Util.debugMessage("Å¬¸¯ ºÒ°¡");
 				e.setCancelled(true);
 			}
 	}
@@ -95,17 +95,17 @@ public class H_AlignEngine extends Mission {
 		if(!checkPlayer(e)) return;
 		
 		if (!e.getRawSlots().isEmpty()) {
-			Util.debugMessage("ë“œë˜ê·¸ì¸ì‹ë¨");
+			Util.debugMessage("µå·¡±×ÀÎ½ÄµÊ");
 			
 			if (e.getRawSlots().contains(13)) {
-				Util.debugMessage("13ë²ˆ ìŠ¬ë¡¯ ì¸ì‹ë¨");
+				Util.debugMessage("13¹ø ½½·Ô ÀÎ½ÄµÊ");
 				for (int i = 0; i < 2; i++) {
 					final int c = i;
 					if (e.getView().getTitle().split(" ")[1].equals(Namelore[i])) {
 						new BukkitRunnable() {
 							public void run() {
 								if(gui.get(c).getItem(13).getType()==m) {
-									Util.debugMessage("í´ë¦¬ì–´!");
+									Util.debugMessage("Å¬¸®¾î!");
 									onClear((Player) e.getWhoClicked(), c);
 								}
 							}

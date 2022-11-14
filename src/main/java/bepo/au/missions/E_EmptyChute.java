@@ -17,7 +17,7 @@ import bepo.au.utils.Util;
 
 public class E_EmptyChute extends Mission {
 
-	int maxLeaves = 5; // í•´ì•¼í•˜ëŠ” ë‚˜ë­‡ì ê°œìˆ˜ HARD EASY ì¡°ì ˆ ê°€ëŠ¥. ìµœëŒ€ 36ê°œ.
+	int maxLeaves = 5; // ÇØ¾ßÇÏ´Â ³ª¹µÀÙ °³¼ö HARD EASY Á¶Àı °¡´É. ÃÖ´ë 36°³.
 	int remainingLeaves = maxLeaves;
 	int maxslot = 45;
 	HashSet<Integer> leafSlots;
@@ -34,7 +34,7 @@ public class E_EmptyChute extends Mission {
 		leafSlots = new HashSet<Integer>();
 		while (true) {
 			int leafslot = Util.random(3, 8) + 9 * Util.random(0, 4);
-			Util.debugMessage(leafslot + "ì— ë‚˜ë­‡ì");
+			Util.debugMessage(leafslot + "¿¡ ³ª¹µÀÙ");
 			leafSlots.add(leafslot);
 			if (leafSlots.size() == maxLeaves)
 				break;
@@ -67,16 +67,16 @@ public class E_EmptyChute extends Mission {
 			int x = slot % 9, y = slot / 9;
 			if (x < 3) {
 				if (slot == 20)
-					Util.Stack(gui.get(0), slot, Material.HOPPER, 1, "Â§fì´ê³³ì— ë‚˜ë­‡ìì„ ë“¤ê³  í´ë¦­í•´ì£¼ì„¸ìš”");
+					Util.Stack(gui.get(0), slot, Material.HOPPER, 1, "¡×fÀÌ°÷¿¡ ³ª¹µÀÙÀ» µé°í Å¬¸¯ÇØÁÖ¼¼¿ä");
 				else if (slot == 18)
-					Util.Stack(gui.get(0), slot, Material.BOOK, 1, "Â§fì‚°ì†Œ í•„í„° ì²­ì†Œí•˜ê¸°", "Â§7ë‚˜ë­‡ìì„ ë“¤ê³  í˜¸í¼ì— í´ë¦­í•˜ì„¸ìš”.");
+					Util.Stack(gui.get(0), slot, Material.BOOK, 1, "¡×f»ê¼Ò ÇÊÅÍ Ã»¼ÒÇÏ±â", "¡×7³ª¹µÀÙÀ» µé°í È£ÆÛ¿¡ Å¬¸¯ÇÏ¼¼¿ä.");
 				else if (x > 0 && y > 0 && y <= 3)
 					Util.Stack(gui.get(0), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " ");
 				else
 					Util.Stack(gui.get(0), slot, Material.GRAY_STAINED_GLASS_PANE, 1, " ");
 			} else if (leafSlots.contains(slot)) {
 
-				Util.Stack(gui.get(0), slot, Material.KELP, 1, "Â§fë‚˜ë­‡ì", "Â§7ì´ê²ƒì„ ë“  ì±„ë¡œ í˜¸í¼ë¥¼ í´ë¦­í•˜ì„¸ìš”.");
+				Util.Stack(gui.get(0), slot, Material.KELP, 1, "¡×f³ª¹µÀÙ", "¡×7ÀÌ°ÍÀ» µç Ã¤·Î È£ÆÛ¸¦ Å¬¸¯ÇÏ¼¼¿ä.");
 			}
 
 		}
@@ -88,7 +88,7 @@ public class E_EmptyChute extends Mission {
 			onClear(p, 0);
 			return;
 		}
-		Util.debugMessage(remainingLeaves + "ê°œ ë‚¨ìŒ");
+		Util.debugMessage(remainingLeaves + "°³ ³²À½");
 
 	}
 
@@ -99,27 +99,27 @@ public class E_EmptyChute extends Mission {
 		Player p = (Player) e.getWhoClicked();
 		
 		if (e.getView().getTitle().equals("EmptyChute")) {
-			Util.debugMessage("í´ë¦­ ì¸ì‹ë¨");
+			Util.debugMessage("Å¬¸¯ ÀÎ½ÄµÊ");
 			// int slot = e.getRawSlot();
 			ItemStack itemstack = e.getCurrentItem();
 
 			// Inventory gui = e.getClickedInventory();
 			// Player p = (Player) e.getWhoClicked();
 
-			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ë”ë¸”í´ë¦­,ì‰¬í”„íŠ¸í´ë¦­ ê¸ˆì§€
-				Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+			if (e.getClick().equals(ClickType.DOUBLE_CLICK) || e.isShiftClick() == true) { // ´õºíÅ¬¸¯,½¬ÇÁÆ®Å¬¸¯ ±İÁö
+				Util.debugMessage("Å¬¸¯ ºÒ°¡");
 				e.setCancelled(true);
 			}
 			if (itemstack != null) {
 				if (e.getCursor().getType() == Material.AIR && itemstack.getType() == Material.KELP)
-					Util.debugMessage("ì¼ˆí”„ í´ë¦­ ì¸ì‹ë¨");
+					Util.debugMessage("ÄÌÇÁ Å¬¸¯ ÀÎ½ÄµÊ");
 				else if (e.getCursor().getType() == Material.KELP && itemstack.getType() == Material.HOPPER) {
 					
 					e.getWhoClicked().setItemOnCursor(null);
 					e.setCancelled(true);
 					removeLeaf(p);
 				} else {
-					Util.debugMessage("í´ë¦­ ë¶ˆê°€");
+					Util.debugMessage("Å¬¸¯ ºÒ°¡");
 					e.setCancelled(true);
 				}
 			}

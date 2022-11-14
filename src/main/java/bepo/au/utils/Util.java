@@ -48,7 +48,7 @@ public class Util implements Listener {
 	static boolean debug = true;
 	static Random ran = new Random();
 
-	public static int random(int min, int max) { // min ~ max ì˜ ì •ìˆ˜ë¥¼ ì¶œë ¥
+	public static int random(int min, int max) { // min ~ max ÀÇ Á¤¼ö¸¦ Ãâ·Â
 
 		return min + ran.nextInt(max - min + 1);
 	}
@@ -71,7 +71,7 @@ public class Util implements Listener {
 		return difrandom(min, max, max - min + 1);
 	}
 
-	public static void fillAround(Inventory inv, int slot, Material item) {// gui ê´€ë ¨
+	public static void fillAround(Inventory inv, int slot, Material item) {// gui °ü·Ã
 		int Slot;
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
@@ -95,7 +95,7 @@ public class Util implements Listener {
 		return idx;
 	}
 
-	public static void debugMessage(String message) { // ë””ë²„ê·¸ë©”ì„¸ì§€
+	public static void debugMessage(String message) { // µğ¹ö±×¸Ş¼¼Áö
 		if (debug == true)
 			Bukkit.getConsoleSender().sendMessage(buildLogMsg(message));
 	}
@@ -289,11 +289,11 @@ public class Util implements Listener {
 		arm.setGravity(false);
 		arm.setArms(true);
 		arm.setBasePlate(false);
-		arm.setCustomName("Â§7" + name);
+		arm.setCustomName("¡×7" + name);
 		arm.addScoreboardTag("forVote");
 
 		if (name == null) {
-			arm.setCustomName("Â§eÂ§lìŠ¤í‚µ");
+			arm.setCustomName("¡×e¡×l½ºÅµ");
 			EntityEquipment armeq = arm.getEquipment();
 			armeq.setHelmet(new ItemStack(Material.MAGENTA_GLAZED_TERRACOTTA));
 			arm.setVisible(false);
@@ -337,7 +337,7 @@ public class Util implements Listener {
 		emerg_as.setAI(false);
 		emerg_as.setVisible(false);
 		emerg_as.setCustomNameVisible(true);
-		emerg_as.setCustomName("Â§cê²Œì„ ì‹œì‘ ëŒ€ê¸° ì¤‘...");
+		emerg_as.setCustomName("¡×c°ÔÀÓ ½ÃÀÛ ´ë±â Áß...");
 		emerg_as.addScoreboardTag("au_reset");
 		emerg_as.getEquipment().setHelmet(new ItemStack(Material.GLASS));
 		emerg_as.addEquipmentLock(EquipmentSlot.HEAD, LockType.REMOVING_OR_CHANGING);

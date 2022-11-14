@@ -1,24 +1,20 @@
 package bepo.au.missions;
 
-import java.util.Arrays;
-
-import java.util.List;
-
+import bepo.au.base.Mission;
+import bepo.au.utils.Util;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-
-import org.bukkit.Sound;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import bepo.au.base.Mission;
-import bepo.au.utils.Util;
+import java.util.Arrays;
+import java.util.List;
 
 public class C_FixWriting extends Mission {
 
@@ -58,24 +54,24 @@ public class C_FixWriting extends Mission {
 		
 		if(i != cleared.size()) return;
 		for(int y=0;y<4;y++) connected[i][y] = false;
-		for (int slot = 0; slot < 54; slot++) {// gui인벤토리
+		for (int slot = 0; slot < 54; slot++) {// gui�κ��丮
 			int y = slot / 9, x = slot % 9;
 			if (y == 0 || y == 2 || y == 3 || y == 5) {
-				//Util.debugMessage(" wirecolorArray 확인 " + wirecolorArray[i][yToidx(y)]);
+				//Util.debugMessage(" wirecolorArray Ȯ�� " + wirecolorArray[i][yToidx(y)]);
 				if (x == 8)
-					Util.Stack(gui.get(i), slot, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// 검정색표시
+					Util.Stack(gui.get(i), slot, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// ������ǥ��
 				else if (x == 0)
-					Util.Stack(gui.get(i), slot, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// 노랑 표시
+					Util.Stack(gui.get(i), slot, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// ��� ǥ��
 				else if (x == 1 || x == 2)
-					fillWire(gui.get(i), slot, wirecolorArray[i][yToidx(y)], x, i);// 왼쪽 와이어 채우기(랜덤)
+					fillWire(gui.get(i), slot, wirecolorArray[i][yToidx(y)], x, i);// ���� ���̾� ä���(����)
 				else if (x == 7)
-					fillWire(gui.get(i), slot, yToidx(y), i); // 오른쪽 와이어 채우기(고정)
+					fillWire(gui.get(i), slot, yToidx(y), i); // ������ ���̾� ä���(����)
 				else if (x == 6)
-					gui.get(i).clear(slot); // 오른쪽 와이어 빈공간
+					gui.get(i).clear(slot); // ������ ���̾� �����
 				else
-					Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // 배경
+					Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ���
 			} else
-				Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // 배경
+				Util.Stack(gui.get(i), slot, Material.WHITE_STAINED_GLASS_PANE, 1, " "); // ���
 		}
 		p.openInventory(gui.get(i));
 	}
@@ -112,19 +108,19 @@ public class C_FixWriting extends Mission {
 	}
 
 	public void fillWire(Inventory gui, int slot, int color, int num, int code) {
-		List<String> lore = (num == 1 ? Arrays.asList("§4클릭불가") : Arrays.asList("§7우클릭만 가능합니다."));
+		List<String> lore = (num == 1 ? Arrays.asList("��4Ŭ���Ұ�") : Arrays.asList("��7��Ŭ���� �����մϴ�."));
 		switch (color) {
 		case 0:
-			Util.Stack(gui, slot, WIRECOLORARRAY[0], num, "§cRed §fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[0], num, "��cRed ��fWire", lore);
 			break;
 		case 1:
-			Util.Stack(gui, slot, WIRECOLORARRAY[1], num, "§9Blue §fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[1], num, "��9Blue ��fWire", lore);
 			break;
 		case 2:
-			Util.Stack(gui, slot, WIRECOLORARRAY[2], num, "§aGreen §fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[2], num, "��aGreen ��fWire", lore);
 			break;
 		case 3:
-			Util.Stack(gui, slot, WIRECOLORARRAY[3], num, "§dPurple §fWire", lore);
+			Util.Stack(gui, slot, WIRECOLORARRAY[3], num, "��dPurple ��fWire", lore);
 			break;
 		case -1:
 			gui.setItem(slot, new ItemStack(Material.BARRIER, num));
@@ -142,24 +138,24 @@ public class C_FixWriting extends Mission {
 			public void run() {
 				if (slot % 9 == 6 && slot < 54 && slot / 9 != 1 && slot / 9 != 4) {
 					int idx = yToidx(slot / 9);
-					//Util.debugMessage(slot + "슬롯 연결 확인");
+					//Util.debugMessage(slot + "���� ���� Ȯ��");
 					if (!(gui.get(code).getItem(slot) == null)
 							&& gui.get(code).getItem(slot).getType() == WIRECOLORARRAY[idx]) {
-						//Util.debugMessage("연결됨" + (slot + 2) + "에 노란 유리");
-						Util.Stack(gui.get(code), slot + 2, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// 전기 들어옴 표시
-						p.playSound(p.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1.0f, 1.2f); //소리재생
+						//Util.debugMessage("�����" + (slot + 2) + "�� ��� ����");
+						Util.Stack(gui.get(code), slot + 2, Material.YELLOW_STAINED_GLASS_PANE, 1, " ");// ���� ���� ǥ��
+						p.playSound(p.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1.0f, 1.2f); //�Ҹ����
 						connected[code][idx] = true;
 						for (int i = 0; i < 4; i++)
 							if (connected[code][i] == false) {
-								Util.debugMessage(i + "가 연결안됨");
+								Util.debugMessage(i + "�� ����ȵ�");
 								return;
 							}
 						Util.debugMessage("connected[" + code + "][" + idx + "]");
-						Util.debugMessage("클리어!"); // 클리어!
+						Util.debugMessage("Ŭ����!"); // Ŭ����!
 						onClear(p, code);
 					} else {
-						//Util.debugMessage("연결안됨" + (slot + 2) + "에 검은 유리");
-						Util.Stack(gui.get(code), slot + 2, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// 전기 끊김 표시
+						//Util.debugMessage("����ȵ�" + (slot + 2) + "�� ���� ����");
+						Util.Stack(gui.get(code), slot + 2, Material.BLACK_STAINED_GLASS_PANE, 1, " ");// ���� ���� ǥ��
 						connected[code][idx] = false;
 					}
 				}
@@ -174,7 +170,7 @@ public class C_FixWriting extends Mission {
 			return;
 
 		String title = e.getView().getTitle();
-		Util.debugMessage("클릭 인식됨");
+		Util.debugMessage("Ŭ�� �νĵ�");
 		int slot = e.getRawSlot();
 		int code = Integer.parseInt(title.replace("FixWiring", ""));
 		ItemStack itemstack = e.getCurrentItem();
@@ -183,18 +179,18 @@ public class C_FixWriting extends Mission {
 		// Player p = (Player) e.getWhoClicked();
 
 		if (e.isRightClick())
-			Util.debugMessage("우클릭 인식됨");
+			Util.debugMessage("��Ŭ�� �νĵ�");
 		if (e.getCurrentItem() != null) {
-			if (!e.isRightClick() || // 우클릭만 허용
-					(slot % 9 != 2 && slot % 9 != 6) || // 클릭 가능한 x좌표
-					slot / 9 == 1 || slot / 9 == 4 // 클릭 불가인 y좌표
+			if (!e.isRightClick() || // ��Ŭ���� ���
+					(slot % 9 != 2 && slot % 9 != 6) || // Ŭ�� ������ x��ǥ
+					slot / 9 == 1 || slot / 9 == 4 // Ŭ�� �Ұ��� y��ǥ
 			) { //
-				//Util.debugMessage("클릭 불가");
+				//Util.debugMessage("Ŭ�� �Ұ�");
 				e.setCancelled(true);
 			}
 			if ((e.getCursor().getType() != Material.AIR || itemstack.getAmount() == 1)
-					&& (slot % 9 == 1 || slot % 9 == 2 || slot % 9 == 7)) {// 아이템 하나일시 클릭 불가 &
-				//Util.debugMessage("클릭 불가");
+					&& (slot % 9 == 1 || slot % 9 == 2 || slot % 9 == 7)) {// ������ �ϳ��Ͻ� Ŭ�� �Ұ� &
+				//Util.debugMessage("Ŭ�� �Ұ�");
 				e.setCancelled(true);
 			}
 		}

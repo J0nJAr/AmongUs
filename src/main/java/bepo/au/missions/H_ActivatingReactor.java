@@ -153,7 +153,7 @@ public class H_ActivatingReactor extends Mission {
 			}
 
 			Player P = getPlayer();
-			// ë””ë²„ê¹… P.sendMessage("Running");
+			// µð¹ö±ë P.sendMessage("Running");
 			if (!P.getOpenInventory().getTitle().split(" ")[0].equals("ActivatingReactor")) {
 				StopTimer();
 				return;
