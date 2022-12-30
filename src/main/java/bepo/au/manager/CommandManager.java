@@ -168,7 +168,7 @@ public class CommandManager implements CommandExecutor {
 		boolean target = args.length == 3 && args[2].equalsIgnoreCase("block");
 		String name = args[1];
 
-		Location loc = target ? p.getTargetBlock(10).getLocation() : p.getLocation();
+		Location loc = target ? p.getTargetBlockExact(10).getLocation() : p.getLocation();
 
 		Main.getLocManager().inputLocation(name, loc);
 		p.sendMessage(Main.PREFIX + "§e" + name + " §f에 " + (target ? "현재 바라보고 있는 블럭" : "현재 위치") + " 추가 (총 "

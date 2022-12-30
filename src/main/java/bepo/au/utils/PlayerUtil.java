@@ -13,8 +13,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ArmorStand.LockType;
 import org.bukkit.entity.Player;
@@ -122,8 +122,8 @@ public class PlayerUtil {
 			ClientboundAddEntityPacket packet = new ClientboundAddEntityPacket(es);
 			((CraftPlayer) getPlayer()).getHandle().connection.send(packet);
 
-			ClientboundSetEntityDataPacket metaPacket = new ClientboundSetEntityDataPacket(es.getId(), es.getEntityData(),
-					true);
+			ClientboundSetEntityDataPacket metaPacket = new ClientboundSetEntityDataPacket(es.getId(), es.getEntityData().packDirty());
+
 			((CraftPlayer) getPlayer()).getHandle().connection.send(metaPacket);
 
 			shulkerinfo.put(l.getBlock().getLocation(), es.getId());
@@ -362,7 +362,7 @@ public class PlayerUtil {
 	}
 
 	public static void showTabList(Player player) {
-		ClientboundPlayerInfoPacket pack = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER,
+		ClientboundPlayerInfoUpdatePacket pack = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER,
 				((CraftPlayer) player).getHandle());
 		for (Player ap : Bukkit.getOnlinePlayers())
 			((CraftPlayer) ap).getHandle().connection.send(pack);
