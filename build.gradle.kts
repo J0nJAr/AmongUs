@@ -1,11 +1,10 @@
-import org.apache.tools.ant.filters.ReplaceTokens
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     `java-library`
     id("io.papermc.paperweight.userdev") version "1.3.9"
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.2" // Generates plugin.yml
-    id("xyz.jpenilla.run-paper") version "1.1.0" // Adds runServer and runMojangMappedServer tasks for testing
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
+    id("xyz.jpenilla.run-paper") version "1.1.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -16,26 +15,10 @@ repositories{
     maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
 }
 
-//repositories {
-//    mavenCentral()
-//    maven {
-//        url 'https://jitpack.io/'
-//    }
-//    maven {
-//        url 'https://papermc.io/repo/repository/maven-public/'
-//    }
-//    maven {
-//        url 'https://repo.dmulloy2.net/nexus/repository/public/'
-//    }
-//    mavenLocal()
-//}
-
 dependencies {
-    paperDevBundle("1.19.2-R0.1-SNAPSHOT")
-    compileOnly("com.comphenix.protocol:ProtocolLib:5.0.0-20220727.143709-4")
+    paperDevBundle("1.19.3-R0.1-SNAPSHOT")
+    compileOnly("com.comphenix.protocol","ProtocolLib","5.0.0-SNAPSHOT")
     implementation("cloud.commandframework", "cloud-paper", "1.7.1")
-//    compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
-//    compileOnly 'org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT'
 }
 
 tasks {
